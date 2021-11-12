@@ -1,13 +1,12 @@
 const path = require('path');
 
-const directory = "product/views/admin";
 const layout = 'admin';
 
 class AdminController {
 
 	index(req, res) {
 
-		res.render(path.join(directory, "index"), {
+		res.render("index", {
 			layout: layout,
 			title: "Product",
 			content: "Admin: index"
@@ -15,4 +14,4 @@ class AdminController {
 	}
 }
 
-module.exports = new AdminController;
+module.exports = new AdminController();

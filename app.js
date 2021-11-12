@@ -6,19 +6,27 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const hbs = require('hbs');
+const fs = require('fs');
 
 const homeRouter = require('./routes/home');
 const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products');
 
+const template = require("./middlewares/template.js");
+
 const app = express();
 
 /* View engine setup */
+var views = [];
+fs.readdirSync(path.join(config.moduleDirname)).forEach(function(file){
+	views.push(path.join(config.moduleDirname, file, "views/default"));
+	views.push(path.join(config.moduleDirname, file, "views/admin"));
+});
 app.set('views', [
+	...views,
 	path.join(__dirname, 'views'),
 	path.join(__dirname, 'views/layouts/default'),
-	path.join(__dirname, 'views/layouts/admin'), 
-	config.moduleDirname
+	path.join(__dirname, 'views/layouts/admin')
 ]);
 app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname, 'views/layouts/default/partials'));
@@ -31,6 +39,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use("/*", template);
 
 
 /* Routing pattern */
