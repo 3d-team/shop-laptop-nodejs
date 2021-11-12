@@ -1,12 +1,14 @@
 const path = require('path');
 
+const view = "product/views/default";
+const layout = "default";
+
 class DefaultController {
 
 	index(req, res) {
-		const view = "home/views/default";
 
 		res.render(path.join(view, 'index'), {
-			layout: 'layouts/default',
+			layout: layout,
 			title: "Product",
 			content: "Default: index"
 		});

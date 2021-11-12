@@ -1,13 +1,15 @@
 const path = require('path');
 
+const view = "home/views/admin";
+const layout = "admin";
+
 class AdminController {
 
 	index(req, res) {
-		const title = "Home";
-		const view = "home/views/default";
 
 		res.render(path.join(view, 'index'), {
-			title: title,
+			layout: layout,
+			title: "Home",
 			content: "Admin: index"
 		});
 	}

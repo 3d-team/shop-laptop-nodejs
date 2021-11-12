@@ -7,19 +7,22 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const hbs = require('hbs');
 
-const indexRouter = require('./routes/index');
+const homeRouter = require('./routes/home');
 const usersRouter = require('./routes/users');
 const productsRouter = require('./routes/products');
 
-var app = express();
+const app = express();
 
 /* View engine setup */
 app.set('views', [
-	path.join(__dirname, 'views'), 
+	path.join(__dirname, 'views'),
+	path.join(__dirname, 'views/layouts/default'),
+	path.join(__dirname, 'views/layouts/admin'), 
 	config.moduleDirname
-	]);
+]);
 app.set('view engine', 'hbs');
-hbs.registerPartials(config.moduleDirname);
+hbs.registerPartials(path.join(__dirname, 'views/layouts/default/partials'));
+hbs.registerPartials(path.join(__dirname, 'views/layouts/admin/partials'));
 app.engine('hbs', hbs.__express);
 
 /* Middleware */
@@ -31,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 /* Routing pattern */
-app.use('/', indexRouter);
+app.use('/', homeRouter);
 app.use('/users', usersRouter);
 app.use('/products', productsRouter);
 
