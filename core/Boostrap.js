@@ -61,12 +61,14 @@ function middleware(app) {
 const homeRouter = require('../routes/home');
 const usersRouter = require('../routes/users');
 const productsRouter = require('../routes/products');
+const orderRouter = require('../routes/order');
 
 function routing(app) {
 	/* Custom routing */
 	app.use('/', homeRouter);
 	app.use('/users', usersRouter);
 	app.use('/products', productsRouter);
+	app.use('/orders',orderRouter);
 
 	/* Catch 404 and forward to error handler */
 	app.use(function(req, res, next) {

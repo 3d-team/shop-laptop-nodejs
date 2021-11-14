@@ -4,15 +4,7 @@ class DefaultController {
 
 	index(req, res) {
 
-		res.render('productList', {
-			title: "Product",
-			content: "Default: index"
-		});
-	}
-
-	detail(req, res) {
-
-		res.render('productDetail', {
+		res.render('orders', {
 			title: "Product",
 			content: "Default: index"
 		});
