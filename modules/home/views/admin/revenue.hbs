@@ -1,0 +1,176 @@
+<div class="row">
+
+    <nav aria-label="You are here:" role="navigation">
+        <ul class="breadcrumbs">
+            <li><a href="/">Home</a></li>
+            <li class="disabled">Thống kê</li>
+            <li>
+                <span class="show-for-sr">Current: </span> Doanh thu
+            </li>
+        </ul>
+    </nav>
+
+</div>
+
+<div class="row">
+    &nbsp;
+</div>
+
+<div class="row">
+    <div class="large-6 column">
+        <label>Hình thức thống kê
+            <select>
+                <option value="date">Thống kê theo ngày</option>
+                <option value="month">Thống kê theo tháng</option>
+                <option value="quarter">Thống kê theo quý</option>
+                <option value="year">Thống kê theo năm</option>
+            </select>
+        </label>
+
+        <label>Chọn ngày
+            <input type="date">
+        </label>
+        <!-- <div class="medium-6 cell">
+                            <label>Chọn quý
+                                <select>
+                                    <option value="quarter-1">1</option>
+                                    <option value="quarter-2">2</option>
+                                    <option value="quarter-3">3</option>
+                                    <option value="quarter-4">4</option>
+                                  </select>
+                            </label>
+                            <label>Chọn năm
+                                <input type="number" placeholder="Chọn năm" value="2021">
+                            </label>
+                        </div>          
+                        <div class="medium-6 cell">
+                            <label>Chọn tháng
+                                <input type="number" value="12">
+                            </label>
+                            <label>Chọn năm
+                                <input type="number" placeholder="Chọn năm" value="2021">
+                            </label>
+                        </div>        -->
+    </div>
+    <div class="large-6 column">
+        <br><br><br><br><br><br>
+        <button class="submit success button">Thống kê</button>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-4 columns">
+        <div class="callout success">
+            <p>
+                <strong>Tổng số lượng sản phẩm</strong>
+            </p>
+            <div class="text-right">
+                <div class="stat">27</div>
+            </div>
+        </div>
+    </div>
+    <div class="large-4 columns">
+        <div class="callout primary">
+            <p>
+                <strong>Tổng Doanh thu</strong>
+            </p>
+            <div class="text-right">
+                <div class="stat">€250.00</div>
+            </div>
+        </div>
+    </div>
+    <div class="large-4 columns">
+        <div class="callout secondary">
+            <p>
+                <strong>Tổng đơn hàng</strong>
+            </p>
+            <div class="text-right">
+                <div class="stat">12</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-6 columns">
+        <div class="card " style="width: 100%;">
+            <div class="card-divider clearfix">
+                Doanh thu theo tháng <i data-tooltip title="Click for More"
+                    class="float-right more-button fa fa-ellipsis-h" aria-hidden="true"></i>
+            </div>
+            <div id="chtCompletionRate" style="width: 100%;"></div>
+        </div>
+    </div>
+
+    <div class="large-6 columns">
+        <div class="card " style="width: 100%;">
+            <div class="card-divider clearfix">
+                Doanh thu theo năm<i data-tooltip title="Click for More"
+                    class="float-right more-button fa fa-ellipsis-h" aria-hidden="true"></i>
+            </div>
+            <div id="chtRevenueYear" style="width: 100%;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="card " style="width: 100%;">
+            <div class="text-center card-divider clearfix">
+                <h3>Doanh thu theo danh mục</h3>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên danh mục</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Tổng giá bán</th>
+                        <th>Giảm giá</th>
+                        <th>Tổng doanh thu</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mac</td>
+                        <td>MacBook ABC</td>
+                        <td>5</td>
+                        <td>€150.00</td>
+                        <td>€10.00</td>
+                        <td>€1500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Mac</td>
+                        <td>MacBook ABC</td>
+                        <td>5</td>
+                        <td>€150.00</td>
+                        <td>€10.00</td>
+                        <td>€1500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Mac</td>
+                        <td>MacBook ABC</td>
+                        <td>5</td>
+                        <td>€150.00</td>
+                        <td>€10.00</td>
+                        <td>€1500.00</td>
+                    </tr>
+                    <tr>
+                        <td>Mac</td>
+                        <td>MacBook ABC</td>
+                        <td>5</td>
+                        <td>€150.00</td>
+                        <td>€10.00</td>
+                        <td>€1500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="card-section">
+                <small>
+                    Tổng doanh thu:
+                </small>
+            </div>
+        </div>
+    </div>
+</div>

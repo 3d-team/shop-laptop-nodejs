@@ -6,7 +6,25 @@ class AdminController {
 
 	index(req, res) {
 
-		res.render('index', {
+		res.render('adminIndex', {
+			layout: layout,
+			title: "Home",
+			content: "Admin: index"
+		});
+	}
+
+	revenue(req, res) {
+
+		res.render('revenue', {
+			layout: layout,
+			title: "Home",
+			content: "Admin: index"
+		});
+	}
+
+	bestseller(req, res) {
+
+		res.render('bestseller', {
 			layout: layout,
 			title: "Home",
 			content: "Admin: index"

@@ -5,6 +5,7 @@ const defaultController = require("../modules/orders/controllers/DefaultControll
 const adminController = require("../modules/orders/controllers/AdminController.js");
 
 router.get('/', defaultController.index);
-router.get('/admin', adminController.index);
+//router.get('/admin', adminController.index);
+router.get('/admin/list', adminController.list);
 
 module.exports = router;

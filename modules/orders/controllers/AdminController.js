@@ -4,11 +4,11 @@ const layout = 'admin';
 
 class AdminController {
 
-	index(req, res) {
+	list(req, res) {
 
-		res.render("index", {
+		res.render("orderList", {
 			layout: layout,
-			title: "Product",
+			title: "Orders",
 			content: "Admin: index"
 		});
 	}
