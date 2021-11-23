@@ -1,13 +1,77 @@
 const path = require('path');
-
-const layout = 'admin';
+const ProductModel = require('./../models/ProductModel');
 
 class AdminController {
+
+	index(req, res) {
+
+		const productPerPage = 2;
+		const page = +req.params.page || 1;
+		const condition = {
+			offset: page,
+			limit: productPerPage
+		};
+
+		ProductModel.findAll(condition).then((products) => {
+			res.render('list', {
+				data: products
+			});
+		});
+	}
+
+	list(req, res) {
+		ProductModel.findAll().then(function(products) {
+			res.render("list", {
+				title: "Product",
+				data: products
+			});	
+		})
+	}
+
+	add(req, res) {
+		if (req.method == "POST") {
+			ProductModel.create(req.body).then(() => {
+
+			})
+		}
+
+		res.render("add", {
+			title: "Product",
+		});
+	}
+
+	update(req, res) {
+		const condition = {
+			where: {id: parseInt(req.params.productId) }
+		};
+
+		if (req.method == "POST") {
+			ProductModel.update(req.body, condition).then(() => {
+
+			});
+		}
+
+		ProductModel.findOne(condition).then((product) => {
+			res.render("update", {
+				title: "Product",
+				data: product
+			});	
+		})
+	}
+
+	delete(req, res) {
+		const condition = {
+			where: {id: parseInt(req.params.productId) }
+		};
+
+		ProductModel.destroy(condition).then(() => {
+			res.redirect("/products/admin/list");
+		});
+	}
 
 	listCategory(req, res) {
 
 		res.render("categoryList", {
-			layout: layout,
 			title: "Product",
 			content: "Admin: index"
 		});
@@ -16,7 +80,6 @@ class AdminController {
 	addCategory(req, res){
 
 		res.render("categoryAdd", {
-			layout: layout,
 			title: "Product",
 		});
 	}
@@ -24,31 +87,6 @@ class AdminController {
 	updateCategory(req, res){
 
 		res.render("categoryUpdate", {
-			layout: layout,
-			title: "Product",
-		});
-	}
-
-	list(req, res){
-
-		res.render("list", {
-			layout: layout,
-			title: "Product",
-		});
-	}
-
-	add(req, res){
-
-		res.render("add", {
-			layout: layout,
-			title: "Product",
-		});
-	}
-
-	update(req, res){
-
-		res.render("update", {
-			layout: layout,
 			title: "Product",
 		});
 	}

@@ -68,82 +68,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Rocks</td>
-                        <td>4</td>
-                        <td>10</td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">
-                            21/10/2021
-                        </td>
-                        <td class="text-center">
-                            <a href="/products/admin/update" class="button warning m-0" href="#">Sửa</a>
-                            <a class="button alert m-0" href="#">Xóa</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Rocks</td>
-                        <td>4</td>
-                        <td>10</td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">
-                            21/10/2021
-                        </td>
-                        <td class="text-center">
-                            <a href="/products/admin/update" class="button warning m-0" href="#">Sửa</a>
-                            <a class="button alert m-0" href="#">Xóa</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Rocks</td>
-                        <td>4</td>
-                        <td>10</td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">
-                            21/10/2021
-                        </td>
-                        <td class="text-center">
-                            <a href="/products/admin/update" class="button warning m-0" href="#">Sửa</a>
-                            <a class="button alert m-0" href="#">Xóa</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Rocks</td>
-                        <td>4</td>
-                        <td>10</td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">
-                            21/10/2021
-                        </td>
-                        <td class="text-center">
-                            <a href="/products/admin/update" class="button warning m-0" href="#">Sửa</a>
-                            <a class="button alert m-0" href="#">Xóa</a>
-                        </td>
-                    </tr>
+                    {{#each data}}
+                        <tr>
+                            <td>{{this.id}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.category}}</td>
+                            <td>{{this.quantity}}</td>
+                            <td class="text-right">{{this.price}}VND</td>
+                            <!-- <td class="text-center">
+                                            <label class="label success">
+                                                <i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
+                                            </label>
+                                        </td> -->
+                            <td class="text-center">
+                                {{ this.created_at }}
+                            </td>
+                            <td class="text-center">
+                                <a href="/products/admin/update/{{ this.id }}" class="button warning m-0" href="#">Sửa</a>
+                                <a href="/products/admin/delete/{{ this.id }}" class="button alert m-0" href="#">Xóa</a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    
+
                 </tbody>
             </table>
             <div class="card-section">

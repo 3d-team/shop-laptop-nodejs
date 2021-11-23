@@ -5,7 +5,7 @@
           <div class="col-md-12">
             <div class="section-heading">
               <div class="line-dec"></div>
-              <h1>Asus ROG Zephyrus G14 Alan Walker</h1>
+              <h1>{{data.name}}</h1>
             </div>
           </div>
           <div class="col-md-6">
@@ -48,9 +48,9 @@
           </div>
           <div class="col-md-6">
             <div class="right-content">
-              <h4>Asus ROG Zephyrus G14 Alan Walker</h4>
-              <h6>44.990.00VND</h6>
-              <p>Cùng bạn đối đầu mọi thách thức trên chiến trường ảo nhờ bộ vi xử lý mạnh mẽ AMD và phong cách thiết kế độc đáo, khẳng định chất tôi riêng của siêu phẩm độc nhất vô nhị Asus ROG Zephyrus Gaming G14 Alan Walker (K2064T), hứa hẹn sẽ mang đến những trải nghiệm tuyệt hảo khó quên cho người dùng. Nếu là một fan của Alan Walker thì đây chính là sản phẩm bạn không thể bỏ lỡ.</p>
+              <h4>{{data.name}}</h4>
+              <h6>{{data.price}}VND</h6>
+              <p>{{data.content}}</p>
                 <p>CPU: AMD Ryzen 9, 5900HS</p>
                 <p>RAM: 16GB DDR4</p>
                 <p>Ổ cứng: 1TB SSD M.2 PCle</p>
@@ -62,12 +62,12 @@
                 <input name="quantity" type="quantity" class="quantity-text" id="quantity" 
                 	onfocus="if(this.value == '1') { this.value = ''; }" 
                     onBlur="if(this.value == '') { this.value = '1';}"
-                    value="1">
+                    value="{{data.quantity}}">
                 <input type="submit" class="button" value="Mua Ngay!">
               </form>
               <div class="down-content">
                 <div class="categories">
-                  <h6>Thể loại: <span><a href="#">Gaming</a>,<a href="#">Cao cấp sang trọng</a></span></h6>
+                  <h6>Thể loại: <span><a href="#">{{data.category}}</a></span></h6>
                 </div>
                 <div class="share">
                   <h6>Chia sẽ: <span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-twitter"></i></a></span></h6>
@@ -128,7 +128,7 @@
           </div>
           <div class="col-md-12">
             <div class="owl-carousel owl-theme">
-              <a href="/products/1">
+              <a href="/products/detail/1">
                 <div class="featured-item">
                   <img src="/images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
                   <h4>Asus VivoBook Pro 15 OLED</h4>
@@ -141,110 +141,7 @@
                   <p>Màn hình: 15.6" Full HD OLED</p>
                 </div>
               </a>
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="/images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
-                </div>
-              </a>
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="/images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
-                </div>
-              </a>
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="/images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
-                </div>
-              </a>
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="/images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
-                </div>
-              </a>
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="/images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
-                </div>
-              </a>
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="/images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
-                </div>
-              </a>
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="/images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
-                </div>
-              </a>
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="/images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
-                </div>
-              </a>
+              
             </div>
           </div>
         </div>

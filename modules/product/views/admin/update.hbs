@@ -35,20 +35,20 @@
 
 									<div class="medium-12 cell">
 										<label>ID
-											<input type="text" placeholder="Tên sản phẩm">
+											<input type="text" placeholder="Tên sản phẩm" value="{{data.id}}">
 										</label>
 									</div>
 
 									<div class="medium-12 cell">
 										<label>Tên sản phẩm
-											<input type="text" placeholder="Tên sản phẩm">
+											<input type="text" placeholder="Tên sản phẩm" value="{{data.name}}">
 										</label>
 									</div>
 
 									<div class="medium-12 cell">
 										<label>Danh mục
 											<select>
-												<option value="husker">A</option>
+												<option value="{{data.category}}">{{data.category}}</option>
 												<option value="starbuck">B</option>
 												<option value="hotdog">C</option>
 												<option value="apollo">D</option>
@@ -58,26 +58,26 @@
 
 									<div class="medium-12 cell">
 										<label>Mô tả
-											<input type="text" placeholder="Mô tả ...">
+											<input type="text" placeholder="Mô tả ..." value="{{data.description}}">
 										</label>
 									</div>
 
 									<div class="medium-12 cell">
 										<label>Nội dung
-											<input type="text" placeholder="Nội dung ...">
+											<input type="text" placeholder="Nội dung ..." value="{{data.content}}">
 										</label>
 									</div>
 
 									<div class="medium-2">
 										<label>
 											Số lượng
-											<input type="number" value="100">
+											<input type="number" value="{{data.quantity}}">
 										</label>
 									</div>
 
 									<div class="medium-6 cell">
 										<label>Giá tiền
-											<input type="text" placeholder="Đơn giá">
+											<input type="text" placeholder="Đơn giá" value="{{data.price}}">
 										</label>
 									</div>
 

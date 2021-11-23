@@ -8,6 +8,9 @@ const logger = require('morgan');
 const fs = require('fs');
 const hbs = require('hbs');
 
+
+const sequelize = require('./../config/database');
+
 const app = express();
 
 /**
@@ -39,17 +42,19 @@ function viewEngine(app) {
  * 
  * Set up default and custom middlewares.
  **/
-const template = require("../middlewares/TemplateMiddleware");
+const defaultTemplate = require("../middlewares/DefaultTemplateMiddleware");
+const adminTemplate = require("../middlewares/AdminTemplateMiddleware");
 
 function middleware(app) {
 	app.use(logger('dev'));
 	app.use(express.json());
-	app.use(express.urlencoded({ extended: false }));
+	app.use(express.urlencoded({ extended: true }));
 	app.use(cookieParser());
 	app.use(express.static(path.join(__dirname, '../public')));
 
 	/* Custom */
-	app.use("/*", template);
+	app.use("/*", defaultTemplate);
+	app.use("/*/admin", adminTemplate);
 }
 
 

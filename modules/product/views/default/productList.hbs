@@ -22,7 +22,22 @@
     <div class="featured container no-gutter">
 
         <div class="row posts">
-            <div id="1" class="item new col-md-4">
+
+            {{#each data}}
+              <div id="{{this.id}} % 3" class="item new col-md-4">
+                <a href="/products/detail/{{this.id}}">
+                  <div class="featured-item">
+                    <img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
+                    <h4>{{this.name}}</h4>
+                    <h5>{{this.price}}VND</h5>
+                    
+                    <p>{{this.content}}</p>
+                  </div>
+                </a>
+              </div>
+            {{/each}}
+
+            {{!-- <div id="1" class="item new col-md-4">
               <a href="/products/1">
                 <div class="featured-item">
                   <img src="images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
@@ -36,127 +51,8 @@
                   <p>Màn hình: 14" Full HD IPS</p>
                 </div>
               </a>
-            </div>
-            <div id="2" class="item high col-md-4">
-              <a href="/products/2">
-                <div class="featured-item">
-                  <img src="images/msi-modern15.jpg" alt="Item 1">
-                  <h4>MSI Modern 15 A11MU</h4>
-                  <h5>18.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i5 Tiger Lake</p>
-                  <p>RAM: 8GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD M.2 PCle</p>
-                  <p>Card rời: Card tích hợp - Intel Iris Xe Graphics</p>
-                  <p>Màn hình: 15.6" Full HD IPS</p>
-                </div>
-              </a>
-            </div>
-            <div id="3" class="item low col-md-4">
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
-                </div>
-              </a>
-            </div>
-            <div id="1" class="item new col-md-4">
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
-                  <h4>Asus ROG Zephyrus G14 Alan Walker</h4>
-                  <h5>44.990.000VND</h5>
-                  
-                  <p>CPU: AMD Ryzen 9, 5900HS</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 1TB SSD M.2 PCle</p>
-                  <p>Card rời: RTX 3050Ti 4GB</p>
-                  <p>Màn hình: 14" Full HD IPS</p>
-                </div>
-              </a>
-            </div>
-            <div id="2" class="item high col-md-4">
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="images/msi-modern15.jpg" alt="Item 1">
-                  <h4>MSI Modern 15 A11MU</h4>
-                  <h5>18.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i5 Tiger Lake</p>
-                  <p>RAM: 8GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD M.2 PCle</p>
-                  <p>Card rời: Card tích hợp - Intel Iris Xe Graphics</p>
-                  <p>Màn hình: 15.6" Full HD IPS</p>
-                </div>
-              </a>
-            </div>
-            <div id="3" class="item low col-md-4">
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
-                </div>
-              </a>
-            </div>
-            <div id="1" class="item new col-md-4">
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
-                  <h4>Asus ROG Zephyrus G14 Alan Walker</h4>
-                  <h5>44.990.000VND</h5>
-                  
-                  <p>CPU: AMD Ryzen 9, 5900HS</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 1TB SSD M.2 PCle</p>
-                  <p>Card rời: RTX 3050Ti 4GB</p>
-                  <p>Màn hình: 14" Full HD IPS</p>
-                </div>
-              </a>
-            </div>
-            <div id="2" class="item high col-md-4">
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="images/msi-modern15.jpg" alt="Item 1">
-                  <h4>MSI Modern 15 A11MU</h4>
-                  <h5>18.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i5 Tiger Lake</p>
-                  <p>RAM: 8GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD M.2 PCle</p>
-                  <p>Card rời: Card tích hợp - Intel Iris Xe Graphics</p>
-                  <p>Màn hình: 15.6" Full HD IPS</p>
-                </div>
-              </a>
-            </div>
-            <div id="3" class="item low col-md-4">
-              <a href="/products/1">
-                <div class="featured-item">
-                  <img src="images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
-                </div>
-              </a>
-            </div>
+            </div> --}}
+
         </div>
     </div>
 
@@ -165,9 +61,9 @@
         <div class="row">
           <div class="col-md-12">
             <ul>
-              <li class="current-page"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
+              <li class="current-page"><a href="/products/1">1</a></li>
+              <li><a href="/products/2">2</a></li>
+              <li><a href="/products/3">3</a></li>
               <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
             </ul>
           </div>
