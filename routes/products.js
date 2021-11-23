@@ -12,6 +12,7 @@ router.get('/admin/list', adminController.list);
 router.all('/admin/add', adminController.add);
 router.all('/admin/update/:productId', adminController.update);
 router.all('/admin/delete/:productId', adminController.delete);
+router.get('/admin/search', adminController.search);
 
 router.get('/admin/category', adminController.listCategory);
 router.get('/admin/category/add', adminController.addCategory);

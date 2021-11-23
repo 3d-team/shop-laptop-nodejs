@@ -7,9 +7,11 @@
 	</div>
 
 	<div class="top-bar-right">
-		<ul class="menu br-5">
-			<li><input type="search" class="search-box-left" placeholder="Search"></li>
-			<li><button type="button" class="button search-box-right">Search</button></li>
-		</ul>
+		<form action="/products/admin/search">
+			<ul class="menu br-5">
+				<li><input type="text" class="search-box-left" placeholder="Search" name="queryName"></li>
+				<li><button class="button search-box-right">Search</button></li>
+			</ul>
+		</form>
 	</div>
 </div>

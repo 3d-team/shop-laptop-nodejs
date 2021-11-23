@@ -1,4 +1,5 @@
 const path = require('path');
+const { Op } = require("sequelize");
 const ProductModel = require('./../models/ProductModel');
 
 class AdminController {
@@ -8,6 +9,7 @@ class AdminController {
 		const productPerPage = 2;
 		const page = +req.params.page || 1;
 		const condition = {
+			order: [['id', 'DESC']],
 			offset: page,
 			limit: productPerPage
 		};
@@ -20,7 +22,11 @@ class AdminController {
 	}
 
 	list(req, res) {
-		ProductModel.findAll().then(function(products) {
+		const condition = {
+			order: [['id', 'DESC']]
+		};
+
+		ProductModel.findAll(condition).then(function(products) {
 			res.render("list", {
 				title: "Product",
 				data: products
@@ -30,9 +36,7 @@ class AdminController {
 
 	add(req, res) {
 		if (req.method == "POST") {
-			ProductModel.create(req.body).then(() => {
-
-			})
+			ProductModel.create(req.body).then(() => {})
 		}
 
 		res.render("add", {
@@ -46,9 +50,7 @@ class AdminController {
 		};
 
 		if (req.method == "POST") {
-			ProductModel.update(req.body, condition).then(() => {
-
-			});
+			ProductModel.update(req.body, condition).then(() => {});
 		}
 
 		ProductModel.findOne(condition).then((product) => {
@@ -67,6 +69,24 @@ class AdminController {
 		ProductModel.destroy(condition).then(() => {
 			res.redirect("/products/admin/list");
 		});
+	}
+
+	search(req, res) {
+		const queryName = req.query.queryName;
+
+		const product = [];
+
+		const condition = {
+			where: { name: {[Op.like]: "%" + queryName + "%"}}
+		};
+
+		ProductModel.findAll(condition).then((products) => {
+
+			res.render('list', {
+				title: "Product",
+				data: products
+			})
+		})
 	}
 
 	listCategory(req, res) {
