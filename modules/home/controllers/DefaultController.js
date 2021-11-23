@@ -9,7 +9,11 @@ class DefaultController {
 		res.render('index', {
 			layout: layout,
 			title: "Home",
-			content: "Default: index"
+			content: "Default: index",
+			home_menu_item_status: "item-active",
+			products_menu_item_status: "",
+			about_menu_item_status: "",
+			contact_menu_item_status: ""
 		});
 	}
 
@@ -18,7 +22,11 @@ class DefaultController {
 		res.render('aboutUs', {
 			layout: layout,
 			title: "Home",
-			content: "Default: index"
+			content: "Default: index",
+			home_menu_item_status: "",
+			products_menu_item_status: "",
+			about_menu_item_status: "item-active",
+			contact_menu_item_status: ""
 		});
 	}
 
@@ -27,7 +35,11 @@ class DefaultController {
 		res.render('contactUs', {
 			layout: layout,
 			title: "Home",
-			content: "Default: index"
+			content: "Default: index",
+			home_menu_item_status: "",
+			products_menu_item_status: "",
+			about_menu_item_status: "",
+			contact_menu_item_status: "item-active"
 		});
 	}
 }

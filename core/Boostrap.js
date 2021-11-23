@@ -20,16 +20,19 @@ function viewEngine(app) {
 	fs.readdirSync(path.join(config.moduleDirname)).forEach(function(file){
 		views.push(path.join(config.moduleDirname, file, "views/default"));
 		views.push(path.join(config.moduleDirname, file, "views/admin"));
+		views.push(path.join(config.moduleDirname, file, "views/login"));
 	});
 	app.set('views', [
 		...views,
 		path.join(__dirname, '../views'),
 		path.join(__dirname, '../views/layouts/default'),
-		path.join(__dirname, '../views/layouts/admin')
+		path.join(__dirname, '../views/layouts/admin'),
+		path.join(__dirname, '../views/layouts/login')
 	]);
 	app.set('view engine', 'hbs');
 	hbs.registerPartials(path.join(__dirname, '../views/layouts/default/partials'));
 	hbs.registerPartials(path.join(__dirname, '../views/layouts/admin/partials'));
+	hbs.registerPartials(path.join(__dirname, '../views/layouts/login/partials'));
 	app.engine('hbs', hbs.__express);
 }
 
@@ -68,7 +71,7 @@ function routing(app) {
 	app.use('/', homeRouter);
 	app.use('/users', usersRouter);
 	app.use('/products', productsRouter);
-	app.use('/orders',orderRouter);
+	app.use('/orders', orderRouter);
 
 	/* Catch 404 and forward to error handler */
 	app.use(function(req, res, next) {

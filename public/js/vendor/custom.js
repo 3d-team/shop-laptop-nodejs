@@ -1,3 +1,13 @@
+function navBarResponsiveFunc() {
+	var x = document.getElementById("navBarResponsive");
+	if (x.className === "nav-mobile nav-list") {
+		x.className += " nav-responsive";
+	} 
+	else {
+		x.className = "nav-mobile nav-list";
+	}
+}
+
 jQuery( document ).ready(function( $ ) {
 
 

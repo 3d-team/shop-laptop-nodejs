@@ -1,4 +1,62 @@
-<div class="container">
+
+<!-- Navigation -->
+    <div class="navbar">
+      <div class="container">
+          <!-- <div> -->
+              <a href="#" class="button-nav" onclick="navBarResponsiveFunc()">
+                  <i class="fa fa-bars"></i>
+              </a>
+          <!-- </div> -->
+          <div class="nav-list">
+              <ul>
+                  <li>
+                      <a class="nav-item-link {{home_menu_item_status}}" href="/">Trang chủ </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-item-link {{products_menu_item_status}}" href="/products">Sản phẩm</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-item-link {{about_menu_item_status}}" href="/about">Về LaptopStore</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-item-link {{contact_menu_item_status}}" href="/contact">Thông tin liên hệ</a>
+                  </li>
+              </ul>
+          </div>
+          <div class="cart-login">
+              <a href="/orders">
+                  <i class="fa fa-shopping-cart"></i>
+                  Giỏ hàng
+              </a>
+              <a href="/users">
+                  <i class="fa fa-user"></i>
+                  Đăng nhập
+              </a>            
+          </div>
+      </div>
+      <div class="container">
+          <div class="nav-mobile nav-list" id="navBarResponsive">
+              <ul>
+                  <li>
+                      <a class="nav-item-link {{home_menu_item_status}}" href="/">Trang chủ </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-item-link {{products_menu_item_status}}" href="/products">Sản phẩm</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-item-link {{about_menu_item_status}}" href="/about">Về LaptopStore</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-item-link {{contact_menu_item_status}}" href="/contact">Thông tin liên hệ</a>
+                  </li>
+              </ul>
+          </div>
+      </div>        
+  </div>
+  <!-- End Nav -->   
+
+
+{{!-- <div class="container">
         <a class="navbar-brand" href="#">
             Laptop Store
         </a>
@@ -28,4 +86,4 @@
           </ul>
         </div>
 
-      </div>
+      </div> --}}
