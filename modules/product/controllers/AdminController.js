@@ -76,15 +76,21 @@ class AdminController {
 
 		const product = [];
 
+		const productPerPage = 2;
+		const page = +req.query.page || 1;
 		const condition = {
-			where: { name: {[Op.like]: "%" + queryName + "%"}}
+			where: { name: {[Op.like]: "%" + queryName + "%"}},
+			offset: page,
+			limit: productPerPage
 		};
 
 		ProductModel.findAll(condition).then((products) => {
 
 			res.render('list', {
 				title: "Product",
-				data: products
+				data: products,
+				queryName: queryName,
+				page: page
 			})
 		})
 	}
