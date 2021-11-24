@@ -5,23 +5,6 @@ const ProductModel = require('./../models/ProductModel');
 class AdminController {
 
 	index(req, res) {
-
-		const productPerPage = 2;
-		const page = +req.params.page || 1;
-		const condition = {
-			order: [['id', 'DESC']],
-			offset: page,
-			limit: productPerPage
-		};
-
-		ProductModel.findAll(condition).then((products) => {
-			res.render('list', {
-				data: products
-			});
-		});
-	}
-
-	list(req, res) {
 		const condition = {
 			order: [['id', 'DESC']]
 		};
@@ -32,6 +15,24 @@ class AdminController {
 				data: products
 			});	
 		})
+	}
+
+	list(req, res) {
+		const productPerPage = 2;
+		const page = +req.params.page || 1;
+
+		const offset = (page - 1) * productPerPage;
+		const condition = {
+			order: [['id', 'DESC']],
+			offset: offset,
+			limit: productPerPage
+		};
+
+		ProductModel.findAll(condition).then((products) => {
+			res.render('list', {
+				data: products
+			});
+		});
 	}
 
 	add(req, res) {
@@ -73,20 +74,19 @@ class AdminController {
 
 	search(req, res) {
 		const queryName = req.query.queryName;
-
-		const product = [];
-
 		const productPerPage = 2;
 		const page = +req.query.page || 1;
+
+		const offset = (page - 1) * productPerPage;
 		const condition = {
 			where: { name: {[Op.like]: "%" + queryName + "%"}},
-			offset: page,
+			offset: offset,
 			limit: productPerPage
 		};
 
 		ProductModel.findAll(condition).then((products) => {
 
-			res.render('list', {
+			res.render('search', {
 				title: "Product",
 				data: products,
 				queryName: queryName,

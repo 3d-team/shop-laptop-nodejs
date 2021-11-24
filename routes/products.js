@@ -7,8 +7,8 @@ const router = express.Router();
  **/
 const adminController = require("../modules/product/controllers/AdminController.js");
 router.get('/admin/', adminController.index);
-router.get('/admin/index/:page', adminController.index);
-router.get('/admin/list', adminController.list);
+router.get('/admin/list/', adminController.list);
+router.get('/admin/list/:page', adminController.list);
 router.all('/admin/add', adminController.add);
 router.all('/admin/update/:productId', adminController.update);
 router.all('/admin/delete/:productId', adminController.delete);

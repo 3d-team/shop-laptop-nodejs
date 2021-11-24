@@ -5,11 +5,12 @@ const ProductModel = require('./../models/ProductModel');
 class DefaultController {
 
 	index(req, res) {
-
 		const productPerPage = 2;
 		const page = +req.params.page || 1;
+
+		const offset = (page - 1) * productPerPage;
 		const condition = {
-			offset: page,
+			offset: offset,
 			limit: productPerPage
 		};
 
