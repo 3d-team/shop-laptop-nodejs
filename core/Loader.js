@@ -1,4 +1,4 @@
-require('./../config/config');
+const config = require('./../config/config');
 
 const path = require('path');
 const fs = require('fs');
@@ -25,3 +25,5 @@ class Loader {
 	    return config;
 	}
 }
+
+module.exports = Loader;

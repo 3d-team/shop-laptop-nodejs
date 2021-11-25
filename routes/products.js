@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+const Loader = require('./../core/Loader');
+
 /**
  * Admin 
  * Routing for dashboard
