@@ -1,28 +1,40 @@
-const config = require('./../config/config');
-
 const path = require('path');
 const fs = require('fs');
 
+const config = require('./../config/config');
+const Utils = require('./Utils');
+
+/**
+ * Loader
+ * 
+ * Function: Loading component (Controller, Model, ...).
+ **/
 class Loader {
 
-	constructor() {}
+	static loadController(moduleName, type = 'Default') {
+		const module = moduleName.toLowerCase();
+		const controller = Utils.capitalize(type).concat('Controller');
+		const controllerPath = path.join(config.moduleDirname, module, 'controllers');
 
-	static loadController(module, type) {
-		return require("../modules/" + module + "/controllers/" + type + "Controller");
+		return require(path.join(controllerPath, controller));
 	}
 
-	static loadModel(module) {
-		var model;
-		fs.readdirSync(path.join(config.moduleDirname, module, 'model')).forEach(function(file){
-			model = require(path.join(config.moduleDirname, moduleName, 'model', file));
-		});	
-	  	return model;
-	}
+	static loadModel(model) {
+		const modelName = Utils.capitalize(model).concat('Model.js');
 
-	static loadConfig(config) {
-		var config;
-	    config = require(path.join(__dirname, config));
-	    return config;
+		let existedModel;
+		fs.readdirSync(config.moduleDirname).forEach((module) => {
+			const modelDirectory = path.join(config.moduleDirname, module, "models");
+
+			if (fs.existsSync(modelDirectory)) {
+				fs.readdirSync(modelDirectory).forEach((file) => {	
+					if (modelName === file) {
+						existedModel = require(path.join(modelDirectory, file));
+					};
+				});
+			};
+		});
+		return existedModel;
 	}
 }
 

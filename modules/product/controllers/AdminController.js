@@ -1,6 +1,8 @@
 const path = require('path');
 const { Op } = require("sequelize");
-const ProductModel = require('./../models/ProductModel');
+
+const Loader = require("./../../../core/Loader");
+const ProductModel = Loader.loadModel('product');
 
 class AdminController {
 
@@ -9,12 +11,17 @@ class AdminController {
 			order: [['id', 'DESC']]
 		};
 
-		ProductModel.findAll(condition).then(function(products) {
-			res.render("list", {
-				title: "Product",
-				data: products
-			});	
-		})
+		ProductModel.findAll(condition)
+			.then(function(products) {
+				res.render("list", {
+					title: "Product",
+					data: products
+				});	
+			})
+			.catch(function(err) {
+				res.status(err.status || 500);
+				res.render('error');
+			});
 	}
 
 	list(req, res) {
@@ -28,11 +35,16 @@ class AdminController {
 			limit: productPerPage
 		};
 
-		ProductModel.findAll(condition).then((products) => {
-			res.render('list', {
-				data: products
+		ProductModel.findAll(condition)
+			.then((products) => {
+				res.render('list', {
+					data: products
+				});
+			})
+			.catch(function(err) {
+				res.status(err.status || 500);
+				res.render('error');
 			});
-		});
 	}
 
 	add(req, res) {
@@ -54,12 +66,17 @@ class AdminController {
 			ProductModel.update(req.body, condition).then(() => {});
 		}
 
-		ProductModel.findOne(condition).then((product) => {
-			res.render("update", {
-				title: "Product",
-				data: product
-			});	
-		})
+		ProductModel.findOne(condition)
+			.then((product) => {
+				res.render("update", {
+					title: "Product",
+					data: product
+				});	
+			})
+			.catch(function(err) {
+				res.status(err.status || 500);
+				res.render('error');
+			})
 	}
 
 	delete(req, res) {
@@ -67,9 +84,14 @@ class AdminController {
 			where: {id: parseInt(req.params.productId) }
 		};
 
-		ProductModel.destroy(condition).then(() => {
-			res.redirect("/products/admin/list");
-		});
+		ProductModel.destroy(condition)
+			.then(() => {
+				res.redirect("/products/admin/list");
+			})
+			.catch(function(err) {
+				res.status(err.status || 500);
+				res.render('error');
+			});
 	}
 
 	search(req, res) {
@@ -84,15 +106,19 @@ class AdminController {
 			limit: productPerPage
 		};
 
-		ProductModel.findAll(condition).then((products) => {
-
-			res.render('search', {
-				title: "Product",
-				data: products,
-				queryName: queryName,
-				page: page
+		ProductModel.findAll(condition)
+			.then((products) => {
+				res.render('search', {
+					title: "Product",
+					data: products,
+					queryName: queryName,
+					page: page
+				})
 			})
-		})
+			.catch(function(err) {
+				res.status(err.status || 500);
+				res.render('error');
+			});
 	}
 
 	listCategory(req, res) {

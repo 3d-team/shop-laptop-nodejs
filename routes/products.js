@@ -5,9 +5,9 @@ const Loader = require('./../core/Loader');
 
 /**
  * Admin 
- * Routing for dashboard
+ * Routing for dashboard.
  **/
-const adminController = require("../modules/product/controllers/AdminController.js");
+const adminController = Loader.loadController('product', 'admin');
 router.get('/admin/', adminController.index);
 router.get('/admin/list/', adminController.list);
 router.get('/admin/list/:page', adminController.list);
@@ -22,11 +22,12 @@ router.get('/admin/category/update', adminController.updateCategory);
 
 /**
  * Default
- * Routing for primary client 
+ * Routing for primary client.
  **/
-const defaultController = require("../modules/product/controllers/DefaultController.js");
+const defaultController = Loader.loadController('product', 'default');
 router.get('/', defaultController.index);
 router.get('/:page', defaultController.index);
 router.get('/detail/:productId', defaultController.detail);
+
 
 module.exports = router;

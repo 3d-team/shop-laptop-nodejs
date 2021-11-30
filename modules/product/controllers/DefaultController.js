@@ -14,26 +14,37 @@ class DefaultController {
 			limit: productPerPage
 		};
 
-		ProductModel.findAll(condition).then((products) => {
-			res.render('productList', {
-				title: "Product",
-				data: products
+		ProductModel.findAll(condition)
+			.then((products) => {
+				res.render('productList', {
+					title: "Product",
+					data: products
+				});
+			})
+			.catch(function(err) {
+				res.status(err.status || 500);
+				res.render('error');
 			});
-		});
 	}
 
 	detail(req, res) {
 		const productId = req.params.productId;
+		
 		const condition = {
 			where: { id: productId }
 		};
 
-		ProductModel.findOne(condition).then((product) => {
-			res.render('productDetail', {
-				title: "Product",
-				data: product
+		ProductModel.findOne(condition)
+			.then((product) => {
+				res.render('productDetail', {
+					title: "Product",
+					data: product
+				});
+			})
+			.catch(function(err) {
+				res.status(err.status || 500);
+				res.render('error');
 			});
-		})
 		
 	}
 }

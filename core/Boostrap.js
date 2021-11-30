@@ -59,19 +59,20 @@ function registerMiddleware(app) {
 /**
  * Routing
  * 
- * Define route for app.
+ * Register route for app.
  */
 const homeRouter = require('../routes/home');
-const usersRouter = require('../routes/users');
-const productsRouter = require('../routes/products');
-const orderRouter = require('../routes/order');
-
 function registerRoute(app) {
-	/* Custom routing */
+
 	app.use('/', homeRouter);
-	app.use('/users', usersRouter);
-	app.use('/products', productsRouter);
-	app.use('/orders',orderRouter);	
+
+	/* Custom route */
+	fs.readdirSync(path.join(config.routeDirname)).forEach(function(file) {
+		const route = ('/').concat(file.replace(/\.[^/.]+$/, ""));
+		const router = require(path.join(config.routeDirname, file));
+
+		app.use(route, router);
+	});
 }
 
 
@@ -81,12 +82,10 @@ function registerRoute(app) {
  * Handling for invalid route.
  **/
 function registerHandler(app) {
-	/* Catch 404 and forward to error handler */
 	app.use(function(req, res, next) {
 		next(createError(404));
 	});
 
-	/* Error handler */
 	app.use(function(err, req, res, next) {
 		res.locals.message = err.message;
 		res.locals.error = req.app.get('env') === 'development' ? err : {};
