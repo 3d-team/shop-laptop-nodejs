@@ -29,7 +29,7 @@
 
 	<div class="large-8 columns">
 		<div class="form">
-			<form action="/">
+			<form method="POST">
 				<div class="grid-container">
 					<div class="grid-x grid-padding-x">
 
@@ -41,16 +41,22 @@
 
 						<div class="medium-12 cell">
 							<label>Loại tài khoản
-								<select name="level">
+								<select name="admin">
 									<option value="0">Phổ thông</option>
-									<option value="0">Quản trị</option>
+									<option value="1">Quản trị</option>
 								</select>
 							</label>
 						</div>
 
 						<div class="medium-12 cell">
 							<label>Email
-								<input type="text" placeholder="Email ...">
+								<input type="text" name="email" placeholder="Email ...">
+							</label>
+						</div>
+
+						<div class="medium-12 cell">
+							<label>Mật khẩu
+								<input type="password" name="password" placeholder="Mật khẩu ...">
 							</label>
 						</div>
 
@@ -84,9 +90,9 @@
 							<hr>
 							<fieldset class="large-12 cell">
 								<legend>Giới tính</legend>
-								<input type="radio" name="sex" value="male" id="male" required>
+								<input type="radio" name="sex" value="0" id="male" required>
 								<label for="male">Nam</label>
-								<input type="radio" name="sex" value="female" id="female">
+								<input type="radio" name="sex" value="1" id="female">
 								<label for="female">Nữ</label>
 							 </fieldset>
 						</div>

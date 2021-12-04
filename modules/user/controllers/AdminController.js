@@ -8,28 +8,81 @@ const UserModel = Loader.model('user');
 class AdminController {
 
 	list(req, res){
+		const condition = {
+			order: [['id', 'DESC']]
+		};
 
-		res.render("listUser", {
-			title: "Product",
+		UserModel.findAll(condition).then((accounts) => {
+			res.render("listUser", {
+				data: accounts
+			});
 		});
 	}
 
 	add(req, res){
+		if (req.method == "POST") {
+			const data = {
+				username: req.body.username,
+				email: req.body.email,
+				password: bcrypt.hashSync(req.body.password, 8),
+				address: req.body.address,
+				phone: req.body.phone,
+				status: req.body.status,
+				sex: req.body.sex,
+				admin: Boolean(req.body.admin),
+				avatar: req.body.avatar
+			};
 
-		res.render("addUser", {
-			title: "Product",
-		});
+			UserModel.create(data).then(() => {
+				res.redirect("/users/admin/list");
+			});
+			return;
+		}
+
+		res.render("addUser");
 	}
 
 	update(req, res){
+		const condition = {
+			where: {id: parseInt(req.params.userId) }
+		};
 
-		res.render("updateUser", {
-			title: "Product",
-		});
+		if (req.method == "POST") {
+			const data = {
+				username: req.body.username,
+				email: req.body.email,
+				address: req.body.address,
+				phone: req.body.phone,
+				admin: Boolean(req.body.admin),
+				avatar: req.body.avatar
+			};
+
+			UserModel.update(data, condition).then(() => {
+				res.redirect("/users/admin/list");
+			});
+			return;
+		}
+
+		UserModel.findOne(condition).then((account) => {
+			res.render("updateUser", {
+				data: account
+			});
+		})
 	}
 
 	delete(req, res){
+		const condition = {
+			where: {id: parseInt(req.params.userId) }
+		};
 
+		UserModel.destroy(condition)
+			.then(() => {
+				res.redirect("/users/admin/list");
+			})
+			.catch(function(err) {
+				res.status(err.status || 500);
+				res.render('error');
+			});
 	}
 }
 

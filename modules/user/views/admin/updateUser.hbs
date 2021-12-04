@@ -29,47 +29,58 @@
 
 	<div class="large-8 columns">
 		<div class="form">
-			<form action="/">
+			<form method="POST">
 				<div class="grid-container">
 					<div class="grid-x grid-padding-x">
 
 						<div class="medium-12 cell">
 							<label>ID
-								<input type="text" placeholder="ID">
+								<input type="text" name="id" value="{{data.id}}" placeholder="ID" disabled>
 							</label>
 						</div>
 
 						<div class="medium-12 cell">
 							<label>Tên người dùng
-								<input type="text" placeholder="Tên sản phẩm">
+								<input type="text" name="username" value="{{data.username}}" placeholder="">
 							</label>
 						</div>
 
 						<div class="medium-12 cell">
 							<label>Loại tài khoản
 								<select>
-									<option value="husker">Phổ thông</option>
-									<option value="starbuck">Quản trị</option>
+									{{#if data.admin}}
+									<option value="1">Quản trị</option>
+									<option value="0">Phổ thông</option>
+									{{else}}
+									<option value="0">Phổ thông</option>
+									<option value="1">Quản trị</option>
+									{{/if}}
 								</select>
 							</label>
 						</div>
 
 						<div class="medium-12 cell">
 							<label>Email
-								<input type="text" placeholder="Mô tả ...">
+								<input type="text" name="email" value="{{data.email}}" placeholder="Mô tả ..." disabled>
+							</label>
+						</div>
+
+						<div class="medium-12 cell">
+							<label>Mật khẩu
+								<input type="password" name="password" value="{{data.password}}" placeholder="Mật khẩu ..." disabled>
 							</label>
 						</div>
 
 						<div class="medium-12 cell">
 							<label>Địa chỉ
-								<input type="text" placeholder="Nội dung ...">
+								<input type="text" name="address" value="{{data.address}}" placeholder="Nội dung ...">
 							</label>
 						</div>
 
 						<div class="medium-3">
 							<label>
 								Số điện thoại
-								<input type="text" placeholder="Số điện thoại">
+								<input type="text" name="phone" value="{{data.phone}}" placeholder="Số điện thoại">
 							</label>
 						</div>
 
@@ -112,7 +123,7 @@
 				<hr>
 
 				<div class="text-center">
-					<button class="submit success button">Thêm</button>
+					<button class="submit success button">Cập nhật</button>
 					<button type="button" class="alert button ml-5">Hủy</button>
 				</div>
 			</form>

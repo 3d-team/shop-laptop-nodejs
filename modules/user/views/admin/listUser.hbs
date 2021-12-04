@@ -69,15 +69,17 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each data}}
                     <tr>
-                        <td>1</td>
-                        <td>Rocks</td>
-                        <td>Phổ thông</td>
-                        <td>rocks@gmail.com</td>
+                        <td>{{this.id}}</td>
+                        <td>{{this.username}}</td>
+                        <td>{{#if this.admin}} Quản trị {{else}} Khách hàng {{/if}}</td>
+                        <td>{{this.email}}</td>
 
                         <td class="text-center">
                             <label class="label success">
-                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;Hoạt động</label>
+                                <i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;Hoạt động
+                            </label>
                         </td>
 
                         <!-- <td class="text-center">
@@ -86,36 +88,14 @@
 										</label>
 									</td> -->
                         <td class="text-center">
-                            21/10/2021
+                            {{this.created_at}}
                         </td>
                         <td class="text-center">
-                            <a href="/users/admin/update" class="button warning m-0" href="#">Sửa</a>
-                            <a class="button alert m-0" href="#">Xóa</a>
+                            <a href="/users/admin/update/{{this.id}}" class="button warning m-0" href="#">Sửa</a>
+                            <a href="/users/admin/delete/{{this.id}}" class="button alert m-0" href="#">Xóa</a>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td>2</td>
-                        <td>Rocks</td>
-                        <td>Phổ thông</td>
-                        <td>bitch@gmail.com</td>
-                        <td class="text-center">
-                            <label class="label alert"><i class="fa fa-times-circle" aria-hidden="true"></i> Khóa
-                            </label>
-                        </td>
-                        <!-- <td class="text-center">
-                                        <label class="label success">
-                                            <i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-                                        </label>
-                                    </td> -->
-                        <td class="text-center">
-                            21/10/2021
-                        </td>
-                        <td class="text-center">
-                            <a href="/users/admin/update"  class="button warning m-0" href="#">Sửa</a>
-                            <a class="button alert m-0" href="#">Xóa</a>
-                        </td>
-                    </tr>
+                    {{/each}}
 
                 </tbody>
             </table>
