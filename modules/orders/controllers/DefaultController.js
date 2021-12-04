@@ -1,5 +1,3 @@
-const path = require('path');
-
 class DefaultController {
 
 	index(req, res) {
@@ -7,6 +5,23 @@ class DefaultController {
 		res.render('orders', {
 			title: "Product",
 			content: "Default: index"
+		});
+	}
+
+	cart(req, res) {
+		
+
+		res.render('orders', {
+			title: "Product",
+			content: "Default: index"
+		});
+	}
+
+	list(req, res) {
+		const layout = 'admin';
+		
+		res.render('orderList', {
+			layout: layout
 		});
 	}
 }

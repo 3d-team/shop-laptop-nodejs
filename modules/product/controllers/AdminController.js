@@ -2,7 +2,7 @@ const path = require('path');
 const { Op } = require("sequelize");
 
 const Loader = require("./../../../core/Loader");
-const ProductModel = Loader.loadModel('product');
+const ProductModel = Loader.model('product');
 
 class AdminController {
 
@@ -63,10 +63,11 @@ class AdminController {
 		};
 
 		if (req.method == "POST") {
-			ProductModel.update(req.body, condition).then(() => {});
-		}
-
-		ProductModel.findOne(condition)
+			ProductModel.update(req.body, condition).then(() => {
+				res.redirect("/products/admin/");
+			});
+		} else {
+			ProductModel.findOne(condition)
 			.then((product) => {
 				res.render("update", {
 					title: "Product",
@@ -77,6 +78,7 @@ class AdminController {
 				res.status(err.status || 500);
 				res.render('error');
 			})
+		}
 	}
 
 	delete(req, res) {

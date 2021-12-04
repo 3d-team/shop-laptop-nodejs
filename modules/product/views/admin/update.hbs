@@ -1,112 +1,112 @@
 <div class="row">
 
-				<nav aria-label="You are here:" role="navigation">
-				  <ul class="breadcrumbs">
-					<li><a href="/">Home</a></li>
-					<li class="disabled">Sản phẩm</li>
-					<li>
-					  <span class="show-for-sr">Current: </span> Cập nhật
-					</li>
-				  </ul>
-				</nav>
+	<nav aria-label="You are here:" role="navigation">
+	  <ul class="breadcrumbs">
+		<li><a href="/">Home</a></li>
+		<li class="disabled">Sản phẩm</li>
+		<li>
+		  <span class="show-for-sr">Current: </span> Cập nhật
+		</li>
+	  </ul>
+	</nav>
 
+</div>
+
+<div class="row">
+	&nbsp;
+</div>
+
+<div class="row">
+	<div class="large-4 columns">
+		<div class="media-object">
+		  <div class="media-object-section">
+			<div class="thumbnail">
+			  <img src= "/images/cl2.jpg">
 			</div>
+		  </div>
+		</div>
+	</div>
 
-			<div class="row">
-				&nbsp;
-			</div>
+	<div class="large-8 columns">
+		<div class="form">
+			<form method="POST">
+			  	<div class="grid-container">
+					<div class="grid-x grid-padding-x">
 
-			<div class="row">
-				<div class="large-4 columns">
-					<div class="media-object">
-					  <div class="media-object-section">
-						<div class="thumbnail">
-						  <img src= "/images/cl2.jpg">
+						<div class="medium-12 cell">
+							<label>ID
+								<input type="text" name="id" placeholder="Tên sản phẩm" value="{{data.id}}">
+							</label>
 						</div>
-					  </div>
+
+						<div class="medium-12 cell">
+							<label>Tên sản phẩm
+								<input type="text" name="name" placeholder="Tên sản phẩm" value="{{data.name}}">
+							</label>
+						</div>
+
+						<div class="medium-12 cell">
+							<label>Danh mục
+								<select>
+									<option value="{{data.category}}">{{data.category}}</option>
+									<option value="starbuck">B</option>
+									<option value="hotdog">C</option>
+									<option value="apollo">D</option>
+								</select>
+							</label>
+						</div>
+
+						<div class="medium-12 cell">
+							<label>Mô tả
+								<input type="text" name="description" placeholder="Mô tả ..." value="{{data.description}}">
+							</label>
+						</div>
+
+						<div class="medium-12 cell">
+							<label>Nội dung
+								<input type="text" name="content" placeholder="Nội dung ..." value="{{data.content}}">
+							</label>
+						</div>
+
+						<div class="medium-2">
+							<label>
+								Số lượng
+								<input type="number" name="quantity" value="{{data.quantity}}">
+							</label>
+						</div>
+
+						<div class="medium-6 cell">
+							<label>Giá tiền
+								<input type="text" name="price" placeholder="Đơn giá" value="{{data.price}}">
+							</label>
+						</div>
+
+						<div class="medium-12 cell">
+							<label>
+								Ảnh thu nhỏ
+							</label>
+							<label for="thumbnail" class="button">Chọn ảnh ...
+								<input type="file" id="thumbnail" class="show-for-sr">
+							</label>
+							
+						</div>
+
+						<div class="medium-12 cell">
+							<label>
+								Ảnh phóng to
+							</label>
+							<label for="image" class="button">Chọn ảnh ...
+								<input type="file" id="image" class="show-for-sr">
+							</label>
+							
+						</div>
+
 					</div>
-				</div>
+			  	</div>
 
-				<div class="large-8 columns">
-					<div class="form">
-						<form action="/">
-						  	<div class="grid-container">
-								<div class="grid-x grid-padding-x">
-
-									<div class="medium-12 cell">
-										<label>ID
-											<input type="text" placeholder="Tên sản phẩm" value="{{data.id}}">
-										</label>
-									</div>
-
-									<div class="medium-12 cell">
-										<label>Tên sản phẩm
-											<input type="text" placeholder="Tên sản phẩm" value="{{data.name}}">
-										</label>
-									</div>
-
-									<div class="medium-12 cell">
-										<label>Danh mục
-											<select>
-												<option value="{{data.category}}">{{data.category}}</option>
-												<option value="starbuck">B</option>
-												<option value="hotdog">C</option>
-												<option value="apollo">D</option>
-											</select>
-										</label>
-									</div>
-
-									<div class="medium-12 cell">
-										<label>Mô tả
-											<input type="text" placeholder="Mô tả ..." value="{{data.description}}">
-										</label>
-									</div>
-
-									<div class="medium-12 cell">
-										<label>Nội dung
-											<input type="text" placeholder="Nội dung ..." value="{{data.content}}">
-										</label>
-									</div>
-
-									<div class="medium-2">
-										<label>
-											Số lượng
-											<input type="number" value="{{data.quantity}}">
-										</label>
-									</div>
-
-									<div class="medium-6 cell">
-										<label>Giá tiền
-											<input type="text" placeholder="Đơn giá" value="{{data.price}}">
-										</label>
-									</div>
-
-									<div class="medium-12 cell">
-										<label>
-											Ảnh thu nhỏ
-										</label>
-										<label for="thumbnail" class="button">Chọn ảnh ...
-											<input type="file" id="thumbnail" class="show-for-sr">
-										</label>
-										
-									</div>
-
-									<div class="medium-12 cell">
-										<label>
-											Ảnh phóng to
-										</label>
-										<label for="image" class="button">Chọn ảnh ...
-											<input type="file" id="image" class="show-for-sr">
-										</label>
-										
-									</div>
-
-								</div>
-						  	</div>
-
-						  	<button class="submit success button">Cập nhật</button>
-							<button type="button" class="alert button ml-5">Hủy</button>
-						</form>
-					</div>
-				</div>
-			</div>
+			  	<button class="submit success button">Cập nhật</button>
+				<button type="button" class="alert button ml-5">Hủy</button>
+			</form>
+		</div>
+	</div>
+</div>

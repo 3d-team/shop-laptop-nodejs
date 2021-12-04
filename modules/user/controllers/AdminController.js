@@ -1,31 +1,35 @@
-const path = require('path');
+const bcrypt = require('bcrypt');
+const jwt = require("jsonwebtoken");
 
-const layout = 'admin';
+const config = require('./../../../config/config');
+const Loader = require("./../../../core/Loader");
+const UserModel = Loader.model('user');
 
 class AdminController {
 
 	list(req, res){
 
-		res.render("userList", {
-			layout: layout,
+		res.render("listUser", {
 			title: "Product",
 		});
 	}
 
 	add(req, res){
 
-		res.render("userAdd", {
-			layout: layout,
+		res.render("addUser", {
 			title: "Product",
 		});
 	}
 
 	update(req, res){
 
-		res.render("userUpdate", {
-			layout: layout,
+		res.render("updateUser", {
 			title: "Product",
 		});
+	}
+
+	delete(req, res){
+
 	}
 }
 

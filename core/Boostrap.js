@@ -8,8 +8,10 @@ const hbs = require('hbs');
 
 const config = require("../config/config");
 const sequelize = require('./../config/database');
+const Utils = require('./Utils');
 
 const app = express();
+
 
 /**
  * View engine
@@ -18,9 +20,9 @@ const app = express();
  */
 function viewEngine(app) {
 	let views = [];
-	fs.readdirSync(path.join(config.moduleDirname)).forEach(function(file){
-		views.push(path.join(config.moduleDirname, file, "views/default"));
-		views.push(path.join(config.moduleDirname, file, "views/admin"));
+	fs.readdirSync(path.join(config.MODULE_DIR)).forEach(function(file){
+		views.push(path.join(config.MODULE_DIR, file, "views/default"));
+		views.push(path.join(config.MODULE_DIR, file, "views/admin"));
 	});
 	app.set('views', [
 		...views,
@@ -40,8 +42,8 @@ function viewEngine(app) {
  * 
  * Set up default and custom middlewares.
  **/
-const defaultTemplate = require("../middlewares/DefaultTemplateMiddleware");
-const adminTemplate = require("../middlewares/AdminTemplateMiddleware");
+const template = require("../middlewares/TemplateMiddleware");
+const verifyAdmin = require("../middlewares/VerifyAdmin");
 
 function registerMiddleware(app) {
 	app.use(logger('dev'));
@@ -51,8 +53,7 @@ function registerMiddleware(app) {
 	app.use(express.static(path.join(__dirname, '../public')));
 
 	/* Custom */
-	app.use("/*", defaultTemplate);
-	app.use("/*/admin", adminTemplate);
+	app.use("/*", template);
 }
 
 
@@ -61,15 +62,14 @@ function registerMiddleware(app) {
  * 
  * Register route for app.
  */
-const homeRouter = require('../routes/home');
 function registerRoute(app) {
 
-	app.use('/', homeRouter);
+	app.use('/', require('../routes/home'));
 
 	/* Custom route */
-	fs.readdirSync(path.join(config.routeDirname)).forEach(function(file) {
-		const route = ('/').concat(file.replace(/\.[^/.]+$/, ""));
-		const router = require(path.join(config.routeDirname, file));
+	fs.readdirSync(path.join(config.ROUTE_DIR)).forEach(function(file) {
+		const route = Utils.convertToPath(file);
+		const router = require(path.join(config.ROUTE_DIR, file));
 
 		app.use(route, router);
 	});

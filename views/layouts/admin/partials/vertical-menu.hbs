@@ -2,6 +2,13 @@
 <ul class="vertical menu">
 
 	<li>
+		<a href="#" class="off-canvas-submenu-call"><i class="fa fa-tags" aria-hidden="true"></i>Xin chào {{data.username}}<span class="float-right"> + </span></a>
+	</li>
+	<li><a class="off-canvas-submenu-call" href="/users/personal"><i class="fa fa-dot-circle-o"></i>Trang cá nhân</a></li>
+
+
+	{{#if isAdmin}}
+	<li>
 		<a href="#" class="off-canvas-submenu-call"><i class="fa fa-book" aria-hidden="true"></i>Sản phẩm<span class="float-right"> + </span></a>
 	</li>
 	<ul class="nested vertical menu off-canvas-submenu">
@@ -9,6 +16,7 @@
 		<li><a href="/products/admin/list"><i class="fa fa-dot-circle-o"></i>Danh sách sản phẩm</a></li>
 		<li><a href="#"><i class="fa fa-dot-circle-o"></i>Cấu hình</a></li>
 	</ul>
+	{{/if}}
 
 	<li>
 		<a href="#" class="off-canvas-submenu-call">
@@ -17,11 +25,20 @@
 		</a>
 	</li>
 	<ul class="nested vertical menu off-canvas-submenu">
+		{{#if isAdmin}}
 		<li><a href="/orders/admin/list"><i class="fa fa-dot-circle-o"></i>Danh sách đơn hàng</a></li>
+		{{else}}
+		<li><a href="/orders/cart"><i class="fa fa-dot-circle-o"></i>Giỏ hàng</a></li>
+		<li><a href="/orders/list"><i class="fa fa-dot-circle-o"></i>Danh sách đơn hàng</a></li>
+		{{/if}}
+
+		{{#if isAdmin}}
 		<li><a href="#"><i class="fa fa-dot-circle-o"></i>Kế toán</a></li>
 		<li><a href="#"><i class="fa fa-dot-circle-o"></i>Báo cáo bán hàng</a></li>
+		{{/if}}
 	</ul>
 
+	{{#if isAdmin}}
 	<li>
 		<a href="#" class="off-canvas-submenu-call"><i class="fa fa-user" aria-hidden="true"></i>Người dùng<span class="float-right"> + </span></a>
 	</li>
@@ -48,4 +65,7 @@
 		<li><a href="#"><i class="fa fa-dot-circle-o"></i>Cấu hình chung</a></li>
 		<li><a href="#"><i class="fa fa-dot-circle-o"></i>Tài khoản</a></li>
 	</ul>
+	{{/if}}
+
+	<li><a class="off-canvas-submenu-call" href="/logout"><i class="fa fa-dot-circle-o"></i>Đăng xuất</a></li>
 </ul>

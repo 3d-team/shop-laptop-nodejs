@@ -11,20 +11,20 @@ const Utils = require('./Utils');
  **/
 class Loader {
 
-	static loadController(moduleName, type = 'Default') {
+	static controller(moduleName, type = 'Default') {
 		const module = moduleName.toLowerCase();
 		const controller = Utils.capitalize(type).concat('Controller');
-		const controllerPath = path.join(config.moduleDirname, module, 'controllers');
+		const controllerPath = path.join(config.MODULE_DIR, module, 'controllers');
 
 		return require(path.join(controllerPath, controller));
 	}
 
-	static loadModel(model) {
+	static model(model) {
 		const modelName = Utils.capitalize(model).concat('Model.js');
 
 		let existedModel;
-		fs.readdirSync(config.moduleDirname).forEach((module) => {
-			const modelDirectory = path.join(config.moduleDirname, module, "models");
+		fs.readdirSync(config.MODULE_DIR).forEach((module) => {
+			const modelDirectory = path.join(config.MODULE_DIR, module, "models");
 
 			if (fs.existsSync(modelDirectory)) {
 				fs.readdirSync(modelDirectory).forEach((file) => {	

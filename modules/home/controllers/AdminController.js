@@ -1,13 +1,8 @@
-const path = require('path');
-
-const layout = "admin";
-
 class AdminController {
 
 	index(req, res) {
 
 		res.render('adminIndex', {
-			layout: layout,
 			title: "Home",
 			content: "Admin: index"
 		});
@@ -16,7 +11,6 @@ class AdminController {
 	revenue(req, res) {
 
 		res.render('revenue', {
-			layout: layout,
 			title: "Home",
 			content: "Admin: index"
 		});
@@ -25,7 +19,6 @@ class AdminController {
 	bestseller(req, res) {
 
 		res.render('bestseller', {
-			layout: layout,
 			title: "Home",
 			content: "Admin: index"
 		});

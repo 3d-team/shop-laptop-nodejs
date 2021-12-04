@@ -1,6 +1,7 @@
 const path = require('path');
 
-const ProductModel = require('./../models/ProductModel');
+const Loader = require("./../../../core/Loader");
+const ProductModel = Loader.model('product');
 
 class DefaultController {
 

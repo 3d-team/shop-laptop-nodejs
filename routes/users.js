@@ -2,13 +2,25 @@ const express = require('express');
 const router = express.Router();
 
 const Loader = require('./../core/Loader');
+const adminController = Loader.controller('user', 'admin');
+const defaultController = Loader.controller('user', 'default');
+
+const Authenticate = require('../middlewares/Authenticate');
+const VerifyAdmin = require('../middlewares/VerifyAdmin');
 
 /**
- *  Admin route.
+ *  Admin
  **/
-const adminController = Loader.loadController('user', 'admin');
-router.get('/admin/list', adminController.list);
-router.get('/admin/add', adminController.add);
-router.get('/admin/update', adminController.update);
+router.all('/admin/list', VerifyAdmin, adminController.list);
+router.all('/admin/add', VerifyAdmin, adminController.add);
+router.all('/admin/update/:userId', VerifyAdmin, adminController.update);
+router.all('/admin/delete/:userId', VerifyAdmin, adminController.delete);
+
+
+/**
+ * User
+ **/
+router.all('/personal', Authenticate, defaultController.personal);
+
 
 module.exports = router;

@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
+const config = require('./config');
 
-const sequelize = new Sequelize('sql6453825', 'sql6453825', 'rUMEMYE61g', {
-	host: 'sql6.freemysqlhosting.net',
+const sequelize = new Sequelize('1wgEqBN44u', '1wgEqBN44u', 'nWLLjcfGkm', {
+	host: 'remotemysql.com',
 	dialect: 'mysql',
 	port: 3306
 });
