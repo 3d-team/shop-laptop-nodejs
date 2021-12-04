@@ -5,16 +5,12 @@ const jwt = require("jsonwebtoken");
 const VerifyAdmin = (req, res, next) => {
 	const token = req.cookies.access_token;
 
-	console.log(token);
-
 	if (!token) {
 		res.redirect('/login');
 	}
 
 	try {
 		const data = jwt.verify(token, config.APP_KEY);
-
-		console.log(data);
 
 		if (!data.admin) {
 			res.status(403).render('error', {
