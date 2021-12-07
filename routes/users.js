@@ -12,9 +12,9 @@ const VerifyAdmin = require('../middlewares/VerifyAdmin');
  *  Admin
  **/
 router.all('/admin/list', VerifyAdmin, adminController.list);
-router.all('/admin/add', VerifyAdmin, adminController.add);
-router.all('/admin/update/:userId', VerifyAdmin, adminController.update);
-router.all('/admin/delete/:userId', VerifyAdmin, adminController.delete);
+router.all('/admin/add', VerifyAdmin,adminController.add);
+router.all('/admin/update/:userId', VerifyAdmin,adminController.update);
+router.all('/admin/delete/:userId', VerifyAdmin,adminController.delete);
 
 
 /**

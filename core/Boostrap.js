@@ -5,6 +5,10 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const fs = require('fs');
 const hbs = require('hbs');
+const expressSession = require('express-session');
+const flash = require('express-flash')
+const passport = require('passport');
+const cors = require('cors');
 
 const config = require("../config/config");
 const sequelize = require('./../config/database');
@@ -42,15 +46,25 @@ function viewEngine(app) {
  * 
  * Set up default and custom middlewares.
  **/
+const Auth = require('./Auth');
 const template = require("../middlewares/TemplateMiddleware");
 const verifyAdmin = require("../middlewares/VerifyAdmin");
 
 function registerMiddleware(app) {
+	app.use(cors());
 	app.use(logger('dev'));
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: true }));
 	app.use(cookieParser());
 	app.use(express.static(path.join(__dirname, '../public')));
+	app.use(expressSession({
+		secret: config.APP_KEY,
+		resave: false,
+    	saveUninitialized: false
+    }));
+	app.use(passport.initialize());
+	app.use(passport.session());
+	app.use(flash());
 
 	/* Custom */
 	app.use("/*", template);

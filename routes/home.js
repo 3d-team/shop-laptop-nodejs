@@ -7,16 +7,30 @@ const adminController = Loader.controller('home', 'admin');
 
 const userDefaultController = Loader.controller('user', 'default');
 
+const Auth = require('./../core/Auth');
 const Authenticate = require('../middlewares/Authenticate');
 const RedirectIfAuthenticated = require('../middlewares/RedirectIfAuthenticated');
 const VerifyAdmin = require('../middlewares/VerifyAdmin');
+
 
 /**
  * Common route.
  * 
  **/
-router.all('/register', RedirectIfAuthenticated, userDefaultController.register);
-router.all('/login', RedirectIfAuthenticated, userDefaultController.login);
+router.get('/register', RedirectIfAuthenticated, userDefaultController.register);
+router.post('/register', Auth.authenticate('signup', {
+    successRedirect: '/users/personal',
+    failureRedirect: '/register',
+    failureFlash : true 
+}));
+
+router.get('/login', RedirectIfAuthenticated, userDefaultController.login);
+router.post('/login', Auth.authenticate('signin', { 
+    successRedirect: '/users/personal', 
+    failureRedirect: '/login', 
+    failureFlash: true 
+}));
+
 router.get('/logout', userDefaultController.logout);
 
 /**
