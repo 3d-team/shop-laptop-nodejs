@@ -2,6 +2,7 @@ const path = require('path');
 
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
+const menu = require('../../common_model/MenuContent');
 
 class DefaultController {
 
@@ -19,7 +20,8 @@ class DefaultController {
 			.then((products) => {
 				res.render('productList', {
 					title: "Product",
-					data: products
+					data: products,
+					menuContent: menu.getContentProductMenuItem()
 				});
 			})
 			.catch(function(err) {
@@ -39,7 +41,8 @@ class DefaultController {
 			.then((product) => {
 				res.render('productDetail', {
 					title: "Product",
-					data: product
+					data: product,
+					menuContent: menu.getContentProductMenuItem()
 				});
 			})
 			.catch(function(err) {

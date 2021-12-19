@@ -1,26 +1,27 @@
+const menu = require('../../common_model/MenuContent');
 class DefaultController {
-
+	
 	index(req, res) {
 
 		res.render('index', {
-			title: "Home",
-			content: "Default: index"
+			content: "Default: index",
+			menuContent: menu.getContentHomeMenuItem()
 		});
 	}
 
 	about(req, res) {
 
 		res.render('aboutUs', {
-			title: "Home",
-			content: "Default: index"
+			content: "Default: index",
+			menuContent: menu.getContentAboutMenuItem()
 		});
 	}
 
 	contact(req, res) {
 
 		res.render('contactUs', {
-			title: "Home",
-			content: "Default: index"
+			content: "Default: index",
+			menuContent: menu.getContentContactMenuItem()
 		});
 	}
 }
