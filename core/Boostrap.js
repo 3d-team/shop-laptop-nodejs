@@ -68,6 +68,11 @@ function registerMiddleware(app) {
 
 	/* Custom */
 	app.use("/*", template);
+
+	app.use((req, res, next) => { //This middleware checks the local user
+		res.locals.user = req.user
+		next()
+	  });
 }
 
 
