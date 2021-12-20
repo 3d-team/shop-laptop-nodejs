@@ -11,6 +11,7 @@ const VerifyAdmin = require('../middlewares/VerifyAdmin');
 /**
  * Custom route.
  **/
+router.get('/', Authenticate, defaultController.index);
 router.get('/cart', Authenticate, defaultController.cart);
 router.get('/list', Authenticate, defaultController.list);
 

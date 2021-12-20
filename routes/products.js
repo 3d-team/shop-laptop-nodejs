@@ -30,5 +30,4 @@ router.get('/', defaultController.index);
 router.get('/:page', defaultController.index);
 router.get('/detail/:productId', defaultController.detail);
 
-
 module.exports = router;
