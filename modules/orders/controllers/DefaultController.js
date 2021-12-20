@@ -9,7 +9,6 @@ class DefaultController {
 	}
 
 	cart(req, res) {
-		
 
 		res.render('orders', {
 			title: "Product",

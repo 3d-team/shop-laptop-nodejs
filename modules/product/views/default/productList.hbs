@@ -1,5 +1,86 @@
 <div class="featured-page">
 	<div class="container">
+		<div class="find-options">
+			<input type="text" class="find-edit-text">
+			<input class="submit-button" type="button" name="" id="" value="Tìm kiếm">
+			<br><br>
+			<form>
+			<label for="brand">Hãng</label>
+			<select name="brand" id="brand" class="select-option">
+				<option value="">Tất cả</option>
+				<option value="">Apple</option>
+				<option value="">Asus</option>
+				<option value="">MSI</option>
+				<option value="">Dell</option>
+				<option value="">Acer</option>
+				<option value="">LG</option>
+				<option value="">Hp</option>
+			</select>
+			<label for="kind-customer"> Nhu cầu</label>
+			<select name="kind-customer" id="kind-customer" class="select-option">
+				<option value="">Tất cả</option>
+				<option value="">Học tập, văn phòng</option>
+				<option value="">Chuyên Game</option>
+				<option value="">Đồ họa kỹ thuật</option>
+				<option value="">Cao cấp, sang trọng</option>
+			</select>
+			<input type="submit" value="Lọc" class="submit-button">
+			</form>
+		</div>
+	
+
+		<div class="row">
+			<div class="col-md-4 col-sm-12">
+			<div class="section-heading">
+				<h1>Danh sách sản phẩm</h1>
+			</div>
+			</div>
+			<div class="col-md-8 col-sm-12">
+			<div id="filters" class="button-group">
+				<button class="btn btn-primary" data-filter="*">Tất cả</button>
+				<button class="btn btn-primary" data-filter=".low">Giá tăng dần</button>
+				<button class="btn btn-primary" data-filter=".high">Giá giảm dần</button>
+			</div>
+			</div>
+		</div>
+	</div>
+  
+    <div class="featured container no-gutter">
+		<div class="row posts">
+			{{#each data}}
+				<div id="{{this.id}} % 3" class="item new col-md-4">
+					<a href="/products/detail/{{this.id}}">
+						<div class="featured-item">
+							<img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
+							<h4>{{this.name}}</h4>
+							<h5>{{this.price}}VND</h5>
+							
+							<p>{{this.content}}</p>
+						</div>
+					</a>
+				</div>
+			{{/each}}
+		</div>        
+    </div>
+
+    <div class="page-navigation">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <ul>
+              <li class="current-page"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+{{!-- <div class="featured-page">
+	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-sm-12">
 				<div class="section-heading">
@@ -53,4 +134,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> --}}
