@@ -26,7 +26,7 @@ router.post('/register', Auth.authenticate('signup', {
 
 router.get('/login', RedirectIfAuthenticated, userDefaultController.login);
 router.post('/login', Auth.authenticate('signin', { 
-    successRedirect: '/users/personal', 
+    successRedirect: '/', 
     failureRedirect: '/login', 
     failureFlash: true 
 }));

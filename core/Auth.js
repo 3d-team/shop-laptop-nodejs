@@ -80,8 +80,8 @@ class Auth {
 		    passwordField: 'password',
 		    passReqToCallback : true 
 		}, function(req, email, password, done) {
-
-		        findOrCreateUser = function() {
+		         
+		        process.nextTick(function() {
 		            const condition = {
 		                where: {email: email }
 		            };
@@ -109,9 +109,7 @@ class Auth {
 		                .catch((err) => {
 		                    return done(err);
 		                });
-		        };
-		         
-		        process.nextTick(findOrCreateUser);
+		        });
 		    })
 		);
 	}
