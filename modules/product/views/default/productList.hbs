@@ -1,8 +1,10 @@
 <div class="featured-page">
 	<div class="container">
 		<div class="find-options">
-			<input type="text" class="find-edit-text">
-			<input class="submit-button" type="button" name="" id="" value="Tìm kiếm">
+			<form action="/products/search" method="get">
+				<input class="find-edit-text" type="search" name ="keyword" placeholder="Tên sản phẩm..." >
+				<input class="submit-button" type="submit" name="" id="" value="Tìm kiếm">
+			</form>
 			<br><br>
 			<form method="get">
 			<label for="category">Hãng</label>
