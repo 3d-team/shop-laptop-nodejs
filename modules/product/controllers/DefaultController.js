@@ -48,6 +48,7 @@ class DefaultController {
 				res.render('productList', {
 					title: "Product",
 					data: products,
+					pageNumber: page,
 					menuContent: menu.getContentProductMenuItem()
 				});
 			})

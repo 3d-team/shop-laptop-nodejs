@@ -6,7 +6,7 @@
 				<input class="submit-button" type="submit" name="" id="" value="Tìm kiếm">
 			</form>
 			<br><br>
-			<form method="get">
+			<form action="/products" method="get">
 			<label for="category">Hãng</label>
 			<select name="category" id="category" class="select-option">
 				<option value="">Tất cả</option>
@@ -78,10 +78,10 @@
         <div class="row">
           <div class="col-md-12">
             <ul>
-              <li class="current-page"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+              <li class="current-page" ><a href="/products/1">1</a></li>
+              <li ><a href="/products/2">2</a></li>
+              <li ><a href="/products/3">3</a></li>
+              <li ><a href="#"><i class="fa fa-angle-right"></i></a></li>
             </ul>
           </div>
         </div>
@@ -90,8 +90,28 @@
 </div>
 
 <script>
+	var pathname = window.location.pathname;
+	console.log(pathname);
+	const temp = pathname.split('/');
+	console.log(temp);
+	var pageNumber = temp.length == 3 ? temp[2]: 1;
+	var pages = $(".page-navigation li");
+
+	for (var i = 0; i < pages.length; i++) {
+		if(pages[i].innerText == pageNumber){
+			var current = $(".page-navigation").find(".current-page");
+			if (current.length > 0) { 
+				current[0].className = current[0].className.replace("current-page", "");
+			}
+			pages[i].className += " current-page";
+			break;	
+		}
+	}
+</script>
+<script>
 	const urlSearchParams = new URLSearchParams(window.location.search);
 	const params = Object.fromEntries(urlSearchParams.entries());
+	console.log(params);
 
 	if(params.category){
 		$('#category').val(params.category);
@@ -100,60 +120,3 @@
 		$('#price').val(params.price);
 	}	
 </script>
-
-{{!-- <div class="featured-page">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-4 col-sm-12">
-				<div class="section-heading">
-					<div class="line-dec"></div>
-					<h1>Danh sách sản phầm</h1>
-				</div>
-			</div>
-			<div class="col-md-8 col-sm-12">
-				<div id="filters" class="button-group">
-					<button class="btn btn-primary" data-filter="*">Tất cả</button>
-					<button class="btn btn-primary" data-filter=".new">Mới nhât</button>
-					<button class="btn btn-primary" data-filter=".low">Giá thấp</button>
-					<button class="btn btn-primary" data-filter=".high">Giá cao</button>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="featured container no-gutter">
-
-		<div class="row posts">
-
-			{{#each data}}
-				<div id="{{this.id}} % 3" class="item new col-md-4">
-					<a href="/products/detail/{{this.id}}">
-						<div class="featured-item">
-							<img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
-							<h4>{{this.name}}</h4>
-							<h5>{{this.price}}VND</h5>
-							
-							<p>{{this.content}}</p>
-						</div>
-					</a>
-				</div>
-			{{/each}}
-
-		</div>
-</div>
-
-<div class="page-navigation">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<ul>
-					<li class="current-page"><a href="/products/1">1</a></li>
-					<li><a href="/products/2">2</a></li>
-					<li><a href="/products/3">3</a></li>
-					<li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div> --}}
