@@ -8,12 +8,27 @@ function navBarResponsiveFunc() {
 	}
 }
 
+$('.button-add-to-cart').on('click', function () {	
+	var cart = $('#shopping-cart');	
+	
+	$(this).effect("transfer", {to: cart}, 150);
+
+	setTimeout(function () {
+		cart.effect("shake", {
+			times: 2
+		}, 200);
+	}, 100);
+
+	var numberItem = document.getElementById('number-item-in-cart');
+	var n = parseInt(numberItem.innerText) + 1;
+	numberItem.innerText = n;
+	// if(n != 0){
+	// 	numberItem.classList.add('cart-none-empty');
+	// }
+});    
+
 jQuery( document ).ready(function( $ ) {
-
-
 	"use strict";
-
-
 		$('.owl-carousel').owlCarousel({
 		    items:4,
 		    lazyLoad:true,

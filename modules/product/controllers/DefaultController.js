@@ -2,7 +2,8 @@ const path = require('path');
 
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
-const menu = require('../../common_model/MenuContent');
+var menu = require('../../common_model/MenuContent');
+const app = require('../../../app');
 
 class DefaultController {
 
@@ -28,6 +29,12 @@ class DefaultController {
 				res.status(err.status || 500);
 				res.render('error');
 			});
+	}
+
+	addToCart(req, res){
+		console.log(req.body);
+		res.json({msg:'success'});
+		res.app.locals.Cart.number += 1;
 	}
 
 	detail(req, res) {
