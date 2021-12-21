@@ -27,7 +27,9 @@ router.get('/admin/category/update', VerifyAdmin, adminController.updateCategory
  * Routing for primary client.
  **/
 router.get('/', defaultController.index);
+router.get('/search', defaultController.search);
 router.get('/:page', defaultController.index);
 router.get('/detail/:productId', defaultController.detail);
+
 
 module.exports = router;
