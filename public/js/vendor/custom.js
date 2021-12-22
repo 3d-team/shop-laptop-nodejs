@@ -9,23 +9,20 @@ function navBarResponsiveFunc() {
 }
 
 $('.button-add-to-cart').on('click', function () {	
-	var cart = $('#shopping-cart');	
-	
+	var cart = $('#shopping-cart');		
 	$(this).effect("transfer", {to: cart}, 150);
-
 	setTimeout(function () {
 		cart.effect("shake", {
 			times: 2
 		}, 200);
 	}, 100);
+});   
 
-	var numberItem = document.getElementById('number-item-in-cart');
-	var n = parseInt(numberItem.innerText) + 1;
-	numberItem.innerText = n;
-	// if(n != 0){
-	// 	numberItem.classList.add('cart-none-empty');
-	// }
-});    
+$(document).ready(function(){
+    $('.delete-cart-item-btn').click(function(){
+		$('#cart-item-id-' + this.id).toggle("blind");
+    });
+})
 
 jQuery( document ).ready(function( $ ) {
 	"use strict";

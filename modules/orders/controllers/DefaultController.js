@@ -2,6 +2,8 @@
 
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
+const OrderModel = Loader.model('order');
+const OrderItemModel = require('../models/OrderItemModel');
 // var menu = require('../../common_model/MenuContent');
 // const app = require('../../../app');
 class DefaultController {
@@ -25,7 +27,8 @@ class DefaultController {
 		console.log(productID);
 		if(res.app.locals.Cart.items.has(productID)){
 			var cartItem = res.app.locals.Cart.items.get(productID);
-			cartItem.unit += cartItem.unit/cartItem.quantity;
+			cartItem.unit += cartItem.price;
+			res.app.locals.Cart.total_unit += cartItem.price;
 			cartItem.quantity += 1;
 			console.log(productID);
 		}
@@ -44,7 +47,8 @@ class DefaultController {
 					image: products[0].dataValues.image
 				};
 				res.app.locals.Cart.items.set(productID, cartItem);
-				console.log("PUSH SUCCESS\n");
+				res.app.locals.Cart.total_unit += cartItem.price;
+				console.log("ADD ITEM TO CART SUCCESS\n");
 			})
 			.catch(function(err) {
 				res.status(err.status || 500);
@@ -52,7 +56,69 @@ class DefaultController {
 			});
 		}
 		console.log(res.app.locals.Cart);
-		res.json({msg:'success'});
+		res.json({msg:'success', cart_number: res.app.locals.Cart.number});
+	}
+
+	remove(req, res){
+		var productID = req.body.product_id;
+		var items = res.app.locals.Cart.items;
+		if(items.has(productID)){
+			res.app.locals.Cart.total_unit -= items.get(productID).unit;
+			res.app.locals.Cart.number -= items.get(productID).quantity;
+			if(items.delete(productID)){
+				res.json({msg:'success', 
+						total_unit: res.app.locals.Cart.total_unit, 
+						cart_number: res.app.locals.Cart.number});
+			}
+			else{
+				res.json({msg:'fail'});
+			}
+		}		
+	}
+
+	async submit(req, res){
+		// console.log(req.user.id);
+		if(res.app.locals.Cart.number <= 0){
+			res.json({msg:'empty'});
+			return;
+		}
+		if(req.body.confirm_submit == 'YES' && req.user.id){
+			var newOrder = {
+				customer_id: req.user.id,
+				delivery_status: 'Shop đang chuẩn bị hàng!',
+				delivery_address: req.body.deliveryAddress
+			}
+
+			var result = await OrderModel.create(newOrder);
+
+			console.log("ORDER");
+			console.log(result.id);
+			for (const value of res.app.locals.Cart.items.values()) {
+				var cartItem = {
+					order_id: result.id,
+					product_id: value.product_id,
+					quantity: value.quantity,
+					unit: value.unit
+				};
+				var ret = await OrderItemModel.create(cartItem);
+				console.log("CART_ITEM");
+				console.log(ret);
+				
+			}
+			res.app.locals.Cart.items.clear();
+			res.app.locals.Cart.number = 0;
+			res.app.locals.Cart.total_unit = 0;
+			res.json({msg:'success'});
+		}
+	}
+
+	destroy(req, res){
+		if(req.body.confirm_destroy == 'YES'){
+			res.app.locals.Cart.items.clear();
+			res.app.locals.Cart.number = 0;
+			res.app.locals.Cart.total_unit = 0;
+			res.json({msg:'success'});
+		}
 	}
 
 	cart(req, res) {

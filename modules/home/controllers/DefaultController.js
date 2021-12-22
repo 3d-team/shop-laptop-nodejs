@@ -5,9 +5,8 @@ class DefaultController {
 	
 	index(req, res) {
 		// app.locals.Cart.number = req.app.locals.CartSize;
-		// console.log(res.app.locals);
 		res.render('index', {
-			content: "Default: index",			
+			content: "Default: index",		
 			menuContent: menu.getContentHomeMenuItem()
 		});
 	}

@@ -7,6 +7,7 @@ dotenv.config();
 
 app.locals.Cart = {
     number: 0,
+    total_unit: 0,
     title: "cart",
     items: new Map()
 }

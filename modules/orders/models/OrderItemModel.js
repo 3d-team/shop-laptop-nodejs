@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../../config/database');
 
-const OrderItemModel = sequelize.define('Order', {
+const OrderItemModel = sequelize.define('OrderItem', {
 	id: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
@@ -21,5 +21,4 @@ const OrderItemModel = sequelize.define('Order', {
 	updatedAt: 'updated_at'
 });
 
-
-module.exports = UserModel;
+module.exports = OrderItemModel;

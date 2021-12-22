@@ -13,6 +13,9 @@ const VerifyAdmin = require('../middlewares/VerifyAdmin');
  **/
 router.get('/', Authenticate, defaultController.index);
 router.post('/add', defaultController.add);
+router.post('/remove', defaultController.remove);
+router.post('/submit', defaultController.submit);
+router.post('/destroy', defaultController.destroy);
 router.get('/cart', Authenticate, defaultController.cart);
 router.get('/list', Authenticate, defaultController.list);
 

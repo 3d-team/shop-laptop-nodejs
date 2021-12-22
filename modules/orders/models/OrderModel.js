@@ -10,7 +10,7 @@ const OrderModel = sequelize.define('Order', {
 	},
 	customer_id: Sequelize.INTEGER,
 	delivery_status: Sequelize.STRING,
-	note: Sequelize.TEXT,
+	delivery_address: Sequelize.TEXT,
 	status: Sequelize.INTEGER,
 	created_at: Sequelize.DATE,
 	updated_at: Sequelize.DATE
@@ -21,4 +21,4 @@ const OrderModel = sequelize.define('Order', {
 });
 
 
-module.exports = UserModel;
+module.exports = OrderModel;
