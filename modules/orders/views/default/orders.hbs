@@ -17,9 +17,9 @@
                 
                 <div class="cart-item-detail">
                     <h4>{{this.name}}</h4>
-                    <h5>{{this.unit}}.VND</h5>
+                    <h5 id="total-unit-item-{{this.product_id}}">{{this.unit}}.VND</h5>
                     <h6>Số lượng:
-                        <input type="number"  value={{this.quantity}}>
+                        <input type="number" class="change-number-item" id="{{this.product_id}}" value={{this.quantity}}>
                     </h6>
                 </div>
                 <div class="">

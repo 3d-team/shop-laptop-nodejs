@@ -55,8 +55,31 @@ class DefaultController {
 				res.render('error');
 			});
 		}
-		console.log(res.app.locals.Cart);
+		// console.log(res.app.locals.Cart);
 		res.json({msg:'success', cart_number: res.app.locals.Cart.number});
+	}
+
+	changeNumberItem(req, res){
+		// console.log(req.body.product_id);
+		if(req.body.number < 0){
+			res.json({msg:'negative-number'});
+			return;
+		}
+		var productID = req.body.product_id
+		console.log(productID);
+		if(res.app.locals.Cart.items.has(productID)){
+			var cartItem = res.app.locals.Cart.items.get(productID);
+			res.app.locals.Cart.number += req.body.number - cartItem.quantity;
+			cartItem.unit += cartItem.price*(req.body.number - cartItem.quantity);
+			res.app.locals.Cart.total_unit += cartItem.price*(req.body.number - cartItem.quantity);
+			cartItem.quantity = parseInt(req.body.number);
+			// console.log(productID);
+			res.json({msg:'success', 
+					  cart_number: res.app.locals.Cart.number, 
+					  total_unit: res.app.locals.Cart.total_unit,
+					  total_unit_item: cartItem.unit});
+		}
+		console.log(res.app.locals.Cart);		
 	}
 
 	remove(req, res){
@@ -82,7 +105,12 @@ class DefaultController {
 			res.json({msg:'empty'});
 			return;
 		}
-		if(req.body.confirm_submit == 'YES' && req.user.id){
+		if(req.user === undefined){
+			console.log(req.user);
+			res.json({msg:'not-login'});
+			return;
+		}
+		if(req.body.confirm_submit == 'YES'){
 			var newOrder = {
 				customer_id: req.user.id,
 				delivery_status: 'Shop đang chuẩn bị hàng!',
