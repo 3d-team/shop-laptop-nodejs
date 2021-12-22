@@ -1,29 +1,39 @@
 <div class="featured-page">
 	<div class="container">
 		<div class="find-options">
-			<input type="text" class="find-edit-text">
-			<input class="submit-button" type="button" name="" id="" value="Tìm kiếm">
+			<form action="/products/search" method="get">
+				<input class="find-edit-text" type="search" name ="keyword" placeholder="Tên sản phẩm..." >
+				<input class="submit-button" type="submit" name="" id="" value="Tìm kiếm">
+			</form>
 			<br><br>
-			<form>
-			<label for="brand">Hãng</label>
-			<select name="brand" id="brand" class="select-option">
+			<form action="/products" method="get">
+			<label for="category">Hãng</label>
+			<select name="category" id="category" class="select-option">
 				<option value="">Tất cả</option>
-				<option value="">Apple</option>
-				<option value="">Asus</option>
-				<option value="">MSI</option>
-				<option value="">Dell</option>
-				<option value="">Acer</option>
-				<option value="">LG</option>
-				<option value="">Hp</option>
+				<option value="apple">Apple</option>
+				<option value="asus">Asus</option>
+				<option value="msi">MSI</option>
+				<option value="dell">Dell</option>
+				<option value="acer">Acer</option>
+				<option value="lg">LG</option>
+				<option value="hp">Hp</option>
 			</select>
-			<label for="kind-customer"> Nhu cầu</label>
-			<select name="kind-customer" id="kind-customer" class="select-option">
+			<label for="price"> Giá tiền</label>
+			<select name="price" id="price" class="select-option">
 				<option value="">Tất cả</option>
-				<option value="">Học tập, văn phòng</option>
-				<option value="">Chuyên Game</option>
-				<option value="">Đồ họa kỹ thuật</option>
-				<option value="">Cao cấp, sang trọng</option>
+				<option value="duoi-10-trieu">Dưới 10 triệu</option>
+				<option value="10-15-trieu">Từ 10 - 15 triệu</option>
+				<option value="15-20-trieu">Từ 15 - 20 triệu</option>
+				<option value="tren-20-trieu">Trên 20 triệu</option>
 			</select>
+			{{!-- <label for="kind-customer"> Nhu cầu</label>
+			<select name="kindCustomer" id="kindCustomer" class="select-option">
+				<option value="all">Tất cả</option>
+				<option value="education">Học tập, văn phòng</option>
+				<option value="game">Chuyên Game</option>
+				<option value="graphic">Đồ họa kỹ thuật</option>
+				<option value="luxury">Cao cấp, sang trọng</option>
+			</select> --}}
 			<input type="submit" value="Lọc" class="submit-button">
 			</form>
 		</div>
@@ -69,13 +79,82 @@
         <div class="row">
           <div class="col-md-12">
             <ul>
-              <li class="current-page"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+              <li class="current-page" ><a>1</a></li>
+              <li ><a >2</a></li>
+              <li ><a >3</a></li>
+              <li ><a ><i class="fa fa-angle-right"></i></a></li>
             </ul>
           </div>
         </div>
       </div>
     </div>
 </div>
+
+
+<script>
+	function parseSearchVal(searchVal){
+		var queries = {};
+		var searches = [];
+		
+		if(searchVal){
+			searches = searchVal.replace("?","").split('&');
+		}
+	
+		for(var i = 0; i< searches.length; i++){
+			var temp = searches[i].split('=');
+			var query = temp[0]; var value = temp[1];
+			queries[query] = value;
+		}
+
+		return queries;
+	}
+
+	var pages = $(".page-navigation li");
+
+	for (var i = 0; i < pages.length; i++) {
+		pages[i].onclick = function(){
+			var url = window.location.origin + window.location.pathname + "?";
+			var searchVal = window.location.search;
+
+			var queries = parseSearchVal(searchVal);
+
+			if(queries.page){
+				queries.page = this.innerText;
+			}else{
+				queries['page'] = this.innerText;
+			}
+			
+			Object.keys(queries).forEach(function(key) {
+				url += (key + "=" + queries[key]+ "&");
+			});
+
+			url = url.substring(0, url.length - 1);		
+			window.location.replace(url);
+		}
+	}
+	var searchVal = window.location.search;
+	var queries = parseSearchVal(searchVal);
+	var pageNumber = queries["page"];
+
+	for (var i = 0; i < pages.length; i++) {
+		if(pages[i].innerText == pageNumber){
+			var current = $(".page-navigation").find(".current-page");
+			if (current.length > 0) { 
+				current[0].className = current[0].className.replace("current-page", "");
+			}
+			pages[i].className += " current-page";
+			break;	
+		}
+	}
+</script>
+<script>
+	const urlSearchParams = new URLSearchParams(window.location.search);
+	const params = Object.fromEntries(urlSearchParams.entries());
+
+	if(params.category){
+		$('#category').val(params.category);
+	}
+	if(params.price){
+		$('#price').val(params.price);
+	}	
+</script>
