@@ -4,7 +4,8 @@ const Op = Sequelize.Op;
 
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
-const menu = require('../../common_model/MenuContent');
+var menu = require('../../common_model/MenuContent');
+const app = require('../../../app');
 
 class DefaultController {
 
@@ -45,6 +46,7 @@ class DefaultController {
 
 		ProductModel.findAll(condition)
 			.then((products) => {
+				// console.log(products);
 				res.render('productList', {
 					title: "Product",
 					data: products,

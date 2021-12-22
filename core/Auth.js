@@ -8,7 +8,6 @@ const UserModel = Loader.model('user');
 class Auth {
 	constructor() {
 		this.passport = passport;
-
 		this.configure();
 	}
 
@@ -47,7 +46,6 @@ class Auth {
 		    passwordField: 'password',
 		    passReqToCallback : true 
 		}, function(req, email, password, done) { 
-		        
 		        const condition = {
 		            where: {email: email }
 		        };

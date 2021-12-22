@@ -23,7 +23,7 @@
 			</ul>
 		</div>
 		<div class="cart-login">
-			<a href="/orders"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a>
+			<a href="/orders"><i id="shopping-cart" class="fa fa-shopping-cart"></i> Giỏ hàng(<span id="number-item-in-cart" class="cart-none-empty">{{Cart.number}}</span>)</a>
 			{{#if user}}
 				<a href="/login"><i class="fa fa-user"></i> Tài khoản</a>   
 			{{else}}
