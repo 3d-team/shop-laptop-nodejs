@@ -41,7 +41,6 @@ $(document).ready(function(){
                 if(response.msg=='success'){ 
                     var numberItem = document.getElementById('number-item-in-cart');
                     numberItem.innerText = response.cart_number;
-                    console.log(val);
                 }
             },  
             error:function(response){                  
