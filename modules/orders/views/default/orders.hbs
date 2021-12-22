@@ -7,28 +7,26 @@
                 </div>
             </div>
         </div>
+        {{#each data}}
+            <div class="cart-item" id={{this.product_id}}>
+                <div>
+                    <img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
+                </div>
+                
+                <div class="cart-item-detail">
+                    <h4>{{this.name}}</h4>
+                    <h5>{{this.unit}}.VND</h5>
+                    <h6>Số lượng:
+                        <input type="number"  value={{this.quantity}}>
+                    </h6>
+                </div>
+                <div class="">
+                    <input class="delete-button" type="button" value="Xóa">
+                </div>
+            </div>
+        {{/each}}
 
-        <div class="cart-item">
-            <div>
-                <img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
-            </div>
-            
-            <div class="cart-item-detail">
-                <h4>Asus ROG Zephyrus G14 Alan Walker</h4>
-                <h5>44.990.000VND</h5>
-                <h6>Số lượng:
-                    <input type="number"
-                    onfocus="if(this.value == '1') { this.value = ''; }" 
-                    onBlur="if(this.value == '') { this.value = '1';}"
-                    value="1">
-                </h6>
-            </div>
-            <div class="">
-                <input class="delete-button" type="button" value="Xóa">
-            </div>
-        </div>
-
-        <div class="cart-item">
+        {{!-- <div class="cart-item">
             <div>
                 <img src="/images/msi-modern15.jpg" alt="Item 1">
             </div>
@@ -64,7 +62,7 @@
             <div>
                 <input class="delete-button" type="button" value="Xóa">
             </div>
-        </div>   
+        </div>    --}}
 
         <div class="pay-area">
             <div>

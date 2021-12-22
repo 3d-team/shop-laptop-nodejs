@@ -1,21 +1,22 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../../config/database');
 
-const UserModel = sequelize.define('Order', {
+const OrderItemModel = sequelize.define('Order', {
 	id: {
 		type: Sequelize.INTEGER,
 		allowNull: false,
 		primaryKey: true,
 		autoIncrement: true
 	},
-	customer_id: Sequelize.INTEGER,
-	delivery_status: Sequelize.STRING,
-	note: Sequelize.TEXT,
+	order_id: Sequelize.INTEGER,
+	product_id: Sequelize.INTEGER,
+	quantity: Sequelize.INTEGER,
+    unit: Sequelize.DOUBLE,
 	status: Sequelize.INTEGER,
 	created_at: Sequelize.DATE,
 	updated_at: Sequelize.DATE
 }, {
-	tableName: "orders",
+	tableName: "order_items",
 	createdAt: 'created_at',
 	updatedAt: 'updated_at'
 });

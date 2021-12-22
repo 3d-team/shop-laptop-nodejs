@@ -19,6 +19,7 @@ class DefaultController {
 
 		ProductModel.findAll(condition)
 			.then((products) => {
+				// console.log(products);
 				res.render('productList', {
 					title: "Product",
 					data: products,
@@ -29,12 +30,6 @@ class DefaultController {
 				res.status(err.status || 500);
 				res.render('error');
 			});
-	}
-
-	addToCart(req, res){
-		console.log(req.body);
-		res.json({msg:'success'});
-		res.app.locals.Cart.number += 1;
 	}
 
 	detail(req, res) {

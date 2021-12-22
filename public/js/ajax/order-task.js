@@ -1,9 +1,9 @@
 $(document).ready(function(){
     $('.button-add-to-cart').click(function(){
-        // console.log("Thật tuyệt vời!!");
+        // get prodruct id
         productId = this.id;
         $.ajax({
-            url:'/products/add',  
+            url:'/orders/add',  // post target
             method:'post',
             dataType:'json',  
             data:{'product_id': productId},

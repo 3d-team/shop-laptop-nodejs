@@ -7,7 +7,8 @@ dotenv.config();
 
 app.locals.Cart = {
     number: 0,
-    title: "cart"
+    title: "cart",
+    items: new Map()
 }
 
 Bootstrap.viewEngine(app);
