@@ -78,10 +78,10 @@
         <div class="row">
           <div class="col-md-12">
             <ul>
-              <li class="current-page" ><a href="/products/1">1</a></li>
-              <li ><a href="/products/2">2</a></li>
-              <li ><a href="/products/3">3</a></li>
-              <li ><a href="#"><i class="fa fa-angle-right"></i></a></li>
+              <li class="current-page" ><a>1</a></li>
+              <li ><a >2</a></li>
+              <li ><a >3</a></li>
+              <li ><a ><i class="fa fa-angle-right"></i></a></li>
             </ul>
           </div>
         </div>
@@ -90,12 +90,49 @@
 </div>
 
 <script>
-	var pathname = window.location.pathname;
-	console.log(pathname);
-	const temp = pathname.split('/');
-	console.log(temp);
-	var pageNumber = temp.length == 3 ? temp[2]: 1;
+	function parseSearchVal(searchVal){
+		var queries = {};
+		var searches = [];
+		
+		if(searchVal){
+			searches = searchVal.replace("?","").split('&');
+		}
+	
+		for(var i = 0; i< searches.length; i++){
+			var temp = searches[i].split('=');
+			var query = temp[0]; var value = temp[1];
+			queries[query] = value;
+		}
+
+		return queries;
+	}
+
 	var pages = $(".page-navigation li");
+
+	for (var i = 0; i < pages.length; i++) {
+		pages[i].onclick = function(){
+			var url = window.location.origin + window.location.pathname + "?";
+			var searchVal = window.location.search;
+
+			var queries = parseSearchVal(searchVal);
+
+			if(queries.page){
+				queries.page = this.innerText;
+			}else{
+				queries['page'] = this.innerText;
+			}
+			
+			Object.keys(queries).forEach(function(key) {
+				url += (key + "=" + queries[key]+ "&");
+			});
+
+			url = url.substring(0, url.length - 1);		
+			window.location.replace(url);
+		}
+	}
+	var searchVal = window.location.search;
+	var queries = parseSearchVal(searchVal);
+	var pageNumber = queries["page"];
 
 	for (var i = 0; i < pages.length; i++) {
 		if(pages[i].innerText == pageNumber){
@@ -111,7 +148,6 @@
 <script>
 	const urlSearchParams = new URLSearchParams(window.location.search);
 	const params = Object.fromEntries(urlSearchParams.entries());
-	console.log(params);
 
 	if(params.category){
 		$('#category').val(params.category);

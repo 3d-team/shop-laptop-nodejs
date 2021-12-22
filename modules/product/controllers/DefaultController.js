@@ -10,7 +10,7 @@ class DefaultController {
 
 	index(req, res) {
 		const productPerPage = 4;
-		const page = +req.params.page || 1;
+		const page = +req.query.page || 1;
 		const category = req.query.category;
 		const price = req.query.price;
 
@@ -81,9 +81,15 @@ class DefaultController {
 	}
 
 	search(req, res){
+		const productPerPage = 4;
+		const page = +req.query.page || 1;
+		const offset = (page - 1) * productPerPage;
+
 		const keyword = req.query.keyword;
-		console.log("LVD",keyword);
+
 		const condition = {
+			offset: offset,
+			limit: productPerPage,
 			where: { name: { [Op.like]: '%' + keyword + '%'} }
 		};
 		ProductModel.findAll(condition)
