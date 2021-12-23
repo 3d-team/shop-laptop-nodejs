@@ -39,8 +39,7 @@ $(document).ready(function(){
             data:{'product_id': productId},
             success:function(response){  
                 if(response.msg=='success'){ 
-                    var numberItem = document.getElementById('number-item-in-cart');
-                    numberItem.innerText = response.cart_number;
+                    $("#number-item-in-cart").text(response.cart_number);
                 }
             },  
             error:function(response){                  
@@ -58,11 +57,9 @@ $(document).ready(function(){
             dataType:'json',  
             data:{'product_id': productId},
             success:function(response){  
-                if(response.msg=='success'){  
-                    var totalUnitTag = document.getElementById('total-unit-of-cart');
-                    totalUnitTag.innerText = 'Tổng tiền: ' +  response.total_unit +' VND';
-                    var numberItem = document.getElementById('number-item-in-cart');
-                    numberItem.innerText = response.cart_number;
+                if(response.msg=='success'){
+                    $("#total-unit-of-cart").text('Tổng tiền: ' +  response.total_unit +' VND');
+                    $("#number-item-in-cart").text(response.cart_number);
                     console.log('remove item-' + productId +'from cart successful');  
                 }
             },  
@@ -74,18 +71,42 @@ $(document).ready(function(){
 
     $('#submit-cart-btn').click(function(){
         var deliveryAddress = document.getElementById('delivery-address').value;
+        var fullnameReceiver = document.getElementById('fullname-receiver').value;
+        var phoneReceiver = document.getElementById('phone-receiver').value;
+        if(deliveryAddress === ''){
+            $('#delivery-address-err').text(' --Mục này không được bỏ trống');
+            return;
+        }
+        $('#delivery-address-err').text('');
+        if(fullnameReceiver === ''){
+            $('#fullname-receiver-err').text(' --Mục này không được bỏ trống');
+            return;
+        }
+        $('#fullname-receiver-err').text('');
+        if(phoneReceiver === ''){
+            $('#phone-receiver-err').text(' --Mục này không được bỏ trống');
+            return;
+        }
+        $('#phone-receiver-err').text('');
+
+
+        
         $.ajax({
             url:'/orders/submit',  // post target
             method:'post',
             dataType:'json',
             data:{'confirm_submit': 'YES',
-                    'address': deliveryAddress},
+                    'address': deliveryAddress,
+                    'phone_receiver': phoneReceiver,
+                    'fullname_receiver': fullnameReceiver},
             success:function(response){  
                 if(response.msg == 'success'){
-                    var totalUnitTag = document.getElementById('total-unit-of-cart');
-                    totalUnitTag.innerText = 'Tổng tiền: ' +  '0' +' VND';
-                    var numberItem = document.getElementById('number-item-in-cart');
-                    numberItem.innerText = '0';
+                    $("#total-unit-of-cart").text('Tổng tiền: ' +  0 +' VND');
+                    $("#number-item-in-cart").text('0');
+                    $("#delivery-address").val('');
+                    $("#fullname-receiver").val('');
+                    $("#phone-receiver").val('');
+
                     $('#item-lists').toggle("blind");
                     alert("Đặt hàng thành công!");
                 }
@@ -112,10 +133,11 @@ $(document).ready(function(){
             data:{'confirm_destroy': 'YES'},
             success:function(response){  
                 if(response.msg=='success'){  
-                    var totalUnitTag = document.getElementById('total-unit-of-cart');
-                    totalUnitTag.innerText = 'Tổng tiền: ' +  '0' +' VND';
-                    var numberItem = document.getElementById('number-item-in-cart');
-                    numberItem.innerText = '0';
+                    $("#total-unit-of-cart").text('Tổng tiền: ' +  0 +' VND');
+                    $("#number-item-in-cart").text('0');
+                    $("#delivery-address").val('');
+                    $("#fullname-receiver").val('');
+                    $("#phone-receiver").val('');
                     $('#item-lists').toggle("blind");
                 }
             },  
