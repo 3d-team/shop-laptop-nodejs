@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const config = require('./config');
 
-const sequelize = new Sequelize('laptop_store', 'laptopstore', '1234567', {
-	host: 'localhost',
+const sequelize = new Sequelize('1wgEqBN44u', '1wgEqBN44u', 'nWLLjcfGkm', {
+	host: 'remotemysql.com',
 	dialect: 'mysql',
 	port: 3306
 });

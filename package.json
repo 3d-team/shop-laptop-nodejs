@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "ajax-client": "^2.1.1",
-    "ajax-request": "^1.2.3",
+    "ajax-request": "^1.0.0",
     "bcrypt": "^5.0.1",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
@@ -18,7 +18,7 @@
     "express-flash": "^0.0.2",
     "express-handlebars": "^5.3.4",
     "express-session": "^1.17.2",
-    "hbs": "~4.0.4",
+    "hbs": "^4.2.0",
     "http-errors": "~1.6.3",
     "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
