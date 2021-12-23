@@ -99,9 +99,14 @@ class Auth {
 		                            phone: req.body.phone
 		                        };
 		                        
-		                        UserModel.create(data).then((result) => {
-		                            return done(null, result);
-		                        });
+		                        UserModel.create(data)
+			                        .then((result) => {
+			                            return done(null, result);
+			                        })
+			                        .catch((err) => {
+			                        	console.log(err);
+			                        	return done(err);
+			                        });
 		                    }
 		                })
 		                .catch((err) => {

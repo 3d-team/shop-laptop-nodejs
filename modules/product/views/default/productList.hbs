@@ -7,34 +7,36 @@
 			</form>
 			<br><br>
 			<form action="/products" method="get">
-			<label for="category">Hãng</label>
-			<select name="category" id="category" class="select-option">
-				<option value="">Tất cả</option>
-				<option value="apple">Apple</option>
-				<option value="asus">Asus</option>
-				<option value="msi">MSI</option>
-				<option value="dell">Dell</option>
-				<option value="acer">Acer</option>
-				<option value="lg">LG</option>
-				<option value="hp">Hp</option>
-			</select>
-			<label for="price"> Giá tiền</label>
-			<select name="price" id="price" class="select-option">
-				<option value="">Tất cả</option>
-				<option value="duoi-10-trieu">Dưới 10 triệu</option>
-				<option value="10-15-trieu">Từ 10 - 15 triệu</option>
-				<option value="15-20-trieu">Từ 15 - 20 triệu</option>
-				<option value="tren-20-trieu">Trên 20 triệu</option>
-			</select>
-			{{!-- <label for="kind-customer"> Nhu cầu</label>
-			<select name="kindCustomer" id="kindCustomer" class="select-option">
-				<option value="all">Tất cả</option>
-				<option value="education">Học tập, văn phòng</option>
-				<option value="game">Chuyên Game</option>
-				<option value="graphic">Đồ họa kỹ thuật</option>
-				<option value="luxury">Cao cấp, sang trọng</option>
-			</select> --}}
-			<input type="submit" value="Lọc" class="submit-button">
+				<label for="category">Hãng</label>
+				<select name="category" id="category" class="select-option">
+					<option value="">Tất cả</option>
+					<option value="apple">Apple</option>
+					<option value="asus">Asus</option>
+					<option value="msi">MSI</option>
+					<option value="dell">Dell</option>
+					<option value="acer">Acer</option>
+					<option value="lg">LG</option>
+					<option value="hp">Hp</option>
+				</select>
+
+				<label for="price"> Giá tiền</label>
+				<select name="price" id="price" class="select-option">
+					<option value="">Tất cả</option>
+					<option value="duoi-10-trieu">Dưới 10 triệu</option>
+					<option value="10-15-trieu">Từ 10 - 15 triệu</option>
+					<option value="15-20-trieu">Từ 15 - 20 triệu</option>
+					<option value="tren-20-trieu">Trên 20 triệu</option>
+				</select>
+
+				{{!-- <label for="kind-customer"> Nhu cầu</label>
+				<select name="kindCustomer" id="kindCustomer" class="select-option">
+					<option value="all">Tất cả</option>
+					<option value="education">Học tập, văn phòng</option>
+					<option value="game">Chuyên Game</option>
+					<option value="graphic">Đồ họa kỹ thuật</option>
+					<option value="luxury">Cao cấp, sang trọng</option>
+				</select> --}}
+				<input type="submit" value="Lọc" class="submit-button">
 			</form>
 		</div>
 	
@@ -179,6 +181,7 @@
 
 	//Sort by price - end
 </script>
+
 <script>
 	const urlSearchParams = new URLSearchParams(window.location.search);
 	const params = Object.fromEntries(urlSearchParams.entries());

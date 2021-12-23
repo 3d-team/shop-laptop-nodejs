@@ -51,9 +51,7 @@ class DefaultController {
 
 		ProductModel.findAll(condition)
 			.then((products) => {
-				// console.log(products);
 				res.render('productList', {
-					title: "Product",
 					data: products,
 					pageNumber: page,
 					menuContent: menu.getContentProductMenuItem()
