@@ -21,7 +21,6 @@ router.get('/admin/category', VerifyAdmin, adminController.listCategory);
 router.get('/admin/category/add', VerifyAdmin, adminController.addCategory);
 router.get('/admin/category/update', VerifyAdmin, adminController.updateCategory);
 
-
 /**
  * Default
  * Routing for primary client.

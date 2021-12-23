@@ -11,7 +11,12 @@ const VerifyAdmin = require('../middlewares/VerifyAdmin');
 /**
  * Custom route.
  **/
-router.get('/', Authenticate, defaultController.index);
+router.get('/', defaultController.index);
+router.post('/add', defaultController.add);
+router.post('/changeNumberItem', defaultController.changeNumberItem);
+router.post('/remove', defaultController.remove);
+router.post('/submit', defaultController.submit);
+router.post('/destroy', defaultController.destroy);
 router.get('/cart', Authenticate, defaultController.cart);
 router.get('/list', Authenticate, defaultController.list);
 

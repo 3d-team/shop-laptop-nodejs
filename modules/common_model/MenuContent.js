@@ -6,7 +6,7 @@ class MenuContent{
         this.about_menu_item_status = "";
         this.contact_menu_item_status = "";
     }
-
+    
     reset(){
         this.title = "";
         this.home_menu_item_status = "";

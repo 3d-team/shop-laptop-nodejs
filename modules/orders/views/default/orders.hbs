@@ -3,76 +3,39 @@
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <div class="section-heading">
-                    <h1>Danh sách các sản phầm trong giỏ hàng</h1>
+                    <a href="/orders/list">Xem danh sách đơn hàng đã đặt!</a>
+                    <h1>Danh sách các sản phẩm trong giỏ hàng hiện tại</h1>
                 </div>
             </div>
         </div>
-
-        <div class="cart-item">
-            <div>
-                <img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
+        <div id="item-lists">
+        {{#each data}}
+            <div class="cart-item" id="cart-item-id-{{this.product_id}}">
+                <div>
+                    <img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
+                </div>
+                
+                <div class="cart-item-detail">
+                    <h4>{{this.name}}</h4>
+                    <h5 id="total-unit-item-{{this.product_id}}">{{this.unit}}.VND</h5>
+                    <h6>Số lượng:
+                        <input type="number" class="change-number-item" id="{{this.product_id}}" value={{this.quantity}}>
+                    </h6>
+                </div>
+                <div class="">
+                    <input class="delete-button delete-cart-item-btn" id="{{this.product_id}}" type="button" value="Xóa">
+                </div>
             </div>
-            
-            <div class="cart-item-detail">
-                <h4>Asus ROG Zephyrus G14 Alan Walker</h4>
-                <h5>44.990.000VND</h5>
-                <h6>Số lượng:
-                    <input type="number"
-                    onfocus="if(this.value == '1') { this.value = ''; }" 
-                    onBlur="if(this.value == '') { this.value = '1';}"
-                    value="1">
-                </h6>
-            </div>
-            <div class="">
-                <input class="delete-button" type="button" value="Xóa">
-            </div>
+        {{/each}}
         </div>
-
-        <div class="cart-item">
-            <div>
-                <img src="/images/msi-modern15.jpg" alt="Item 1">
-            </div>
-            <div class="cart-item-detail">
-                <h4>MSI Modern 15 A11MU</h4>
-                <h5>18.990.000VND</h5>
-                <h6>Số lượng:
-                    <input type="number"
-                    onfocus="if(this.value == '1') { this.value = ''; }" 
-                    onBlur="if(this.value == '') { this.value = '1';}"
-                    value="1">
-                </h6>
-            </div>
-            <div>
-                <input class="delete-button" type="button" value="Xóa">
-            </div>
-        </div>
-
-        <div class="cart-item">
-            <div>
-                <img src="/images/asus-vivobook-pro15-oled.jpg" alt="Item 1">                  
-            </div>
-            <div class="cart-item-detail">
-                <h4>Asus VivoBook Pro 15 OLED</h4>
-                <h5>31.990.000VND</h5>
-                <h6>Số lượng:
-                    <input type="number"
-                    onfocus="if(this.value == '1') { this.value = ''; }" 
-                    onBlur="if(this.value == '') { this.value = '1';}"
-                    value="1">
-                </h6>
-            </div>
-            <div>
-                <input class="delete-button" type="button" value="Xóa">
-            </div>
-        </div>   
 
         <div class="pay-area">
             <div>
-                <h4>Tổng tiền: 95.970.000 VND</h4>
+                <h4 id="total-unit-of-cart">Tổng tiền: {{Cart.total_unit}} VND</h4>
             </div>
             <div>
                 <p>Địa chỉ nhận hàng:</p>
-                <input type="text" class="input-item">
+                <input type="text" class="input-item" id="delivery-address">
             </div>
             <div class="pay-option">
                 <p>Hình thức thanh toán:</p>
@@ -81,9 +44,10 @@
                 <input type="radio" id="thanh-toan-bang-momo" name="hinh-thuc-thanh-toan">
                 <label for="thanh-toan-bang-momo">Thanh toán qua momo</label>
             </div>
-            <div class="main-button">
-                <a href="#"> Đặt hàng ngay</a>
-            </div>                
+            <div class="row">
+                <div class="amazing-button col-md-6 col-sm-12" id="submit-cart-btn">Xác nhận đặt hàng!</div>   
+                <div class="amazing-button col-md-5 col-sm-12" id="destroy-cart-btn">Hủy bỏ!</div>   
+            </div>
         </div>        
     </div>
 </div>

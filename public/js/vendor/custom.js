@@ -8,12 +8,24 @@ function navBarResponsiveFunc() {
 	}
 }
 
+$('.button-add-to-cart').on('click', function () {	
+	var cart = $('#shopping-cart');		
+	$(this).effect("transfer", {to: cart}, 150);
+	setTimeout(function () {
+		cart.effect("shake", {
+			times: 2
+		}, 200);
+	}, 100);
+});   
+
+$(document).ready(function(){
+    $('.delete-cart-item-btn').click(function(){
+		$('#cart-item-id-' + this.id).toggle("blind");
+    });
+})
+
 jQuery( document ).ready(function( $ ) {
-
-
 	"use strict";
-
-
 		$('.owl-carousel').owlCarousel({
 		    items:4,
 		    lazyLoad:true,
