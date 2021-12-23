@@ -110,3 +110,67 @@ body {
     border-radius: 10px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
+
+.cart-button {
+	display: inline-block;
+	width: 100%;
+	padding: 4px;
+	font-size: 14px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	color: #fff;
+	border: none;
+	border-radius: 4px;
+	box-shadow: 0 4px #999;
+}
+
+.cart-button:active {
+	box-shadow: 0 0px #666;
+	transform: translateY(4px);
+}
+
+.detail-button{
+	background-color: #0361ad;
+}
+
+.detail-button:hover{
+	background-color: #7ebff5;
+	color: black;
+}
+
+.delete-button{
+	background-color: #79031c;
+}
+
+.delete-button:hover{
+	background-color: #f57665;
+	color: black;
+}
+
+.detail-cart-page-shadow{
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background-color: rgba(17, 3, 3, 0.698);
+	z-index: 1000;
+	padding: 100px;
+}
+
+.detail-cart-container{
+	position: fixed;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 10vh;
+	height: 80vh;
+	overflow-y: scroll;
+}
+
+.close-cart-button{
+	padding: 10px;
+	font-size: 20px;
+	width: fit-content;
+}

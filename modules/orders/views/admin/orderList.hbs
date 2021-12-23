@@ -1,5 +1,4 @@
 <div class="row">
-
     <nav aria-label="You are here:" role="navigation">
         <ul class="breadcrumbs">
             <li><a href="/">Home</a></li>
@@ -9,7 +8,6 @@
             </li>
         </ul>
     </nav>
-
 </div>
 
 <div class="row">
@@ -17,14 +15,13 @@
 </div>
 
 <div class="row">
-
     <div class="large-6 columns">
         <div class="callout success">
             <p>
-                <strong>Tổng giá trị đơn hàng</strong>
+                <strong>Tổng giá trị tất cả đơn hàng</strong>
             </p>
             <div class="text-right">
-                <div class="stat">€250.00</div>
+                <div class="stat">250.00 VND</div>
             </div>
         </div>
     </div>
@@ -54,13 +51,14 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Mã đơn hàng</th>
-                        <th>Người đặt</th>
-                        <th>Tổng tiền</th>
-                        <th>Lời nhắn</th>
-                        <th>Trạng thái</th>
-                        <th style="width: 12%;" class="text-center">Ngày cập nhật</th>
-                        <th style="width: 22%;" class="text-center">#</th>
+                        <th>Người nhận</th>
+                        <th>Số điện thoại</th>
+                        <th>Địa chỉ nhận hàng</th>
+                        <th>Trạng thái giao hàng</th>
+                        <th>Trạng thái thanh toán</th>
+                        <th class="text-center">Ngày cập nhật</th>
+                        <th class="text-center">#</th>
+                        <th class="text-center">#</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -78,47 +76,12 @@
                             21/10/2021
                         </td>
                         <td class="text-center">
-                            <a class="button alert m-0" href="#">Xóa</a>
+                            <div class="cart-button detail-button m-0">Chi tiết</div>
+                        </td>
+                        <td class="text-center">
+                            <div class="cart-button delete-button m-0">Xóa</div>
                         </td>
                     </tr>
-
-                    <tr>
-                        <td>1</td>
-                        <td>6949SEX</td>
-                        <td>Dicky Ngo</td>
-                        <td>€150.00</td>
-                        <td>Địa chỉ khó tìm, đừng giao</td>
-                        <td class="text-center">
-                            <label class="label warning"><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;Đang
-                                giao</label>
-                        </td>
-                        <td class="text-center">
-                            21/10/2021
-                        </td>
-                        <td class="text-center">
-                            <a class="button alert m-0" href="#">Xóa</a>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>1</td>
-                        <td>6949SEX</td>
-                        <td>Dicky Ngo</td>
-                        <td>€150.00</td>
-                        <td>Địa chỉ khó tìm, đừng giao</td>
-                        <td class="text-center">
-                            <label class="label success"><i class="fa fa-truck" aria-hidden="true"></i>&nbsp;Đã
-                                giao</label>
-                        </td>
-                        <td class="text-center">
-                            21/10/2021
-                        </td>
-                        <td class="text-center">
-                            <a class="button alert m-0" href="#">Xóa</a>
-                        </td>
-                    </tr>
-
                 </tbody>
             </table>
             <div class="card-section">
@@ -126,6 +89,107 @@
                     Số lượng:
                 </small>
             </div>
+        </div>
+    </div>
+</div>
+
+<div style="height: 100vh;"></div>
+<div class="detail-cart-page-shadow">
+    <div >
+        <div class="cart-button delete-button close-cart-button">Đóng</div>
+        <div class="cart-button delete-button close-cart-button">Hủy đơn hàng</div>
+        <div class="cart-button close-cart-button">Đơn giá: 19.990.000 VND</div>
+    </div>    
+    <br />
+    <div class="detail-cart-container row">
+        <div class="cart-item large-12 columns" id="cart-item-id">
+            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
+            <div class="cart-item-detail">
+                <h4>MSI Modern 15</h4>
+                <h5 id="total-unit-item">19.990.000 VND</h5>
+                <h6>Số lượng: 12</h6>
+            </div>
+            <div class="">
+                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
+            </div>
+        </div>
+        <div class="cart-item large-12 columns" id="cart-item-id">
+            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
+            <div class="cart-item-detail">
+                <h4>MSI Modern 15</h4>
+                <h5 id="total-unit-item">19.990.000 VND</h5>
+                <h6>Số lượng: 12</h6>
+            </div>
+            <div class="">
+                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
+            </div>
+        </div>
+
+        <div class="cart-item large-12 columns" id="cart-item-id">
+            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
+            <div class="cart-item-detail">
+                <h4>MSI Modern 15</h4>
+                <h5 id="total-unit-item">19.990.000 VND</h5>
+                <h6>Số lượng: 12</h6>
+            </div>
+            <div class="">
+                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
+            </div>
+        </div>
+        <div class="cart-item large-12 columns" id="cart-item-id">
+            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
+            <div class="cart-item-detail">
+                <h4>MSI Modern 15</h4>
+                <h5 id="total-unit-item">19.990.000 VND</h5>
+                <h6>Số lượng: 12</h6>
+            </div>
+            <div class="">
+                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
+            </div>
+        </div>
+        <div class="cart-item large-12 columns" id="cart-item-id">
+            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
+            <div class="cart-item-detail">
+                <h4>MSI Modern 15</h4>
+                <h5 id="total-unit-item">19.990.000 VND</h5>
+                <h6>Số lượng: 12</h6>
+            </div>
+            <div class="">
+                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
+            </div>
+        </div>
+
+        <div class="cart-item large-12 columns" id="cart-item-id">
+            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
+            <div class="cart-item-detail">
+                <h4>MSI Modern 15</h4>
+                <h5 id="total-unit-item">19.990.000 VND</h5>
+                <h6>Số lượng: 12</h6>
+            </div>
+            <div class="">
+                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
+            </div>
+        </div>
+
+        <div class="cart-item large-12 columns" id="cart-item-id">
+            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
+            <div class="cart-item-detail">
+                <h4>MSI Modern 15</h4>
+                <h5 id="total-unit-item">19.990.000 VND</h5>
+                <h6>Số lượng: 12</h6>
+            </div>
+            <div class="">
+                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
+            </div>
+        </div>
+
+        <div class="pay-area">
+            <div>
+                <h4 id="total-unit-of-cart">Tổng tiền: 19.990.000 VND</h4>
+            </div> 
+            {{!-- <div class="row"> --}}
+                <div class="amazing-button" id="destroy-cart-btn">Hủy đơn, không mua nữa!</div>   
+            {{!-- </div> --}}
         </div>
     </div>
 </div>
