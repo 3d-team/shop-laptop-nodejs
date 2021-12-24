@@ -1,6 +1,6 @@
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
-const OrderModel = Loader.model('order');
+const OrderModel = require('../models/OrderModel')
 const OrderItemModel = require('../models/OrderItemModel');
 
 class DefaultController {
@@ -21,13 +21,13 @@ class DefaultController {
 		// console.log(req.body.product_id);
 		res.app.locals.Cart.number += 1;
 		var productID = req.body.product_id
-		console.log(productID);
+		// console.log(productID);
 		if(res.app.locals.Cart.items.has(productID)){
 			var cartItem = res.app.locals.Cart.items.get(productID);
 			cartItem.unit += cartItem.price;
 			res.app.locals.Cart.total_unit += cartItem.price;
 			cartItem.quantity += 1;
-			console.log(productID);
+			// console.log(productID);
 		}
 		else{
 			ProductModel.findAll({
@@ -58,7 +58,7 @@ class DefaultController {
 
 	changeNumberItem(req, res){
 		// console.log(req.body.product_id);
-		if(req.body.number < 0){
+		if(req.body.number <= 0){
 			res.json({msg:'negative-number'});
 			return;
 		}
@@ -97,43 +97,49 @@ class DefaultController {
 	}
 
 	async submit(req, res){
-		// console.log(req.user.id);
-		if(res.app.locals.Cart.number <= 0){
-			res.json({msg:'empty'});
-			return;
-		}
-		if(req.user === undefined){
-			console.log(req.user);
-			res.json({msg:'not-login'});
-			return;
-		}
-		if(req.body.confirm_submit == 'YES'){
-			var newOrder = {
-				customer_id: req.user.id,
-				delivery_status: 'Shop đang chuẩn bị hàng!',
-				delivery_address: req.body.deliveryAddress
+		try{
+			if(res.app.locals.Cart.number <= 0){
+				res.json({msg:'empty'});
+				return;
 			}
-
-			var result = await OrderModel.create(newOrder);
-
-			console.log("ORDER");
-			console.log(result.id);
-			for (const value of res.app.locals.Cart.items.values()) {
-				var cartItem = {
-					order_id: result.id,
-					product_id: value.product_id,
-					quantity: value.quantity,
-					unit: value.unit
-				};
-				var ret = await OrderItemModel.create(cartItem);
-				console.log("CART_ITEM");
-				console.log(ret);
-				
+			if(req.user === undefined){
+				console.log(req.user);
+				res.json({msg:'not-login'});
+				return;
 			}
-			res.app.locals.Cart.items.clear();
-			res.app.locals.Cart.number = 0;
-			res.app.locals.Cart.total_unit = 0;
-			res.json({msg:'success'});
+			if(req.body.confirm_submit == 'YES'){
+				let newOrder = {
+					customer_id: req.user.id,
+					payment_status: 'Chưa thanh toán!',
+					delivery_status: 'Đang chuẩn bị hàng!',
+					delivery_address: req.body.address,
+					phone_receiver: req.body.phone_receiver,
+					fullname_receiver: req.body.fullname_receiver
+				}
+				// console.log(newOrder);
+				var orderResult = await OrderModel.create(newOrder);
+				// console.log("ORDER");
+				// console.log(orderResult.code);
+				for (const value of res.app.locals.Cart.items.values()) {
+					var cartItem = {
+						order_id: orderResult.code,
+						product_id: value.product_id,
+						quantity: value.quantity,
+						unit: value.unit
+					};
+					var orderItemResult = await OrderItemModel.create(cartItem);
+					// console.log("CART_ITEM");
+					// console.log(orderItemResult);
+					
+				}
+				res.app.locals.Cart.items.clear();
+				res.app.locals.Cart.number = 0;
+				res.app.locals.Cart.total_unit = 0;
+				res.json({msg:'success'});
+			}
+		}
+		catch(error){
+			console.log(error);
 		}
 	}
 
