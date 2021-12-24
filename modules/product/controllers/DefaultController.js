@@ -14,11 +14,12 @@ class DefaultController {
 		const page = +req.query.page || 1;
 		const category = req.query.category;
 		const price = req.query.price;
+		const sortBy = req.query.sortBy;
 
 		const offset = (page - 1) * productPerPage;
 		const condition = {
 			offset: offset,
-			limit: productPerPage,
+			limit: productPerPage
 		};
 
 		if (category){
@@ -42,6 +43,10 @@ class DefaultController {
 			} else {
 				condition.where = { price : conditionPriceObj};
 			}
+		}
+
+		if(sortBy){
+			condition.order = [ ['price' , sortBy] ];
 		}
 
 		ProductModel.findAll(condition)
@@ -84,6 +89,7 @@ class DefaultController {
 		const productPerPage = 4;
 		const page = +req.query.page || 1;
 		const offset = (page - 1) * productPerPage;
+		const sortBy = req.query.sortBy;
 
 		const keyword = req.query.keyword;
 
@@ -92,7 +98,11 @@ class DefaultController {
 			limit: productPerPage,
 			where: { name: { [Op.like]: '%' + keyword + '%'} }
 		};
-		
+
+		if(sortBy){
+			condition.order = [ ['price' , sortBy] ];
+		}
+
 		ProductModel.findAll(condition)
 			.then((products) => {
 				res.render('productList', {

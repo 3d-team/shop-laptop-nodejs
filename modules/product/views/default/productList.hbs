@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="find-options">
 			<form action="/products/search" method="get">
-				<input class="find-edit-text" type="search" name ="keyword" placeholder="Tên sản phẩm..." >
+				<input class="find-edit-text" type="search" id ="search" name ="keyword" placeholder="Tên sản phẩm..." >
 				<input class="submit-button" type="submit" name="" id="" value="Tìm kiếm">
 			</form>
 			<br><br>
@@ -49,9 +49,8 @@
 			</div>
 			<div class="col-md-8 col-sm-12">
 			<div id="filters" class="button-group">
-				<button class="btn btn-primary" data-filter="*">Tất cả</button>
-				<button class="btn btn-primary" data-filter=".low">Giá tăng dần</button>
-				<button class="btn btn-primary" data-filter=".high">Giá giảm dần</button>
+				<button sortBy="price" class="btn btn-primary" sortType="Asc">Giá tăng dần</button>
+				<button sortBy="price" class="btn btn-primary" sortType="Desc">Giá giảm dần</button>
 			</div>
 			</div>
 		</div>
@@ -63,11 +62,11 @@
 				<div id="{{this.id}} % 3" class="item new col-md-4 featured-item">
 					{{!-- <p class="auto-hide" id="product-{{this.id}}">{{this.id}}</p> --}}
 					<a href="/products/detail/{{this.id}}">
-						<div class="">
+						<div class="featured-item">
 							<img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
 							<h4>{{this.name}}</h4>
 							<h5>{{this.price}}VND</h5>							
-							<p>{{this.content}}</p>
+							<p>{{this.description}}</p>
 						</div>					
 					</a>
 					<div class="button-add-to-cart amazing-button" id="{{this.id}}">Thêm vào giỏ hàng</div>					
@@ -113,6 +112,7 @@
 
 	var pages = $(".page-navigation li");
 
+	//Action when click pagination
 	for (var i = 0; i < pages.length; i++) {
 		pages[i].onclick = function(){
 			var url = window.location.origin + window.location.pathname + "?";
@@ -134,6 +134,10 @@
 			window.location.replace(url);
 		}
 	}
+	//Action when click pagination - End 
+
+
+	//Set color button pagination when click
 	var searchVal = window.location.search;
 	var queries = parseSearchVal(searchVal);
 	var pageNumber = queries["page"];
@@ -148,6 +152,34 @@
 			break;	
 		}
 	}
+	//Set color button pagination when click - End
+
+	//Sort by price 
+	const sortButtons = $("button[sortBy='price']");
+	for(var i = 0; i< sortButtons.length;i++){
+		const btn = sortButtons[i];
+		btn.onclick = function(){
+			var url = window.location.origin + window.location.pathname + "?";
+			var searchVal = window.location.search;
+
+			var queries = parseSearchVal(searchVal);
+
+			if(queries.sortBy){
+				queries.sortBy = $(this).attr("sortType");
+			}else{
+				queries['sortBy'] = $(this).attr("sortType");
+			}
+			Object.keys(queries).forEach(function(key) {
+				url += (key + "=" + queries[key]+ "&");
+			});
+
+			url = url.substring(0, url.length - 1);		
+			window.location.replace(url);
+		}
+	}
+	
+
+	//Sort by price - end
 </script>
 
 <script>
@@ -160,4 +192,10 @@
 	if(params.price){
 		$('#price').val(params.price);
 	}	
+	if(params.keyword){
+		$('#search').val(params.keyword);
+	}
+	if(params.sortBy){
+		$("button[sortType='"+ params.sortBy +"']").css("color", "#3a8bcd");;
+	}
 </script>
