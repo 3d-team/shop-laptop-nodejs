@@ -21,7 +21,7 @@
                 <strong>Tổng giá trị tất cả đơn hàng</strong>
             </p>
             <div class="text-right">
-                <div class="stat">250.00 VND</div>
+                <div class="stat">{{SumUnit}} VND</div>
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
                 <strong>Số lượng đơn hàng</strong>
             </p>
             <div class="text-right">
-                <div class="stat">7</div>
+                <div class="stat">{{numberCart}}</div>
             </div>
         </div>
     </div>
@@ -50,38 +50,37 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Mã đơn</th>
                         <th>Người nhận</th>
                         <th>Số điện thoại</th>
+                        <th>Đơn giá (VND)</th>
                         <th>Địa chỉ nhận hàng</th>
                         <th>Trạng thái giao hàng</th>
                         <th>Trạng thái thanh toán</th>
                         <th class="text-center">Ngày cập nhật</th>
                         <th class="text-center">#</th>
-                        <th class="text-center">#</th>
+                        {{!-- <th class="text-center">#</th> --}}
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each data}}
                     <tr>
-                        <td>1</td>
-                        <td>6949SEX</td>
-                        <td>Dicky Ngo</td>
-                        <td>€150.00</td>
-                        <td>Địa chỉ khó tìm, đừng giao</td>
+                        <td>#{{this.code}}</td>
+                        <td>{{this.fullname_receiver}}</td>
+                        <td>{{this.phone_receiver}}</td>
+                        <td>{{this.total_unit}}</td>
+                        <td>{{this.delivery_address}}</td>
+                        <td>{{this.delivery_status}}</td>
+                        <td class="text-center">{{this.payment_status}}</td>
+                        <td class="text-center">{{this.updated_at}}</td>
                         <td class="text-center">
-                            <label class="label alert"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Chưa
-                                giao</label>
+                            <div class="cart-button detail-button m-0" id="{{this.code}}">Chi tiết</div>
                         </td>
-                        <td class="text-center">
-                            21/10/2021
-                        </td>
-                        <td class="text-center">
-                            <div class="cart-button detail-button m-0">Chi tiết</div>
-                        </td>
-                        <td class="text-center">
-                            <div class="cart-button delete-button m-0">Xóa</div>
-                        </td>
+                        {{!-- <td class="text-center">
+                            <div class="cart-button delete-button m-0" id="{{this.code}}">Hủy</div>
+                        </td> --}}
                     </tr>
+                    {{/each}}
                 </tbody>
             </table>
             <div class="card-section">
@@ -94,102 +93,36 @@
 </div>
 
 <div style="height: 100vh;"></div>
-<div class="detail-cart-page-shadow">
-    <div >
-        <div class="cart-button delete-button close-cart-button">Đóng</div>
-        <div class="cart-button delete-button close-cart-button">Hủy đơn hàng</div>
-        <div class="cart-button close-cart-button">Đơn giá: 19.990.000 VND</div>
-    </div>    
-    <br />
-    <div class="detail-cart-container row">
-        <div class="cart-item large-12 columns" id="cart-item-id">
-            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
-            <div class="cart-item-detail">
-                <h4>MSI Modern 15</h4>
-                <h5 id="total-unit-item">19.990.000 VND</h5>
-                <h6>Số lượng: 12</h6>
+<div class="detail-cart-page-shadow auto-hide">
+    <div class="cart-control">
+        <div class="cart-button delete-button wrap-cart-button" id="close-cart-detail-btn">Đóng</div>
+        {{!-- <div class="cart-button delete-button wrap-cart-button">Hủy đơn hàng</div> --}}        
+        <div class="cart-button wrap-cart-button">Đơn giá: 19.990.000 VND</div>
+        {{#if admin}}
+            <select style="width: 200px; margin: 0px 10px 0px 0px;">
+                <option value="dang-chuan-bi-hang">Đang chuẩn bị hàng</option>
+                <option value="da-gui-hang">Đã gửi hàng</option>
+                <option value="dang-van-chuyen">Đang vận chuyển</option>
+                <option value="dang-giao-hang">Đang giao hàng</option>
+                <option value="da-giao-hang">Đã giao hàng</option>
+            </select>        
+            <div class="cart-button detail-button wrap-cart-button">Cập nhật!</div>
+        {{/if}}
+    </div>  
+    
+    <div class="detail-cart-container">
+        <cart-container class="row">
+            <div class="cart-item large-12 columns" id="cart-item-id">
+                <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
+                <div class="cart-item-detail">
+                    <h4>MSI Modern 15dfasdfasdfdfasdfsadfsadfasdfsdfsadafs</h4>
+                    <h5 id="total-unit-item">19.990.000 VND</h5>
+                    <h6>Số lượng: 12</h6>
+                </div>
+                <div class="">
+                    {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
+                </div>
             </div>
-            <div class="">
-                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
-            </div>
-        </div>
-        <div class="cart-item large-12 columns" id="cart-item-id">
-            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
-            <div class="cart-item-detail">
-                <h4>MSI Modern 15</h4>
-                <h5 id="total-unit-item">19.990.000 VND</h5>
-                <h6>Số lượng: 12</h6>
-            </div>
-            <div class="">
-                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
-            </div>
-        </div>
-
-        <div class="cart-item large-12 columns" id="cart-item-id">
-            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
-            <div class="cart-item-detail">
-                <h4>MSI Modern 15</h4>
-                <h5 id="total-unit-item">19.990.000 VND</h5>
-                <h6>Số lượng: 12</h6>
-            </div>
-            <div class="">
-                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
-            </div>
-        </div>
-        <div class="cart-item large-12 columns" id="cart-item-id">
-            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
-            <div class="cart-item-detail">
-                <h4>MSI Modern 15</h4>
-                <h5 id="total-unit-item">19.990.000 VND</h5>
-                <h6>Số lượng: 12</h6>
-            </div>
-            <div class="">
-                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
-            </div>
-        </div>
-        <div class="cart-item large-12 columns" id="cart-item-id">
-            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
-            <div class="cart-item-detail">
-                <h4>MSI Modern 15</h4>
-                <h5 id="total-unit-item">19.990.000 VND</h5>
-                <h6>Số lượng: 12</h6>
-            </div>
-            <div class="">
-                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
-            </div>
-        </div>
-
-        <div class="cart-item large-12 columns" id="cart-item-id">
-            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
-            <div class="cart-item-detail">
-                <h4>MSI Modern 15</h4>
-                <h5 id="total-unit-item">19.990.000 VND</h5>
-                <h6>Số lượng: 12</h6>
-            </div>
-            <div class="">
-                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
-            </div>
-        </div>
-
-        <div class="cart-item large-12 columns" id="cart-item-id">
-            <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
-            <div class="cart-item-detail">
-                <h4>MSI Modern 15</h4>
-                <h5 id="total-unit-item">19.990.000 VND</h5>
-                <h6>Số lượng: 12</h6>
-            </div>
-            <div class="">
-                {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
-            </div>
-        </div>
-
-        <div class="pay-area">
-            <div>
-                <h4 id="total-unit-of-cart">Tổng tiền: 19.990.000 VND</h4>
-            </div> 
-            {{!-- <div class="row"> --}}
-                <div class="amazing-button" id="destroy-cart-btn">Hủy đơn, không mua nữa!</div>   
-            {{!-- </div> --}}
-        </div>
+        </cart-container>
     </div>
 </div>

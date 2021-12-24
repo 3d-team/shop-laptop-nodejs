@@ -4,8 +4,9 @@ const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
 const OrderModel = require('../models/OrderModel')
 const OrderItemModel = require('../models/OrderItemModel');
-// var menu = require('../../common_model/MenuContent');
-// const app = require('../../../app');
+const sequelize = require("../../../config/database");
+const { QueryTypes } = require('sequelize');
+
 class DefaultController {
 
 	index(req, res) {
@@ -16,7 +17,7 @@ class DefaultController {
 		res.render('orders', {
 			title: "Product",
 			content: "Default: index",
-			data: items
+			data: items,
 		});
 	}
 
@@ -117,7 +118,8 @@ class DefaultController {
 					delivery_status: 'Đang chuẩn bị hàng!',
 					delivery_address: req.body.address,
 					phone_receiver: req.body.phone_receiver,
-					fullname_receiver: req.body.fullname_receiver
+					fullname_receiver: req.body.fullname_receiver,
+					total_unit: res.app.locals.Cart.total_unit
 				}
 				// console.log(newOrder);
 				var orderResult = await OrderModel.create(newOrder);
@@ -166,8 +168,47 @@ class DefaultController {
 	list(req, res) {
 		const layout = 'admin';
 		
-		res.render('orderList', {
-			layout: layout
+		if(req.user === undefined){
+			console.log("You Need To Login!!");
+			return;
+		}
+		
+		OrderModel.findAll({
+			where: {
+				customer_id: req.user.id
+			},
+			order: [['updated_at', 'DESC']]
+		}).then((result)=>{
+			// console.log(result);
+			OrderModel.sum('total_unit', {where:{customer_id: req.user.id}}).then((sum)=>{
+				console.log(sum);
+				res.render('orderList', {
+					layout: layout,
+					data: result,
+					numberCart: result.length,
+					SumUnit: sum,
+					admin: false
+				});
+			})	
+			.catch((err)=>{
+				console.log(err);
+			})		
+		}).catch((err)=>{
+			console.log(err);
+		})		
+	}
+
+	detailCart(req, res){
+		sequelize.query(`select name, order_items.quantity, price
+				from orders, order_items, products
+				where orders.code = ${req.body.product_id} and 
+			  	orders.code = order_items.order_id and
+			  	order_items.product_id = products.id`, { type: QueryTypes.SELECT }
+		).then((ret)=>{
+			console.log(ret);
+			res.json({msg: 'success', items: ret});
+		}).catch((err)=>{
+			console.log(err);
 		});
 	}
 }

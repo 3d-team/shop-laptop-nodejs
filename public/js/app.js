@@ -1,3 +1,11 @@
+$('.detail-button').click(function(){
+  $('.detail-cart-page-shadow').removeClass('auto-hide');
+});
+
+$('#close-cart-detail-btn').click(function(){
+  $('.detail-cart-page-shadow').addClass('auto-hide');
+});
+
 $(document).foundation();
 
 google.charts.load('current', { 'packages': ['corechart'] });

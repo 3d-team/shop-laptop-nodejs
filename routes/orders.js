@@ -20,11 +20,14 @@ router.post('/destroy', defaultController.destroy);
 router.get('/cart', Authenticate, defaultController.cart);
 router.get('/list', Authenticate, defaultController.list);
 
+router.post('/detailCart', defaultController.detailCart);
+
 
 /**
  * Admin route.
  **/
 router.get('/admin/list', VerifyAdmin, adminController.list);
+router.post('/admin/detailCart', adminController.detailCart);
 
 
 module.exports = router;

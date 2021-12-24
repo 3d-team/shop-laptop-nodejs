@@ -158,10 +158,13 @@ body {
 	background-color: rgba(17, 3, 3, 0.698);
 	z-index: 1000;
 	padding: 100px;
+	display: flex;
+	justify-items: center;
+	justify-content: center;
+	flex-direction: column;
 }
 
 .detail-cart-container{
-	position: fixed;
 	background-color: #fff;
 	border-radius: 8px;
 	padding: 10vh;
@@ -169,8 +172,16 @@ body {
 	overflow-y: scroll;
 }
 
-.close-cart-button{
+.cart-control{
+	display: flex;
+	flex-direction: row;
+	justify-items: center;
+	/* justify-content: center; */
+}
+
+.wrap-cart-button{
 	padding: 10px;
 	font-size: 20px;
 	width: fit-content;
+	margin-right: 10px;
 }
