@@ -19,14 +19,16 @@ const VerifyAdmin = require('../middlewares/VerifyAdmin');
  **/
 router.get('/register', RedirectIfAuthenticated, userDefaultController.register);
 router.post('/register', Auth.authenticate('signup', {
-    successRedirect: '/users/personal',
+    successRedirect: 'login',
     failureRedirect: '/register',
     failureFlash : true 
 }));
 
+router.get('/confirm/:code', userDefaultController.confirm);
+
 router.get('/login', RedirectIfAuthenticated, userDefaultController.login);
-router.post('/login', Auth.authenticate('signin', { 
-    successRedirect: '/', 
+router.post('/login', Auth.authenticate('signin', {
+    successRedirect: '/users/personal', 
     failureRedirect: '/login', 
     failureFlash: true 
 }));

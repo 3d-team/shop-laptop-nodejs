@@ -1,11 +1,11 @@
-// const path = require('path');
-
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
 const OrderModel = require('../models/OrderModel')
 const OrderItemModel = require('../models/OrderItemModel');
+
 const sequelize = require("../../../config/database");
 const { QueryTypes } = require('sequelize');
+
 
 class DefaultController {
 

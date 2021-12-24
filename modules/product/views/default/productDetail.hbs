@@ -51,18 +51,14 @@
               <h4>{{data.name}}</h4>
               <h6>{{data.price}}VND</h6>
               <p>{{data.content}}</p>
-                <p>CPU: AMD Ryzen 9, 5900HS</p>
-                <p>RAM: 16GB DDR4</p>
-                <p>Ổ cứng: 1TB SSD M.2 PCle</p>
-                <p>Card rời: RTX 3050Ti 4GB</p>
-                <p>Màn hình: 14" Full HD IPS</p>
-              <span>Còn 7 chiếc trong kho</span>
+              <p>{{data.description}}</p>
+              <span>Còn {{data.quantity}} chiếc trong kho</span>
               <form action="" method="get">
                 <label for="quantity">Số lượng:</label>
                 <input name="quantity" type="quantity" class="quantity-text" id="quantity" 
                 	onfocus="if(this.value == '1') { this.value = ''; }" 
                     onBlur="if(this.value == '') { this.value = '1';}"
-                    value="{{data.quantity}}">
+                    value="1">
                 <input type="submit" class="button" value="Mua Ngay!">
               </form>
               <div class="down-content">
@@ -84,13 +80,15 @@
     <div class="container">        
       <div class="row">
         <div class="col-md-12 col-sm-12 row">
-            <textarea name="" id="" cols="60" rows="5"></textarea>
-            
-            <input class="col-md-8 col-sm-8" type="text" value="Nhập tên của bạn..." 
-                    onfocus="if (this.value === 'Nhập tên của bạn...') this.value=''" ...>
-            <div class="main-button col-md-4 col-sm-4">
-              <a href="">Gửi</a>
-            </div>
+          <div class="main-button col-md-4 col-sm-4">
+            {{#if user}}
+            <b>{{user.username}}</b>
+            {{else}}
+            <input class="col-md-8 col-sm-8" type="text" placeholder="Nhập tên của bạn...">
+            {{/if}}
+            <textarea name="" id="" cols="60" rows="3"></textarea>
+            <a href="">Gửi</a>
+          </div>
         </div>
 
         <div class="col-md-12 col-sm-12 command-detail">
@@ -148,3 +146,4 @@
       </div>
     </div>
     <!-- Similar Ends Here -->
+    <script src="https://gist.github.com/DennyLoko/61882bc72176ca74a0f2.js"></script>
