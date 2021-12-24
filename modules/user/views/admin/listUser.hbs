@@ -77,16 +77,17 @@
                         <td>{{this.email}}</td>
 
                         <td class="text-center">
+                            {{#if this.status}}
                             <label class="label success">
                                 <i class="fa fa-check-circle-o" aria-hidden="true"></i>&nbsp;Hoạt động
                             </label>
-                        </td>
+                            {{else}}
+                            <label class="label alert">
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>&nbsp;Ngừng
+                            </label>
+                            {{/if}}
 
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
+                        </td>
                         <td class="text-center">
                             {{this.created_at}}
                         </td>

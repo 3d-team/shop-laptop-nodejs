@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12 col-sm-12">
                 <div class="section-heading">
-                    <a href="/orders/list">Xem danh sách đơn hàng đã đặt!</a>
+                    <a href="/orders/list"> Xem lịch sử mua hàng! >>> </a>
                     <h1>Danh sách các sản phẩm trong giỏ hàng hiện tại</h1>
                 </div>
             </div>
@@ -34,16 +34,24 @@
                 <h4 id="total-unit-of-cart">Tổng tiền: {{Cart.total_unit}} VND</h4>
             </div>
             <div>
-                <p>Địa chỉ nhận hàng:</p>
+                <p>Địa chỉ nhận hàng:<span class="text-danger" id="delivery-address-err"></span></p>
                 <input type="text" class="input-item" id="delivery-address">
             </div>
-            <div class="pay-option">
+            <div>
+                <p>Họ và tên người nhận:<span class="text-danger" id="fullname-receiver-err"></span></p>
+                <input type="text" class="input-item" id="fullname-receiver">
+            </div>
+            <div>
+                <p>Số điện thoại người nhận:<span class="text-danger" id="phone-receiver-err"></span></p>
+                <input type="text" class="input-item" id="phone-receiver">
+            </div>
+            {{!-- <div class="pay-option">
                 <p>Hình thức thanh toán:</p>
                 <input type="radio" id="thanh-toan-khi-nhan-hang" name="hinh-thuc-thanh-toan">
                 <label for="thanh-toan-khi-nhan-hang">Thanh toán khi nhận hàng</label>
                 <input type="radio" id="thanh-toan-bang-momo" name="hinh-thuc-thanh-toan">
                 <label for="thanh-toan-bang-momo">Thanh toán qua momo</label>
-            </div>
+            </div> --}}
             <div class="row">
                 <div class="amazing-button col-md-6 col-sm-12" id="submit-cart-btn">Xác nhận đặt hàng!</div>   
                 <div class="amazing-button col-md-5 col-sm-12" id="destroy-cart-btn">Hủy bỏ!</div>   

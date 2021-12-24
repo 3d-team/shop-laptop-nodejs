@@ -37,6 +37,16 @@
           </div>
           <div class="col-md-12">
             <div class="owl-carousel owl-theme">
+              {{#each data}}
+                <a href="/products/detail/{{this.id}}">
+                <div class="featured-item">
+                  <img src="images/asus-rog-zephyrus-g14.jpg" alt="Item 1">
+                  <h4>{{this.name}}</h4>
+                  <h5>{{this.price}}</h5>
+                  <p>{{this.description}}</p>
+                </div>
+                </a>
+              {{/each}}
               <a href="/products/detail/1">
                 <div class="featured-item">
                   <img src="images/asus-rog-zephyrus-g14.jpg" alt="Item 1">

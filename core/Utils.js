@@ -9,6 +9,15 @@ class Utils {
 		return ('/').concat(file.replace(/\.[^/.]+$/, ""));
 	}
 	
+	static genConfirmCode() {
+		const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		let code = '';
+		for (let i = 0; i < 25; i++) {
+		    code += characters[Math.floor(Math.random() * characters.length)];
+		}
+
+		return code;
+	}
 }
 
 module.exports = Utils;
