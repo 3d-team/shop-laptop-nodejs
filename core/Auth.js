@@ -3,12 +3,19 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const Loader = require("./Loader");
+const Mailer = require("./Mailer");
 const UserModel = Loader.model('user');
 
 class Auth {
 	constructor() {
 		this.passport = passport;
 		this.configure();
+
+		/* Singleton */
+		if (!this.instance) {
+			this.instance = this;
+		}
+		return this;
 	}
 
 	configure() {
@@ -54,12 +61,12 @@ class Auth {
 		            .then((user) => {
 
 		                if (!user){
-		                    return done(null, false, req.flash('message', "Email's not exist."));                 
+		                    return done(null, false, req.flash('message', "Email không tồn tại."));                 
 		                }
 		                
 		                const isPasswordValid = bcrypt.compareSync(password, user.password);
 		                if (!isPasswordValid){
-		                    return done(null, false, req.flash('message', 'Invalid Password'));
+		                    return done(null, false, req.flash('message', 'Sai mật khẩu.'));
 		                }
 
 		                return done(null, user);
@@ -86,28 +93,29 @@ class Auth {
 
 		            UserModel.findOne(condition)
 		                .then(function(user) {
-		                    
 		                    if (user) {
-		                        return done(null, false, req.flash('message','Email already exists.'));
-		                    } else {
-
-		                        let data = {
-		                            username: req.body.username,
-		                            email: req.body.email,
-		                            password: bcrypt.hashSync(password, 8),
-		                            address: req.body.address,
-		                            phone: req.body.phone
-		                        };
-		                        
-		                        UserModel.create(data)
-			                        .then((result) => {
-			                            return done(null, result);
-			                        })
-			                        .catch((err) => {
-			                        	console.log(err);
-			                        	return done(err);
-			                        });
+		                        return done(null, false, req.flash('message','Email đã tồn tại.'));
 		                    }
+
+		                    let data = {
+	                            username: req.body.username,
+	                            email: req.body.email,
+	                            password: bcrypt.hashSync(password, 8),
+	                            address: req.body.address,
+	                            phone: req.body.phone,
+	                            status: 0,
+	                            confirm_code: Math.floor(Math.random() * 100) + 1
+	                        };
+	                        
+	                        UserModel.create(data)
+		                        .then((result) => {
+		                        	Mailer.sendConfirmationEmail(result.username, result.email, result.confirm_code);
+		                            return done(null, result);
+		                        })
+		                        .catch((err) => {
+		                        	console.log(err);
+		                        	return done(err);
+		                        });
 		                })
 		                .catch((err) => {
 		                    return done(err);
@@ -121,6 +129,5 @@ class Auth {
 		return this.passport.authenticate(strategy, option);
 	}
 }
-
 
 module.exports = new Auth();

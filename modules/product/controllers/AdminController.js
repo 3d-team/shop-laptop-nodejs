@@ -64,21 +64,21 @@ class AdminController {
 
 		if (req.method == "POST") {
 			ProductModel.update(req.body, condition).then(() => {
-				res.redirect("/products/admin/");
+				return res.redirect("/products/admin/list");
 			});
-		} else {
-			ProductModel.findOne(condition)
+		}
+
+		ProductModel.findOne(condition)
 			.then((product) => {
-				res.render("update", {
+				return res.render("update", {
 					title: "Product",
 					data: product
 				});	
 			})
 			.catch(function(err) {
 				res.status(err.status || 500);
-				res.render('error');
+				return res.render('error');
 			})
-		}
 	}
 
 	delete(req, res) {

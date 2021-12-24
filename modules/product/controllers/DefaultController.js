@@ -92,18 +92,19 @@ class DefaultController {
 			limit: productPerPage,
 			where: { name: { [Op.like]: '%' + keyword + '%'} }
 		};
+		
 		ProductModel.findAll(condition)
-		.then((products) => {
-			res.render('productList', {
-				title: "Product",
-				data: products,
-				menuContent: menu.getContentProductMenuItem()
+			.then((products) => {
+				res.render('productList', {
+					title: "Product",
+					data: products,
+					menuContent: menu.getContentProductMenuItem()
+				});
+			})
+			.catch(function(err) {
+				res.status(err.status || 500);
+				res.render('error');
 			});
-		})
-		.catch(function(err) {
-			res.status(err.status || 500);
-			res.render('error');
-		});
 	}
 }
 

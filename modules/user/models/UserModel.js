@@ -22,6 +22,7 @@ const UserModel = sequelize.define('User', {
 		defaultValue: false
 	},
 	status: Sequelize.INTEGER,
+	confirm_code: Sequelize.INTEGER,
 	created_at: Sequelize.DATE,
 	updated_at: Sequelize.DATE
 }, {

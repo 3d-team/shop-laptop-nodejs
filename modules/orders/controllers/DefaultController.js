@@ -1,11 +1,8 @@
-// const path = require('path');
-
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
 const OrderModel = require('../models/OrderModel')
 const OrderItemModel = require('../models/OrderItemModel');
-// var menu = require('../../common_model/MenuContent');
-// const app = require('../../../app');
+
 class DefaultController {
 
 	index(req, res) {
