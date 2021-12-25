@@ -19,7 +19,7 @@
 <div class="row">
     <div class="large-6 column">
         <label>Hình thức thống kê
-            <select>
+            <select id="statistic-option-select">
                 <option value="date">Thống kê theo ngày</option>
                 <option value="month">Thống kê theo tháng</option>
                 <option value="quarter">Thống kê theo quý</option>
@@ -28,7 +28,7 @@
         </label>
 
         <label>Chọn ngày
-            <input type="date">
+            <input type="date" id="date-input">
         </label>
         <!-- <div class="medium-6 cell">
                             <label>Chọn quý
@@ -54,10 +54,15 @@
     </div>
     <div class="large-6 column">
         <br><br><br><br><br><br>
-        <button class="submit success button">Thống kê</button>
+        <button class="submit success button cart-button wrap-cart-button" id="submit-statistics-button">Thống kê</button>
     </div>
 </div>
 
+<div class="row">
+    <div class="large-12 columns">
+        <h5 id="title-result"></h5>
+    </div>
+</div>
 
 <div class="row">
     <div class="large-4 columns">
@@ -66,17 +71,17 @@
                 <strong>Tổng số lượng sản phẩm</strong>
             </p>
             <div class="text-right">
-                <div class="stat">27</div>
+                <div class="stat" id="sum_product_header">0</div>
             </div>
         </div>
     </div>
     <div class="large-4 columns">
         <div class="callout primary">
             <p>
-                <strong>Tổng Doanh thu</strong>
+                <strong>Tổng Doanh thu (VND)</strong>
             </p>
             <div class="text-right">
-                <div class="stat">€250.00</div>
+                <div class="stat" id="total_unit_header">0</div>
             </div>
         </div>
     </div>
@@ -86,7 +91,7 @@
                 <strong>Tổng đơn hàng</strong>
             </p>
             <div class="text-right">
-                <div class="stat">12</div>
+                <div class="stat" id="sum_order_header">0</div>
             </div>
         </div>
     </div>
