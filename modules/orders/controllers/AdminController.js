@@ -4,7 +4,7 @@ const ProductModel = Loader.model('product');
 const OrderModel = require('../models/OrderModel')
 const OrderItemModel = require('../models/OrderItemModel');
 const sequelize = require("../../../config/database");
-const { QueryTypes } = require('sequelize');
+const { QueryTypes, where } = require('sequelize');
 
 class AdminController {
 
@@ -50,6 +50,23 @@ class AdminController {
 		}).catch((err)=>{
 			console.log(err);
 		});
+	}
+
+	updateCart(req, res){
+		OrderModel.update(
+			{delivery_status: req.body.delivery_status}, 
+			{
+				where: {
+					code: req.body.code
+				}
+			}
+		).then((result)=>{
+			console.log(result);
+			res.json({msg: 'success'});
+		}).catch((err)=>{
+			console.log(err);
+			res.json({msg: 'err'});
+		})
 	}
 }
 

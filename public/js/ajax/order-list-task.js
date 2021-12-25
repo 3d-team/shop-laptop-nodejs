@@ -11,7 +11,7 @@ $('.detail-button').click(function(){
             if(response.msg == 'success'){ 
                 var html_str = ``;
                 for(const item of response.items){
-                    console.log(item);
+                    // console.log(item);
                     html_str += `<div class="cart-item large-12 columns" id="cart-item-id">
                                                 <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
                                                 <div class="cart-item-detail">

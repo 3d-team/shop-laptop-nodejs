@@ -28,6 +28,7 @@ router.post('/detailCart', defaultController.detailCart);
  **/
 router.get('/admin/list', VerifyAdmin, adminController.list);
 router.post('/admin/detailCart', adminController.detailCart);
+router.post('/updateCart', adminController.updateCart);
 
 
 module.exports = router;

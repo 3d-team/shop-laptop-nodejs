@@ -70,7 +70,7 @@
                         <td>{{this.phone_receiver}}</td>
                         <td>{{this.total_unit}}</td>
                         <td>{{this.delivery_address}}</td>
-                        <td>{{this.delivery_status}}</td>
+                        <td id="deliver-tag-{{this.code}}">{{this.delivery_status}}</td>
                         <td class="text-center">{{this.payment_status}}</td>
                         <td class="text-center">{{this.updated_at}}</td>
                         <td class="text-center">
@@ -99,20 +99,22 @@
         {{!-- <div class="cart-button delete-button wrap-cart-button">Hủy đơn hàng</div> --}}        
         <div class="cart-button wrap-cart-button">Đơn giá: 19.990.000 VND</div>
         {{#if admin}}
-            <select style="width: 200px; margin: 0px 10px 0px 0px;">
-                <option value="dang-chuan-bi-hang">Đang chuẩn bị hàng</option>
-                <option value="da-gui-hang">Đã gửi hàng</option>
-                <option value="dang-van-chuyen">Đang vận chuyển</option>
-                <option value="dang-giao-hang">Đang giao hàng</option>
-                <option value="da-giao-hang">Đã giao hàng</option>
+            <select style="width: 200px; margin: 0px 10px 0px 0px;" id="deliver-status-option">
+                <option value="Đang chuẩn bị hàng!">Cập nhật trạng thái giao hàng</option>
+                <option value="Đang chuẩn bị hàng!">Đang chuẩn bị hàng</option>
+                <option value="Đang vận chuyển!">Đang vận chuyển</option>
+                <option value="Đang giao hàng!">Đang giao hàng</option>
+                <option value="Đã giao hàng!">Đã giao hàng</option>
             </select>        
-            <div class="cart-button detail-button wrap-cart-button">Cập nhật!</div>
+            {{!-- <input type="text" id="delivery-status-input" style="width: 200px; margin: 0px 10px 0px 0px;"> --}}
+            <div class="cart-button detail-button wrap-cart-button update-cart-button">Cập nhật!</div>
         {{/if}}
     </div>  
     
     <div class="detail-cart-container">
         <cart-container class="row">
-            <div class="cart-item large-12 columns" id="cart-item-id">
+            Đang tải dữ liệu!
+            {{!-- <div class="cart-item large-12 columns" id="cart-item-id">
                 <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
                 <div class="cart-item-detail">
                     <h4>MSI Modern 15dfasdfasdfdfasdfsadfsadfasdfsdfsadafs</h4>
@@ -122,7 +124,7 @@
                 <div class="">
                     {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
                 </div>
-            </div>
+            </div> --}}
         </cart-container>
     </div>
 </div>
