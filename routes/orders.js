@@ -27,6 +27,8 @@ router.post('/detailCart', defaultController.detailCart);
  * Admin route.
  **/
 router.get('/admin/list', VerifyAdmin, adminController.list);
+router.get('/admin/saleStatistic', VerifyAdmin, adminController.saleStatistic);
+router.get('/admin/topSale', VerifyAdmin, adminController.topSale);
 router.post('/admin/detailCart', adminController.detailCart);
 router.post('/updateCart', adminController.updateCart);
 

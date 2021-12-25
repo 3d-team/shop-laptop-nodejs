@@ -68,6 +68,20 @@ class AdminController {
 			res.json({msg: 'err'});
 		})
 	}
+
+	saleStatistic(req, res){
+		const layout = 'admin';
+		res.render('saleStatistic', {
+			layout: layout
+		});
+	}
+
+	topSale(req, res){
+		const layout = 'admin';
+		res.render('topSale', {
+			layout: layout
+		});
+	}
 }
 
 module.exports = new AdminController();
