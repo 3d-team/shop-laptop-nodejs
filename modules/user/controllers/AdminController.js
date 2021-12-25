@@ -48,13 +48,18 @@ class AdminController {
 		};
 
 		if (req.method == "POST") {
+
+			console.log(req.body);
+
 			const data = {
 				username: req.body.username,
 				email: req.body.email,
 				address: req.body.address,
 				phone: req.body.phone,
 				admin: Boolean(req.body.admin),
-				avatar: req.body.avatar
+				avatar: req.body.avatar,
+				status: req.body.status == 'lock' ? 0 : 1,
+				sex: req.body.sex == 'female' ? 0 : 1
 			};
 
 			UserModel.update(data, condition).then(() => {
@@ -65,7 +70,9 @@ class AdminController {
 
 		UserModel.findOne(condition).then((account) => {
 			res.render("updateUser", {
-				data: account
+				data: account,
+				isActive: account.status == 1 ? true : false,
+				isMale: account.sex == 1 ? true : false
 			});
 		})
 	}

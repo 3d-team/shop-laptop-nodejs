@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const Loader = require("./Loader");
 const Mailer = require("./Mailer");
+const Utils = require("./Utils");
 const UserModel = Loader.model('user');
 
 class Auth {
@@ -12,10 +13,10 @@ class Auth {
 		this.configure();
 
 		/* Singleton */
-		if (!this.instance) {
+		if(!this.instance) {
 			this.instance = this;
 		}
-		return this;
+		return this.instance;
 	}
 
 	configure() {
@@ -104,7 +105,7 @@ class Auth {
 	                            address: req.body.address,
 	                            phone: req.body.phone,
 	                            status: 0,
-	                            confirm_code: Math.floor(Math.random() * 100) + 1
+	                            confirm_code: Utils.genConfirmCode()
 	                        };
 	                        
 	                        UserModel.create(data)

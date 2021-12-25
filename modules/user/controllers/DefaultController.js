@@ -15,7 +15,7 @@ class DefaultController {
 	}
 
 	async confirm(req, res) {
-		const confirmCode = req.params.code;
+		const confirmCode = String(req.params.code);
 
 		const condition = {
 			status: 0,

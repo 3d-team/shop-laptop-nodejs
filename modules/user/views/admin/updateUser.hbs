@@ -88,10 +88,19 @@
 							<hr>
 							<fieldset class="large-12 cell">
 								<legend>Trạng thái tài khoản</legend>
-								<input type="radio" name="status" value="active" id="active" required>
-								<label for="active">Mở</label>
-								<input type="radio" name="status" value="lock" id="lock">
-								<label for="lock">Khóa</label>
+								
+								{{#if isActive}}
+									<input type="radio" name="status" value="active" id="active" checked required>
+									<label for="active">Mở</label>
+									<input type="radio" name="status" value="lock" id="lock">
+									<label for="lock">Khóa</label>
+								{{else}}
+									<input type="radio" name="status" value="active" id="active" required>
+									<label for="active">Mở</label>
+									<input type="radio" name="status" checked value="lock" id="lock">
+									<label for="lock">Khóa</label>
+								{{/if}}
+
 							 </fieldset>
 						</div>
 
@@ -99,10 +108,18 @@
 							<hr>
 							<fieldset class="large-12 cell">
 								<legend>Giới tính</legend>
-								<input type="radio" name="sex" value="male" id="male" required>
-								<label for="male">Nam</label>
-								<input type="radio" name="sex" value="female" id="female">
-								<label for="female">Nữ</label>
+								
+								{{#if isMale}}
+									<input type="radio" name="sex" checked value="male" id="male" required>
+									<label for="male">Nam</label>
+									<input type="radio" name="sex" value="female" id="female">
+									<label for="female">Nữ</label>
+								{{else}}
+									<input type="radio" name="sex" value="male" id="male" required>
+									<label for="male">Nam</label>
+									<input type="radio" name="sex" checked value="female" id="female">
+									<label for="female">Nữ</label>
+								{{/if}}
 							 </fieldset>
 						</div>
 
