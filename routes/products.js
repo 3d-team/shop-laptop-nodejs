@@ -28,6 +28,7 @@ router.get('/admin/category/update', VerifyAdmin, adminController.updateCategory
 router.get('/', defaultController.index);
 router.get('/search', defaultController.search);
 router.get('/detail/:productId', defaultController.detail);
+router.post('/detail/:productId/comment', defaultController.comment);
 
 
 module.exports = router;

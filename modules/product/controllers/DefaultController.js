@@ -4,6 +4,8 @@ const Op = Sequelize.Op;
 
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
+const CommentModel = Loader.model('comment');
+
 var menu = require('../../common_model/MenuContent');
 const app = require('../../../app');
 
@@ -114,6 +116,30 @@ class DefaultController {
 			.catch(function(err) {
 				res.status(err.status || 500);
 				res.render('error');
+			});
+	}
+
+	comment(req, res){
+		const productId = req.params.productId;
+		const username = req.body.username;
+		const content = req.body.content;
+
+		const comment = {
+			name: username, 
+			content: content, 
+			product_id: productId
+		};
+		console.log(comment);
+		CommentModel.create(comment)
+			.then((result) => {	 
+				res.status(200);
+				res.json({
+					msg:'success',
+					creatTime: result.created_at.toLocaleString()
+				});
+			})
+			.catch((err) => {
+				res.status(500);
 			});
 	}
 }

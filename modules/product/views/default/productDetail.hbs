@@ -6,6 +6,7 @@
             <div class="section-heading">
               <div class="line-dec"></div>
               <h1>{{data.name}}</h1>
+              <input type="hidden" id="product_id" value = {{data.id}} >
             </div>
           </div>
           <div class="col-md-6">
@@ -80,20 +81,26 @@
     <div class="container">        
       <div class="row">
         <div class="col-md-12 col-sm-12 row">
-          <div class="main-button col-md-4 col-sm-4">
-            {{#if user}}
-            <b>{{user.username}}</b>
-            {{else}}
-            <input class="col-md-8 col-sm-8" type="text" placeholder="Nhập tên của bạn...">
-            {{/if}}
-            <textarea name="" id="" cols="60" rows="3"></textarea>
-            <a href="">Gửi</a>
-          </div>
+            <div class="main-button col-md-4 col-sm-4">
+              {{#if user}}
+              <b>Tên người dùng: {{user.username}}</b>
+              <input type="hidden" id ="username" value ={{user.username}}>
+              {{else}}
+              <input class="col-md-8 col-sm-8" type="text" id="username" placeholder="Nhập tên của bạn...">
+              <span class="text-danger" id="username-err"></span>
+              {{/if}}
+              <p>Bình luận:<span class="text-danger" id="content-err"></span></p>
+              <textarea id="content"  cols="60" rows="3"></textarea>
+              <button id="comment-submit" class="button" type="submit" >Gửi</button>
+            </div>
         </div>
 
         <div class="col-md-12 col-sm-12 command-detail">
-            <h4>Có 5 bình luận</h4>
-
+          <div class="section-heading">
+            <div class="line-dec"></div>
+            <h1>ĐÁNH GIÁ SẢN PHẨM</h1>
+          </div>
+          <div id="comment-list"> 
             <h5>Anh TranVanA đã bình luận:</h5>
             <p>Shop giao hàng nhanh, gói hàng kỹ cẩn thận.</p>
 
@@ -108,7 +115,7 @@
 
             <h5>Anh TranVanA đã bình luận:</h5>
             <p>mnpqrst</p>
-
+          </div>
         </div>
       </div>       
     </div>
@@ -146,4 +153,44 @@
       </div>
     </div>
     <!-- Similar Ends Here -->
-    <script src="https://gist.github.com/DennyLoko/61882bc72176ca74a0f2.js"></script>
+<script>
+  $('#comment-submit').click(function(){
+        var username = $('#username').val();
+        var content = $('#content').val();
+        var productId = $('#product_id').val();
+
+        if(username === ''){
+            $('#username-err').text(' --Hãy nhập tên');
+            return;
+        }
+        $('#username-err').text('');
+        if(content === ''){
+            $('#content-err').text(' --Mục này không được bỏ trống');
+            return;
+        }
+        $('#content-err').text('');
+        
+        $.ajax({
+            url:'/products/detail/' + productId +'/comment', 
+            method:'post',
+            dataType:'json',
+            data:{  'username': username,
+                    'content': content},
+            success:function(response){  
+                if(response.msg == 'success'){
+                  const tag_name = $('<h5></h5>').text(username + ' đã bình luận:');
+                  const tag_content = $('<p></p>').text(content);
+                  const tag_time = $('<p></p>').text(response.creatTime);
+  
+                  $('#username').val('');
+                  $('#content').val('');
+                  $('#comment-list').prepend(tag_name, tag_content, tag_time);
+                }
+            },  
+            error:function(response){
+                console.log('server error occured');
+                alert("Error");  
+            }  
+        })
+    });
+</script>
