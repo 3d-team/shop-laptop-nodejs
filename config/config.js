@@ -1,6 +1,7 @@
 const path = require('path');
 
 const CONFIG_DIR = path.join(__dirname);
+const CORE_DIR = path.join(__dirname, "../core");
 const MODULE_DIR = path.join(__dirname, "../modules");
 const ROUTE_DIR = path.join(__dirname, "../routes");
 const VIEW_DIR = path.join(__dirname, "../views");
@@ -13,6 +14,7 @@ module.exports = {
 	DB_USERNAME: process.env.DB_USERNAME,
 	DB_PASSWORD: process.env.DB_PASSWORD,
 	CONFIG_DIR,
+	CORE_DIR,
 	MODULE_DIR,
 	ROUTE_DIR,
 	VIEW_DIR

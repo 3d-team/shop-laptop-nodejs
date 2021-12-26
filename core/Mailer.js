@@ -8,8 +8,7 @@ const transport = nodemailer.createTransport({
 	}
 });
 
-module.exports.sendConfirmationEmail = (name, email, confirmationCode) => {
-  console.log("Check");
+sendConfirmationEmail = (name, email, confirmationCode) => {
   transport.sendMail({
     from: "3dteamkhtn@gmail.com",
     to: email,
@@ -21,3 +20,19 @@ module.exports.sendConfirmationEmail = (name, email, confirmationCode) => {
         </div>`,
   }).catch(err => console.log(err));
 };
+
+sendRecoveryEmail = (email, newPassword) => {
+  transport.sendMail({
+    from: "3dteamkhtn@gmail.com",
+    to: email,
+    subject: "New password - 3D Shop Laptop",
+    html: `<h1>Password Recovery</h1>
+        <h2>Hello client</h2>
+        <p>Thank you for subscribing. Here's your new password: ${newPassword}</p>`,
+  }).catch(err => console.log(err));
+};
+
+module.exports = {
+  sendConfirmationEmail,
+  sendRecoveryEmail
+}

@@ -7,6 +7,12 @@ const Mailer = require("./Mailer");
 const Utils = require("./Utils");
 const UserModel = Loader.model('user');
 
+/**
+ * @class Auth
+ * @brief Cover passport API for providing Signin, Signup service. Using bcrypt to en/decrypt password UserModel. 
+ * @brief Apply Singleton.
+ * @return only one instance.
+ **/
 class Auth {
 	constructor() {
 		this.passport = passport;
@@ -26,12 +32,14 @@ class Auth {
 		this.deserialize();
 	}
 
+	/* Marshalling user information into request */
 	serialize() {
 		this.passport.serializeUser(function(user, done) {
 		    done(null, user.id);
 		});
 	};
 
+	/* Demarshalling user from request */
 	deserialize() {
 		this.passport.deserializeUser(function(id, done) {
 		    const condition = {
@@ -48,6 +56,7 @@ class Auth {
 		});
 	};
 
+	/* Signin strategy */
 	signin() {
 		this.passport.use('signin', new LocalStrategy({ 
 		    usernameField: 'email',
@@ -62,12 +71,12 @@ class Auth {
 		            .then((user) => {
 
 		                if (!user){
-		                    return done(null, false, req.flash('message', "Email không tồn tại."));                 
+		                    return done(null, false, req.flash('error', "Email không tồn tại."));                 
 		                }
 		                
 		                const isPasswordValid = bcrypt.compareSync(password, user.password);
 		                if (!isPasswordValid){
-		                    return done(null, false, req.flash('message', 'Sai mật khẩu.'));
+		                    return done(null, false, req.flash('error', 'Sai mật khẩu.'));
 		                }
 
 		                return done(null, user);
@@ -80,6 +89,7 @@ class Auth {
 		);
 	}
 
+	/* Signup strategy */
 	signup() {
 		this.passport.use('signup', new LocalStrategy({
 		    usernameField: 'email',
@@ -95,7 +105,7 @@ class Auth {
 		            UserModel.findOne(condition)
 		                .then(function(user) {
 		                    if (user) {
-		                        return done(null, false, req.flash('message','Email đã tồn tại.'));
+		                        return done(null, false, req.flash('error','Email đã tồn tại.'));
 		                    }
 
 		                    let data = {
@@ -126,6 +136,12 @@ class Auth {
 		);
 	}
 
+	/**
+	 * @accessors public
+	 * @brief Apply strategy to specific route.
+	 * @return Authenticate service of Passport API.
+	 * @use Apply this method to any route that need. Ex: /login route in routes/home.js
+	 **/
 	authenticate(strategy, option) {
 		return this.passport.authenticate(strategy, option);
 	}
