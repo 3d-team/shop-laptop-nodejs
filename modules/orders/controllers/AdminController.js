@@ -39,7 +39,7 @@ class AdminController {
 	}
 
 	detailCart(req, res){
-		sequelize.query(`select name, order_items.quantity, price
+		sequelize.query(`select name, order_items.quantity, price, products.image as image
 				from orders, order_items, products
 				where orders.code = ${req.body.product_id} and 
 			  	orders.code = order_items.order_id and
