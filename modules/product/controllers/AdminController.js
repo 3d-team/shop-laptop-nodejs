@@ -4,6 +4,28 @@ const { Op } = require("sequelize");
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
 
+const multer = require("multer");
+const fs = require('fs');
+const mkdirp = require("mkdirp");
+
+//set Storage Engine
+// require('../../../public/images/uploads')
+const storage = multer.diskStorage({
+    destination: path.join(__dirname,'../../../public/images/uploads'),
+    filename: function(req, file, cb){
+        cb(null, file.originalname);
+    }
+})
+const uploadfunc = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1000000 //give no. of bytes
+    },
+    // fileFilter: function(req, file, cb){
+    //     checkFileType(file, cb);
+    // }
+}).single('thumbnail');
+
 class AdminController {
 
 	index(req, res) {
@@ -48,13 +70,47 @@ class AdminController {
 	}
 
 	add(req, res) {
-		if (req.method == "POST") {
-			ProductModel.create(req.body).then(() => {})
-		}
+		// if (req.method == "POST") {
+		// 	ProductModel.create(req.body).then(() => {});
+		// 	console.log(req.file);
+		// }
 
 		res.render("add", {
 			title: "Product",
 		});
+	}
+	
+
+	upload(req, res){
+		console.log("-----------------------------------------------------");
+		// console.log(req);
+		uploadfunc(req, res, (err) =>{
+			if(err){
+				//Send error msg
+				console.log(err);
+				res.send(err);
+			}else{
+				
+				console.log('file uploaded succcessfully');
+				console.log(req);
+				ProductModel.create({
+					name: req.body.name,
+					description: req.body.description,
+					content: req.body.content,
+					quantity: req.body.quantity,
+					price: req.body.price,
+					image: req.file.originalname,
+				}).then((ret) =>{
+					console.log(ret);
+					res.send('Successful');
+				}).catch((err)=>{
+					console.log(err);
+					res.send("ERRROR");
+				})
+				// res.json({msg: 'success'});
+			}
+		});
+		
 	}
 
 	update(req, res) {
