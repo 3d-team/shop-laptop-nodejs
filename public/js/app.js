@@ -1,3 +1,13 @@
+$('.detail-button').click(function(){
+  $('.detail-cart-page-shadow').removeClass('auto-hide');
+  $('.update-cart-button').attr('id', this.id);
+});
+
+$('#close-cart-detail-btn').click(function(){
+  $('.detail-cart-page-shadow').addClass('auto-hide');
+  document.getElementsByTagName('cart-container')[0].innerHTML = `Đang tải dữ liệu!`;
+});
+
 $(document).foundation();
 
 google.charts.load('current', { 'packages': ['corechart'] });

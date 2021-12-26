@@ -48,6 +48,7 @@ router.get('/contact', defaultController.contact);
  **/
 router.get('/admin', VerifyAdmin, adminController.index);
 router.get('/admin/statistics/revenue', VerifyAdmin, adminController.revenue);
+router.post('/admin/statistics/getRevenueData', adminController.getRevenueData);
 router.get('/admin/statistics/bestseller', VerifyAdmin, adminController.bestseller);
 
 

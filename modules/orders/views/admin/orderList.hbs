@@ -1,5 +1,4 @@
 <div class="row">
-
     <nav aria-label="You are here:" role="navigation">
         <ul class="breadcrumbs">
             <li><a href="/">Home</a></li>
@@ -9,7 +8,6 @@
             </li>
         </ul>
     </nav>
-
 </div>
 
 <div class="row">
@@ -17,14 +15,13 @@
 </div>
 
 <div class="row">
-
     <div class="large-6 columns">
         <div class="callout success">
             <p>
-                <strong>Tổng giá trị đơn hàng</strong>
+                <strong>Tổng giá trị tất cả đơn hàng</strong>
             </p>
             <div class="text-right">
-                <div class="stat">€250.00</div>
+                <div class="stat">{{SumUnit}} VND</div>
             </div>
         </div>
     </div>
@@ -35,7 +32,7 @@
                 <strong>Số lượng đơn hàng</strong>
             </p>
             <div class="text-right">
-                <div class="stat">7</div>
+                <div class="stat">{{numberCart}}</div>
             </div>
         </div>
     </div>
@@ -53,72 +50,37 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Mã đơn hàng</th>
-                        <th>Người đặt</th>
-                        <th>Tổng tiền</th>
-                        <th>Lời nhắn</th>
-                        <th>Trạng thái</th>
-                        <th style="width: 12%;" class="text-center">Ngày cập nhật</th>
-                        <th style="width: 22%;" class="text-center">#</th>
+                        <th>Mã đơn</th>
+                        <th>Người nhận</th>
+                        <th>Số điện thoại</th>
+                        <th>Đơn giá (VND)</th>
+                        <th>Địa chỉ nhận hàng</th>
+                        <th>Trạng thái giao hàng</th>
+                        <th>Trạng thái thanh toán</th>
+                        <th class="text-center">Ngày cập nhật</th>
+                        <th class="text-center">#</th>
+                        {{!-- <th class="text-center">#</th> --}}
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each data}}
                     <tr>
-                        <td>1</td>
-                        <td>6949SEX</td>
-                        <td>Dicky Ngo</td>
-                        <td>€150.00</td>
-                        <td>Địa chỉ khó tìm, đừng giao</td>
+                        <td>#{{this.code}}</td>
+                        <td>{{this.fullname_receiver}}</td>
+                        <td>{{this.phone_receiver}}</td>
+                        <td>{{this.total_unit}}</td>
+                        <td>{{this.delivery_address}}</td>
+                        <td id="deliver-tag-{{this.code}}">{{this.delivery_status}}</td>
+                        <td class="text-center">{{this.payment_status}}</td>
+                        <td class="text-center">{{this.updated_at}}</td>
                         <td class="text-center">
-                            <label class="label alert"><i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;Chưa
-                                giao</label>
+                            <div class="cart-button detail-button m-0" id="{{this.code}}">Chi tiết</div>
                         </td>
-                        <td class="text-center">
-                            21/10/2021
-                        </td>
-                        <td class="text-center">
-                            <a class="button alert m-0" href="#">Xóa</a>
-                        </td>
+                        {{!-- <td class="text-center">
+                            <div class="cart-button delete-button m-0" id="{{this.code}}">Hủy</div>
+                        </td> --}}
                     </tr>
-
-                    <tr>
-                        <td>1</td>
-                        <td>6949SEX</td>
-                        <td>Dicky Ngo</td>
-                        <td>€150.00</td>
-                        <td>Địa chỉ khó tìm, đừng giao</td>
-                        <td class="text-center">
-                            <label class="label warning"><i class="fa fa-plane" aria-hidden="true"></i>&nbsp;Đang
-                                giao</label>
-                        </td>
-                        <td class="text-center">
-                            21/10/2021
-                        </td>
-                        <td class="text-center">
-                            <a class="button alert m-0" href="#">Xóa</a>
-                        </td>
-                    </tr>
-
-
-                    <tr>
-                        <td>1</td>
-                        <td>6949SEX</td>
-                        <td>Dicky Ngo</td>
-                        <td>€150.00</td>
-                        <td>Địa chỉ khó tìm, đừng giao</td>
-                        <td class="text-center">
-                            <label class="label success"><i class="fa fa-truck" aria-hidden="true"></i>&nbsp;Đã
-                                giao</label>
-                        </td>
-                        <td class="text-center">
-                            21/10/2021
-                        </td>
-                        <td class="text-center">
-                            <a class="button alert m-0" href="#">Xóa</a>
-                        </td>
-                    </tr>
-
+                    {{/each}}
                 </tbody>
             </table>
             <div class="card-section">
@@ -127,5 +89,42 @@
                 </small>
             </div>
         </div>
+    </div>
+</div>
+
+<div style="height: 100vh;"></div>
+<div class="detail-cart-page-shadow auto-hide">
+    <div class="cart-control">
+        <div class="cart-button delete-button wrap-cart-button" id="close-cart-detail-btn">Đóng</div>
+        {{!-- <div class="cart-button delete-button wrap-cart-button">Hủy đơn hàng</div> --}}        
+        <div class="cart-button wrap-cart-button">Đơn giá: 19.990.000 VND</div>
+        {{#if admin}}
+            <select style="width: 200px; margin: 0px 10px 0px 0px;" id="deliver-status-option">
+                <option value="Đang chuẩn bị hàng!">Cập nhật trạng thái giao hàng</option>
+                <option value="Đang chuẩn bị hàng!">Đang chuẩn bị hàng</option>
+                <option value="Đang vận chuyển!">Đang vận chuyển</option>
+                <option value="Đang giao hàng!">Đang giao hàng</option>
+                <option value="Đã giao hàng!">Đã giao hàng</option>
+            </select>        
+            {{!-- <input type="text" id="delivery-status-input" style="width: 200px; margin: 0px 10px 0px 0px;"> --}}
+            <div class="cart-button detail-button wrap-cart-button update-cart-button">Cập nhật!</div>
+        {{/if}}
+    </div>  
+    
+    <div class="detail-cart-container">
+        <cart-container class="row">
+            Đang tải dữ liệu!
+            {{!-- <div class="cart-item large-12 columns" id="cart-item-id">
+                <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
+                <div class="cart-item-detail">
+                    <h4>MSI Modern 15dfasdfasdfdfasdfsadfsadfasdfsdfsadafs</h4>
+                    <h5 id="total-unit-item">19.990.000 VND</h5>
+                    <h6>Số lượng: 12</h6>
+                </div>
+                <div class="">
+                    {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
+                </div>
+            </div> --}}
+        </cart-container>
     </div>
 </div>

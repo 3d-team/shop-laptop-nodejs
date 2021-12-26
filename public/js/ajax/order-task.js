@@ -10,13 +10,10 @@ $(document).ready(function(){
             data:{'product_id': productId, number: val},
             success:function(response){  
                 if(response.msg=='success'){ 
-                    var totalUnitTag = document.getElementById('total-unit-of-cart');
-                    totalUnitTag.innerText = 'Tổng tiền: ' +  response.total_unit +' VND';
-                    var numberItem = document.getElementById('number-item-in-cart');
-                    numberItem.innerText = response.cart_number;
-                    var totalUnitItem = document.getElementById('total-unit-item-'+productId);
-                    totalUnitItem.innerText = response.total_unit_item + '.VND';
-                    console.log(val);
+                    $("#total-unit-of-cart").text('Tổng tiền: ' +  response.total_unit +' VND');
+                    $("#number-item-in-cart").text(response.cart_number);
+                    $('#total-unit-item-'+productId).text(response.total_unit_item + '.VND');
+                    // console.log(val);
                 }
                 if(response.msg == 'negative-number'){ 
                     alert("Số lượng sản phẩm không được nhỏ hơn 0!")

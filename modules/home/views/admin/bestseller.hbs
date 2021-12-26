@@ -30,7 +30,7 @@
                     <tr>
                         <th>Mã SP</th>
                         <th>Tên sản phẩm</th>
-                        <th>Hình ảnh</th>
+                        {{!-- <th>Hình ảnh</th> --}}
                         <th>Đơn giá</th>
                         <th>Đã bán</th>
                         <th>Tổng doanh thu</th>
@@ -38,166 +38,24 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each data}}
                     <tr>
-                        <td>1</td>
-                        <td>MacBook ABC</td>
-                        <td><img src="../images/laptop_small.png"></td>
-                        <td class="text-right">€150.00</td>
+                        <td>{{this.stt}}</td>
+                        <td>{{this.name}}</td>
+                        {{!-- <td><img src="../images/laptop_small.png"></td> --}}
+                        <td class="text-left">{{this.price}}</td>
                         <!-- <td class="text-center">
 										<label class="label success">
 											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
 										</label>
 									</td> -->
-                        <td class="text-center">10</td>
-                        <td class="text-center">€1500.00</td>
+                        <td class="text-center">{{this.quantity}}</td>
+                        <td class="text-center">{{this.unit}}</td>
                         <td class="text-center">
                             <a class="button success m-0" href="#">Chi tiết</a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>MacBook ABC</td>
-                        <td><img src="../images/laptop_small.png"></td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">10</td>
-                        <td class="text-center">€1500.00</td>
-                        <td class="text-center">
-                            <a class="button success m-0" href="#">Chi tiết</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>MacBook ABC</td>
-                        <td><img src="../images/laptop_small.png"></td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">10</td>
-                        <td class="text-center">€1500.00</td>
-                        <td class="text-center">
-                            <a class="button success m-0" href="#">Chi tiết</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>MacBook ABC</td>
-                        <td><img src="../images/laptop_small.png"></td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">10</td>
-                        <td class="text-center">€1500.00</td>
-                        <td class="text-center">
-                            <a class="button success m-0" href="#">Chi tiết</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>MacBook ABC</td>
-                        <td><img src="../images/laptop_small.png"></td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">10</td>
-                        <td class="text-center">€1500.00</td>
-                        <td class="text-center">
-                            <a class="button success m-0" href="#">Chi tiết</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>MacBook ABC</td>
-                        <td><img src="../images/laptop_small.png"></td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">10</td>
-                        <td class="text-center">€1500.00</td>
-                        <td class="text-center">
-                            <a class="button success m-0" href="#">Chi tiết</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>MacBook ABC</td>
-                        <td><img src="../images/laptop_small.png"></td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">10</td>
-                        <td class="text-center">€1500.00</td>
-                        <td class="text-center">
-                            <a class="button success m-0" href="#">Chi tiết</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>MacBook ABC</td>
-                        <td><img src="../images/laptop_small.png"></td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">10</td>
-                        <td class="text-center">€1500.00</td>
-                        <td class="text-center">
-                            <a class="button success m-0" href="#">Chi tiết</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>MacBook ABC</td>
-                        <td><img src="../images/laptop_small.png"></td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">10</td>
-                        <td class="text-center">€1500.00</td>
-                        <td class="text-center">
-                            <a class="button success m-0" href="#">Chi tiết</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>MacBook ABC</td>
-                        <td><img src="../images/laptop_small.png"></td>
-                        <td class="text-right">€150.00</td>
-                        <!-- <td class="text-center">
-										<label class="label success">
-											<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>
-										</label>
-									</td> -->
-                        <td class="text-center">10</td>
-                        <td class="text-center">€1500.00</td>
-                        <td class="text-center">
-                            <a class="button success m-0" href="#">Chi tiết</a>
-                        </td>
-                    </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>
