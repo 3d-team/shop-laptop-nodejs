@@ -123,7 +123,7 @@ class Context {
         };
     }
 
-    static configure(services = [], namespace) {
+    static configure(providers = [], namespace) {
         namespace = namespace || createNamespace(uuid.v4());
 
         const container = new Context(namespace);
@@ -140,7 +140,7 @@ class Context {
             });
         });
 
-        services.forEach((service) => {
+        providers.forEach((service) => {
             const {
                 name,
                 factory,

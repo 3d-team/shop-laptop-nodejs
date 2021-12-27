@@ -7,7 +7,9 @@ SSR web app for manipulating the business of laptop shop
 	2. 19120484 - Tram Huu Duc.
 	3. 19120495 - Nguyen Nhat Duy.
 
-* Notes: The project is designed and built with the shiny work of 3 members, without using any template source code of anyone.
+* Tech stack: NodeJS, MySQL.
+
+* Notes: Project is designed and built with the shiny work of 3 members, without using any template source code of anyone.
 
 * Project whose design is a refactored form of express-generator, and heavily influenced by Laravel, used some techniques like ...
 

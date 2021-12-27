@@ -103,7 +103,7 @@ class Bootstrap {
 		/* Custom */
 		this.app.use("/*", template);
 
-		kernel.locals.Cart = {
+		this.app.locals.Cart = {
 			number: 0,
 			total_unit: 0,
 			title: "cart",

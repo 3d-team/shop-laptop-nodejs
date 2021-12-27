@@ -4,7 +4,7 @@ var menu = require('../../common_model/MenuContent');
 class DefaultController {
 	
 	index(req, res) {
-		// app.locals.Cart.number = req.app.locals.CartSize;
+		
 		res.render('index', {
 			content: "Default: index",		
 			menuContent: menu.getContentHomeMenuItem()

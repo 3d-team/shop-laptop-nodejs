@@ -57,6 +57,16 @@ class Loader {
 		const libraryName = Utils.capitalize(library);
 		return require(path.join(config.CORE_DIR, libraryName));
 	}
+
+	/**
+	 * @brief Loading service.
+	 * @param /services
+	 * @return Any service.
+	**/
+	static service(s) {
+		const serviceName = Utils.capitalize(s).concat("Service");
+		return require(path.join(config.SERVICE_DIR, serviceName));
+	}
 }
 
 module.exports = Loader;

@@ -6,6 +6,7 @@ const MODULE_DIR = path.join(__dirname, "../modules");
 const ROUTE_DIR = path.join(__dirname, "../routes");
 const VIEW_DIR = path.join(__dirname, "../views");
 const PUBLIC_DIR = path.join(__dirname, "../public");
+const SERVICE_DIR = path.join(__dirname, "../services");
 
 module.exports = {
 	APP_KEY: String(process.env.APP_KEY),
@@ -17,5 +18,7 @@ module.exports = {
 	CORE_DIR,
 	MODULE_DIR,
 	ROUTE_DIR,
-	VIEW_DIR
+	VIEW_DIR,
+	PUBLIC_DIR,
+	SERVICE_DIR
 }

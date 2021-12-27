@@ -2,17 +2,28 @@ const Sequelize = require('sequelize');
 const config = require('./config');
 
 /**
- * @brief MySQL ORM for Nodejs.
- * @brief In this project, we use free database from remotemysql.com
- * @return Connection to MySQL Server.
+*--------------------------------------------------------------------------
+* 	Database connections.
+*--------------------------------------------------------------------------
+*
+* Here are the database connections setup for application.
+*
+* @brief MySQL ORM for Nodejs.
+* @brief In this project, we use free database from remotemysql.com
+* @return Connection to MySQL Server.
+* 
 **/
+
 const sequelize = new Sequelize('1wgEqBN44u', '1wgEqBN44u', 'nWLLjcfGkm', {
 	host: 'remotemysql.com',
 	dialect: 'mysql',
 	port: 3306
 });
 
-/* Checking status of connection */
+/** 
+* @brief Checking status of connection 
+*	
+* */
 sequelize.authenticate()
 	.then(() => {
 		console.log('Connection has been established successfully.');

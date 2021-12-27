@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 const Context = require("./core/Context");
 const Bootstrap = require('./core/Boostrap');
+const providers = require("./config/app");
 
 dotenv.config();
 
@@ -16,7 +17,7 @@ dotenv.config();
 | incoming requests to this application from the web.
 |
 **/
-const context = Context.configure();
+const context = Context.configure(providers);
 const kernel = context.make('express');
 
 
