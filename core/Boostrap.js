@@ -13,6 +13,46 @@ const cors = require('cors');
 const config = require("../config/config");
 const Utils = require('./Utils');
 
+<<<<<<< HEAD
+=======
+const app = express();
+
+
+/**
+ * View engine
+ * 
+ * Initial default and view template.
+ */
+function viewEngine(app) {
+	let views = [];
+	fs.readdirSync(path.join(config.MODULE_DIR)).forEach(function(file){
+		views.push(path.join(config.MODULE_DIR, file, "views/default"));
+		views.push(path.join(config.MODULE_DIR, file, "views/admin"));
+	});
+	app.set('views', [
+		...views,
+		path.join(__dirname, '../views'),
+		path.join(__dirname, '../views/layouts/default'),
+		path.join(__dirname, '../views/layouts/admin')
+	]);
+	app.set('view engine', 'hbs');
+	hbs.registerPartials(path.join(__dirname, '../views/layouts/default/partials'));
+	hbs.registerPartials(path.join(__dirname, '../views/layouts/admin/partials'));
+	hbs.registerHelper('standardPrice', function(price) {
+		let priceStr = price.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1.').toString();
+	
+		return priceStr.substr(0, priceStr.length - 3);
+	})
+	app.engine('hbs', hbs.__express);
+}
+
+
+/**
+ * Middleware
+ * 
+ * Set up default and custom middlewares.
+ **/
+>>>>>>> main
 const Auth = require('./Auth');
 const template = require("../middlewares/TemplateMiddleware");
 const verifyAdmin = require("../middlewares/VerifyAdmin");
