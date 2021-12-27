@@ -50,18 +50,17 @@
           <div class="col-md-6">
             <div class="right-content">
               <h4>{{data.name}}</h4>
-              <h6>{{data.price}}VND</h6>
+              <h6>{{standardPrice data.price}}VND</h6>
               <p>{{data.content}}</p>
               <p>{{data.description}}</p>
-              <span>Còn {{data.quantity}} chiếc trong kho</span>
-              <form action="" method="get">
+              <span>Còn {{data.quantity}} chiếc trong kho</span><br>
                 <label for="quantity">Số lượng:</label>
                 <input name="quantity" type="quantity" class="quantity-text" id="quantity" 
                 	onfocus="if(this.value == '1') { this.value = ''; }" 
                     onBlur="if(this.value == '') { this.value = '1';}"
                     value="1">
-                <input type="submit" class="button" value="Mua Ngay!">
-              </form>
+                <input class="button-add-to-cart button" id="{{data.id}}" value="Thêm vào giỏ hàng">
+                <a href="/orders"><input type="submit" class="button-add-to-cart button" id="{{data.id}}" value ="Mua ngay"></a>
               <div class="down-content">
                 <div class="categories">
                   <h6>Thể loại: <span><a href="#">{{data.category}}</a></span></h6>
@@ -133,20 +132,16 @@
           </div>
           <div class="col-md-12">
             <div class="owl-carousel owl-theme">
-              <a href="/products/detail/1">
+              {{#each productRelated}}
+                <a href="/products/detail/{{this.id}}">
                 <div class="featured-item">
-                  <img src="/images/asus-vivobook-pro15-oled.jpg" alt="Item 1">
-                  <h4>Asus VivoBook Pro 15 OLED</h4>
-                  <h5>31.990.000VND</h5>
-                  
-                  <p>CPU: Intel Core i7 Tiger Lake - 11370H</p>
-                  <p>RAM: 16GB DDR4</p>
-                  <p>Ổ cứng: 512GB SSD NVMe</p>
-                  <p>Card rời: NVIDIA GeForce RTX3050</p>
-                  <p>Màn hình: 15.6" Full HD OLED</p>
+                  <img src="images/uploads/{{this.image}}" alt="Item 1">
+                  <h4>{{this.name}}</h4>
+                  <h5>{{this.price}}</h5>
+                  <p>{{this.description}}</p>
                 </div>
-              </a>
-              
+                </a>
+              {{/each}}            
             </div>
           </div>
         </div>

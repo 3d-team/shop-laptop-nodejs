@@ -21,7 +21,7 @@
                 <strong>Tổng giá trị tất cả đơn hàng</strong>
             </p>
             <div class="text-right">
-                <div class="stat">{{SumUnit}} VND</div>
+                <div class="stat">{{standardPrice SumUnit}} VND</div>
             </div>
         </div>
     </div>
@@ -68,7 +68,7 @@
                         <td>#{{this.code}}</td>
                         <td>{{this.fullname_receiver}}</td>
                         <td>{{this.phone_receiver}}</td>
-                        <td>{{this.total_unit}}</td>
+                        <td>{{standardPrice this.total_unit}}</td>
                         <td>{{this.delivery_address}}</td>
                         <td id="deliver-tag-{{this.code}}">{{this.delivery_status}}</td>
                         <td class="text-center">{{this.payment_status}}</td>

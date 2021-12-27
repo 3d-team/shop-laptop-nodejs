@@ -37,6 +37,11 @@ function viewEngine(app) {
 	app.set('view engine', 'hbs');
 	hbs.registerPartials(path.join(__dirname, '../views/layouts/default/partials'));
 	hbs.registerPartials(path.join(__dirname, '../views/layouts/admin/partials'));
+	hbs.registerHelper('standardPrice', function(price) {
+		let priceStr = price.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1.').toString();
+	
+		return priceStr.substr(0, priceStr.length - 3);
+	})
 	app.engine('hbs', hbs.__express);
 }
 
