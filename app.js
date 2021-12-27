@@ -1,20 +1,30 @@
-const express = require('express');
 const dotenv = require("dotenv");
+const Context = require("./core/Context");
 const Bootstrap = require('./core/Boostrap');
 
-const app = express();
 dotenv.config();
 
-app.locals.Cart = {
-    number: 0,
-    total_unit: 0,
-    title: "cart",
-    items: new Map()
-}
+/**
+| -----------------------------------
+| Configure IoC container.
+| -----------------------------------
+| Binding all providers that declared in config/app.js.
+| Consists of a Express application instance.
+**/
+const context = Context.configure();
+const kernel = context.make('express');
 
-Bootstrap.viewEngine(app);
-Bootstrap.registerMiddleware(app);
-Bootstrap.registerRoute(app);
-Bootstrap.registerHandler(app);
+/**
+| -----------------------------------
+| Booting all required components of Express app.
+| -----------------------------------
+| This bootstraps the application and gets it ready for use, then it
+| will load up this application so that we can run it and send
+| the responses back to the browser and delight our users.
+|
+**/
+const application = new Bootstrap(kernel);
+application.booting();
 
-module.exports = app;
+
+module.exports = application.start();

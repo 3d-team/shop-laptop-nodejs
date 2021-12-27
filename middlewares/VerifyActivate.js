@@ -5,7 +5,8 @@ const VerifyActivate = (req, res, next) => {
     return Authorize(req, res, next);
   }
    
-  return res.send("Kiểm tra gmail và kích hoạt tài khoản.");
+  res.send("Kiểm tra gmail và kích hoạt tài khoản.");
+  res.end();
 };
 
 module.exports = VerifyActivate;

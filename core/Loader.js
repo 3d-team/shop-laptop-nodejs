@@ -5,9 +5,9 @@ const config = require('./../config/config');
 const Utils = require('./Utils');
 
 /**
- * @class Loader
+ * @class Loader.
  * @brief Loading another component by it's name (Controller, Model, ...).
- * @brief Apply Facade pattern
+ * @brief Apply Facade pattern.
  **/
 class Loader {
 
