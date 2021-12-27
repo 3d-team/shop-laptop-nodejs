@@ -9,7 +9,7 @@ SSR web app for manipulating the business of laptop shop
 
 * Notes: The project is designed and built with the shiny work of 3 members, without using any template source code of anyone.
 
-* Project whose design is heavily influenced by Laravel, used some techniques like ...
+* Project whose design is a refactored form of express-generator, and heavily influenced by Laravel, used some techniques like ...
 
 * HMVC: includes multiple modules of functionals, each of them consist of their Controler, Model, View.
 * IoC Container: manage and resolve dependency of components in application.

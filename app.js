@@ -9,16 +9,20 @@ dotenv.config();
 | Configure IoC container.
 | -----------------------------------
 | 
-| Binding all providers that declared in config/app.js.
-| Consists of a Express application instance.
+| We need to bind some important dependencies into the context so
+| we will be able to resolve them when needed.
+|
+| The kernel is a Express application instance, serve the
+| incoming requests to this application from the web.
 |
 **/
 const context = Context.configure();
 const kernel = context.make('express');
 
+
 /**
 | -----------------------------------
-| Booting all required components of Express app.
+| Booting all required components.
 | -----------------------------------
 | 
 | This bootstraps the application and gets it ready for use, then it
