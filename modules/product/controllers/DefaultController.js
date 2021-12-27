@@ -74,11 +74,19 @@ class DefaultController {
 
 		ProductModel.findOne(condition)
 			.then((product) => {
-				res.render('productDetail', {
-					title: "Product",
-					data: product,
-					menuContent: menu.getContentProductMenuItem()
-				});
+				ProductModel.findAll({
+					where: {
+						id: {[Op.ne]: product.id},
+						category: product.category
+					}})
+				.then((products) => {
+					res.render('productDetail', {
+						title: "Product",
+						data: product,
+						productRelated: products,
+						menuContent: menu.getContentProductMenuItem()
+					});
+				})
 			})
 			.catch(function(err) {
 				res.status(err.status || 500);
