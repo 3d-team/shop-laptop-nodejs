@@ -150,6 +150,30 @@ class DefaultController {
 				res.status(500);
 			});
 	}
+
+	getComment(req, res){
+		const productId = req.params.productId;
+		const commentPerPage = 5;
+		const page = req.query.page || 1;
+		const offset = (page - 1) * commentPerPage;
+
+		const condition = {
+			offset: offset,
+			limit: commentPerPage,
+			where: {product_id: productId}
+		};
+
+		CommentModel.findAll(condition)
+			.then((comments) => {
+				res.status(200);
+				res.json({
+					data: comments
+				})
+			})
+			.catch(function(err) {
+				res.status(err.status || 500);
+			});
+	}
 }
 
 module.exports = new DefaultController();
