@@ -29,6 +29,7 @@ router.get('/', defaultController.index);
 router.get('/search', defaultController.search);
 router.get('/detail/:productId', defaultController.detail);
 router.post('/detail/:productId/comment', defaultController.comment);
+router.get('/detail/:productId/getComment', defaultController.getComment);
 
 
 module.exports = router;

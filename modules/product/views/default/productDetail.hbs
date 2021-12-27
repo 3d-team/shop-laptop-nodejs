@@ -1,191 +1,224 @@
 <!-- Single Starts Here -->
-    <div class="single-product">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="section-heading">
-              <div class="line-dec"></div>
-              <h1>{{data.name}}</h1>
-              <input type="hidden" id="product_id" value = {{data.id}} >
-            </div>
+<div class="single-product">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <div class="line-dec"></div>
+          <h1>{{data.name}}</h1>
+          <input type="hidden" id="product_id" value={{data.id}}>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="product-slider">
+          <div id="slider" class="flexslider">
+            <ul class="slides">
+              <li>
+                <img src="/images/asus-rog-zephyrus-g14-1.jpg" />
+              </li>
+              <li>
+                <img src="/images/asus-rog-zephyrus-g14-2.jpg" />
+              </li>
+              <li>
+                <img src="/images/asus-rog-zephyrus-g14-3.jpg" />
+              </li>
+              <li>
+                <img src="/images/asus-rog-zephyrus-g14-4.jpg" />
+              </li>
+              <!-- items mirrored twice, total of 12 -->
+            </ul>
           </div>
-          <div class="col-md-6">
-            <div class="product-slider">
-              <div id="slider" class="flexslider">
-                <ul class="slides">
-                  <li>
-                    <img src="/images/asus-rog-zephyrus-g14-1.jpg" />
-                  </li>
-                  <li>
-                    <img src="/images/asus-rog-zephyrus-g14-2.jpg" />
-                  </li>
-                  <li>
-                    <img src="/images/asus-rog-zephyrus-g14-3.jpg" />
-                  </li>
-                  <li>
-                    <img src="/images/asus-rog-zephyrus-g14-4.jpg" />
-                  </li>
-                  <!-- items mirrored twice, total of 12 -->
-                </ul>
-              </div>
-              <div id="carousel" class="flexslider">
-                <ul class="slides">
-                  <li>
-                    <img src="/images/asus-rog-zephyrus-g14-1.jpg" />
-                  </li>
-                  <li>
-                    <img src="/images/asus-rog-zephyrus-g14-2.jpg" />
-                  </li>
-                  <li>
-                    <img src="/images/asus-rog-zephyrus-g14-3.jpg" />
-                  </li>
-                  <li>
-                    <img src="/images/asus-rog-zephyrus-g14-4.jpg" />
-                  </li>
-                  <!-- items mirrored twice, total of 12 -->
-                </ul>
-              </div>
-            </div>
+          <div id="carousel" class="flexslider">
+            <ul class="slides">
+              <li>
+                <img src="/images/asus-rog-zephyrus-g14-1.jpg" />
+              </li>
+              <li>
+                <img src="/images/asus-rog-zephyrus-g14-2.jpg" />
+              </li>
+              <li>
+                <img src="/images/asus-rog-zephyrus-g14-3.jpg" />
+              </li>
+              <li>
+                <img src="/images/asus-rog-zephyrus-g14-4.jpg" />
+              </li>
+              <!-- items mirrored twice, total of 12 -->
+            </ul>
           </div>
-          <div class="col-md-6">
-            <div class="right-content">
-              <h4>{{data.name}}</h4>
-              <h6>{{standardPrice data.price}}VND</h6>
-              <p>{{data.content}}</p>
-              <p>{{data.description}}</p>
-              <span>Còn {{data.quantity}} chiếc trong kho</span><br>
-                <label for="quantity">Số lượng:</label>
-                <input name="quantity" type="quantity" class="quantity-text" id="quantity" 
-                	onfocus="if(this.value == '1') { this.value = ''; }" 
-                    onBlur="if(this.value == '') { this.value = '1';}"
-                    value="1">
-                <input class="button-add-to-cart button" id="{{data.id}}" value="Thêm vào giỏ hàng">
-                <a href="/orders"><input type="submit" class="button-add-to-cart button" id="{{data.id}}" value ="Mua ngay"></a>
-              <div class="down-content">
-                <div class="categories">
-                  <h6>Thể loại: <span><a href="#">{{data.category}}</a></span></h6>
-                </div>
-                <div class="share">
-                  <h6>Chia sẽ: <span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-twitter"></i></a></span></h6>
-                </div>
-              </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="right-content">
+          <h4>{{data.name}}</h4>
+          <h6>{{standardPrice data.price}}VND</h6>
+          <p>{{data.content}}</p>
+          <p>{{data.description}}</p>
+          <span>Còn {{data.quantity}} chiếc trong kho</span><br>
+          <label for="quantity">Số lượng:</label>
+          <input name="quantity" type="quantity" class="quantity-text" id="quantity"
+            onfocus="if(this.value == '1') { this.value = ''; }" onBlur="if(this.value == '') { this.value = '1';}"
+            value="1">
+          <input class="button-add-to-cart button" id="{{data.id}}" value="Thêm vào giỏ hàng">
+          <a href="/orders"><input type="submit" class="button-add-to-cart button" id="{{data.id}}" value="Mua ngay"></a>
+          <div class="down-content">
+            <div class="categories">
+              <h6>Thể loại: <span><a href="#">{{data.category}}</a></span></h6>
+            </div>
+            <div class="share">
+              <h6>Chia sẽ: <span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
+                      class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-twitter"></i></a></span></h6>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- Single Page Ends Here -->
+  </div>
+</div>
+<!-- Single Page Ends Here -->
 
-    <!-- Customer Command here  -->|
-    <div class="container">        
-      <div class="row">
-        <div class="col-md-12 col-sm-12 row">
-            <div class="main-button col-md-4 col-sm-4">
-              {{#if user}}
-              <b>Tên người dùng: {{user.username}}</b>
-              <input type="hidden" id ="username" value ={{user.username}}>
-              {{else}}
-              <input class="col-md-8 col-sm-8" type="text" id="username" placeholder="Nhập tên của bạn...">
-              <span class="text-danger" id="username-err"></span>
-              {{/if}}
-              <p>Bình luận:<span class="text-danger" id="content-err"></span></p>
-              <textarea id="content"  cols="60" rows="3"></textarea>
-              <button id="comment-submit" class="button" type="submit" >Gửi</button>
-            </div>
-        </div>
-
-        <div class="col-md-12 col-sm-12 command-detail">
-          <div class="section-heading">
-            <div class="line-dec"></div>
-            <h1>ĐÁNH GIÁ SẢN PHẨM</h1>
-          </div>
-          <div id="comment-list"> 
-            <h5>Anh TranVanA đã bình luận:</h5>
-            <p>Shop giao hàng nhanh, gói hàng kỹ cẩn thận.</p>
-
-            <h5>Anh TranVanA đã bình luận:</h5>
-            <p>Máy dùng ngon, chiến game mượt</p>
-
-            <h5>Anh TranVanA đã bình luận:</h5>
-            <p>Máy mượt lắm nha, làm đồ họa ổn phết</p>
-
-            <h5>Anh TranVanA đã bình luận:</h5>
-            <p>abcxyz</p>
-
-            <h5>Anh TranVanA đã bình luận:</h5>
-            <p>mnpqrst</p>
-          </div>
-        </div>
-      </div>       
+<!-- Customer Command here  -->|
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 row">
+      <div class="main-button col-md-4 col-sm-4">
+        {{#if user}}
+        <b>Tên người dùng: {{user.username}}</b>
+        <input type="hidden" id="username" value={{user.username}}>
+        {{else}}
+        <input class="col-md-8 col-sm-8" type="text" id="username" placeholder="Nhập tên của bạn...">
+        <span class="text-danger" id="username-err"></span>
+        {{/if}}
+        <p>Bình luận:<span class="text-danger" id="content-err"></span></p>
+        <textarea id="content" cols="60" rows="3"></textarea>
+        <button id="comment-submit" class="button" type="submit">Gửi</button>
+      </div>
     </div>
-    <!-- Customer Command End here  -->|
 
-    <!-- Similar Starts Here -->
-    <div class="featured-items">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="section-heading">
-              <div class="line-dec"></div>
-              <h1>Có thể bạn sẽ thích:</h1>
+    <div class="col-md-12 col-sm-12 command-detail">
+      <div class="section-heading">
+        <div class="line-dec"></div>
+        <h1>ĐÁNH GIÁ SẢN PHẨM</h1>
+      </div>
+      <div id="comment-list">
+
+      </div>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" onclick="loadCommentPage(1)">1</a></li>
+          <li class="page-item"><a class="page-link" onclick="loadCommentPage(2)">2</a></li>
+          <li class="page-item"><a class="page-link" onclick="loadCommentPage(3)">3</a></li>
+          <li class="page-item"><a class="page-link" onclick="loadCommentPage()">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+<!-- Customer Command End here  -->|
+
+<!-- Similar Starts Here -->
+<div class="featured-items">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <div class="line-dec"></div>
+          <h1>Có thể bạn sẽ thích:</h1>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="owl-carousel owl-theme">
+          {{#each productRelated}}
+          <a href="/products/detail/{{this.id}}">
+            <div class="featured-item">
+              <img src="images/uploads/{{this.image}}" alt="Item 1">
+              <h4>{{this.name}}</h4>
+              <h5>{{this.price}}</h5>
+              <p>{{this.description}}</p>
             </div>
-          </div>
-          <div class="col-md-12">
-            <div class="owl-carousel owl-theme">
-              {{#each productRelated}}
-                <a href="/products/detail/{{this.id}}">
-                <div class="featured-item">
-                  <img src="images/uploads/{{this.image}}" alt="Item 1">
-                  <h4>{{this.name}}</h4>
-                  <h5>{{this.price}}</h5>
-                  <p>{{this.description}}</p>
-                </div>
-                </a>
-              {{/each}}            
-            </div>
-          </div>
+          </a>
+          {{/each}}
         </div>
       </div>
     </div>
-    <!-- Similar Ends Here -->
+  </div>
+</div>
+<!-- Similar Ends Here -->
 <script>
-  $('#comment-submit').click(function(){
-        var username = $('#username').val();
-        var content = $('#content').val();
-        var productId = $('#product_id').val();
+  //Post Comment 
+  $('#comment-submit').click(function () {
+    var username = $('#username').val();
+    var content = $('#content').val();
+    var productId = $('#product_id').val();
 
-        if(username === ''){
-            $('#username-err').text(' --Hãy nhập tên');
-            return;
+    if (username === '') {
+      $('#username-err').text(' --Hãy nhập tên');
+      return;
+    }
+    $('#username-err').text('');
+    if (content === '') {
+      $('#content-err').text(' --Mục này không được bỏ trống');
+      return;
+    }
+    $('#content-err').text('');
+
+    $.ajax({
+      url: '/products/detail/' + productId + '/comment',
+      method: 'post',
+      dataType: 'json',
+      data: {
+        'username': username,
+        'content': content
+      },
+      success: function (response) {
+        if (response.msg == 'success') {
+          const tag_name = $('<h5></h5>').text(username + ' đã bình luận:');
+          const tag_content = $('<p></p>').text(content);
+          const tag_time = $('<p></p>').text(response.creatTime);
+
+          $('#username').val('');
+          $('#content').val('');
+          $('#comment-list').prepend(tag_name, tag_content, tag_time);
         }
-        $('#username-err').text('');
-        if(content === ''){
-            $('#content-err').text(' --Mục này không được bỏ trống');
-            return;
-        }
-        $('#content-err').text('');
-        
-        $.ajax({
-            url:'/products/detail/' + productId +'/comment', 
-            method:'post',
-            dataType:'json',
-            data:{  'username': username,
-                    'content': content},
-            success:function(response){  
-                if(response.msg == 'success'){
-                  const tag_name = $('<h5></h5>').text(username + ' đã bình luận:');
-                  const tag_content = $('<p></p>').text(content);
-                  const tag_time = $('<p></p>').text(response.creatTime);
-  
-                  $('#username').val('');
-                  $('#content').val('');
-                  $('#comment-list').prepend(tag_name, tag_content, tag_time);
-                }
-            },  
-            error:function(response){
-                console.log('server error occured');
-                alert("Error");  
-            }  
+      },
+      error: function (response) {
+        console.log('server error occured');
+        alert("Error");
+      }
+    })
+  });
+  //Post Comment -end
+
+  //Get comment
+  var currentPage = 1;
+  loadCommentPage(currentPage);
+  function loadCommentPage(page = 0) {
+    const productId = $('#product_id').val();
+
+    if (page != 0) {
+      currentPage = page;
+    } else {
+      currentPage++;
+    }
+    const urlString = '/products/detail/' + productId + '/getComment?page=' + currentPage;
+    $.ajax({
+      url: urlString,
+      method: 'get',
+      success: function (response) {
+        $('#comment-list').html('');
+        response.data.forEach((comment) => {
+          const tag_name = $('<h5></h5>').text(comment.name + ' đã bình luận:');
+          const tag_content = $('<p></p>').text(comment.content);
+          const createdTime = (new Date(comment.created_at)).toLocaleString();
+          const tag_time = $('<p></p>').text(createdTime);
+
+          $('#comment-list').append(tag_name, tag_content, tag_time);
         })
-    });
+      },
+      error: function (response) {
+        console.log('server error occured');
+        alert("Error");
+      }
+    })
+  }
+  //Get comment -end
 </script>
