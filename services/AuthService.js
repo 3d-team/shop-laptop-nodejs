@@ -2,27 +2,23 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-const Loader = require("./Loader");
-const Mailer = require("./Mailer");
-const Utils = require("./Utils");
+const Loader = require("./../core/Loader");
+const Mailer = require("./../core/Mailer");
+const Utils = require("./../core/Utils");
 const UserModel = Loader.model('user');
 
 /**
- * @class Auth
+ * @class AuthService
  * @brief Cover passport API for providing Signin, Signup service. Using bcrypt to en/decrypt password UserModel. 
  * @brief Apply Singleton.
  * @return only one instance.
  **/
-class Auth {
-	constructor() {
+class AuthService {
+	constructor(mailService) {
 		this.passport = passport;
-		this.configure();
+		this.mailService = mailService;
 
-		/* Singleton */
-		if(!this.instance) {
-			this.instance = this;
-		}
-		return this.instance;
+		this.configure();
 	}
 
 	/**
@@ -101,6 +97,8 @@ class Auth {
 
 	/* Signup strategy */
 	signup() {
+		const mailService = this.mailService;
+
 		this.passport.use('signup', new LocalStrategy({
 		    usernameField: 'email',
 		    passwordField: 'password',
@@ -130,7 +128,7 @@ class Auth {
 	                        
 	                        UserModel.create(data)
 		                        .then((result) => {
-		                        	Mailer.sendConfirmationEmail(result.username, result.email, result.confirm_code);
+		                        	mailService.sendConfirmationEmail(result.username, result.email, result.confirm_code);
 		                            return done(null, result);
 		                        })
 		                        .catch((err) => {
@@ -147,4 +145,4 @@ class Auth {
 	}
 }
 
-module.exports = new Auth();
+module.exports = AuthService;

@@ -11,9 +11,10 @@ const passport = require('passport');
 const cors = require('cors');
 
 const config = require("../config/config");
-const sequelize = require('./../config/database');
 const Utils = require('./Utils');
 
+<<<<<<< HEAD
+=======
 const app = express();
 
 
@@ -51,78 +52,141 @@ function viewEngine(app) {
  * 
  * Set up default and custom middlewares.
  **/
+>>>>>>> main
 const Auth = require('./Auth');
 const template = require("../middlewares/TemplateMiddleware");
 const verifyAdmin = require("../middlewares/VerifyAdmin");
 
-function registerMiddleware(app) {
-	app.use(cors());
-	app.use(logger('dev'));
-	app.use(express.json());
-	app.use(express.urlencoded({ extended: true }));
-	app.use(cookieParser());
-	app.use(express.static(path.join(__dirname, '../public')));
-	app.use(expressSession({
-		secret: config.APP_KEY,
-		resave: false,
-    	saveUninitialized: false
-    }));
-	app.use(passport.initialize());
-	app.use(passport.session());
-	app.use(flash());
-
-	/* Custom */
-	app.use("/*", template);
-
-	app.use((req, res, next) => { //This middleware checks the local user
-		res.locals.user = req.user
-		next()
-	  });
-}
-
-
 /**
- * Routing
- * 
- * Register route for app.
- */
-function registerRoute(app) {
+| --------------------------------
+|	Bootstraping the application
+| --------------------------------
+| 
+| The first thing we will do is set up all dependencies of application instance
+| which serves as the "glue" for all the components of ExpressJS.
+|
+**/
+class Bootstrap {
+	constructor(app) {
+		this.app = app;
 
-	app.use('/', require('../routes/home'));
+		/* Singleton */
+		if(!this.instance) {
+			this.instance = this;
+		}
+		return this.instance;
+	}
 
-	/* Custom route */
-	fs.readdirSync(path.join(config.ROUTE_DIR)).forEach(function(file) {
-		const route = Utils.convertToPath(file);
-		const router = require(path.join(config.ROUTE_DIR, file));
+	/**
+	 * @functional Booting required components of Express.
+	 * @brief Inject view engine, middlewares, routes, error handler.  
+	 **/
+	booting() {
+		this.viewEngine();
+		this.registerMiddleware();
+		this.registerRoute();
+		this.registerHandler();
+	}
 
-		app.use(route, router);
-	});
+	/**
+	 * @brief Endpoint of process booting the application.
+	 * @return Fulfil ExpressJS application.
+	 **/
+	start() {
+		return this.app;
+	}
+
+	/**
+	 * @functional Setup view engine.
+	 * 
+	 * @functional Make default, admin template based on route.
+	 */
+	viewEngine() {
+		let views = [];
+		fs.readdirSync(path.join(config.MODULE_DIR)).forEach(function(file){
+			views.push(path.join(config.MODULE_DIR, file, "views/default"));
+			views.push(path.join(config.MODULE_DIR, file, "views/admin"));
+		});
+		this.app.set('views', [
+			...views,
+			path.join(__dirname, '../views'),
+			path.join(__dirname, '../views/layouts/default'),
+			path.join(__dirname, '../views/layouts/admin')
+		]);
+		this.app.set('view engine', 'hbs');
+		hbs.registerPartials(path.join(__dirname, '../views/layouts/default/partials'));
+		hbs.registerPartials(path.join(__dirname, '../views/layouts/admin/partials'));
+		this.app.engine('hbs', hbs.__express);
+	}
+
+	/**
+	 * @functional Middleware
+	 * 
+	 * @brief Set up default and custom middlewares.
+	 **/
+	registerMiddleware() {
+		this.app.use(cors());
+		this.app.use(logger('dev'));
+		this.app.use(express.json());
+		this.app.use(express.urlencoded({ extended: true }));
+		this.app.use(cookieParser());
+		this.app.use(express.static(path.join(__dirname, '../public')));
+		this.app.use(expressSession({
+			secret: config.APP_KEY,
+			resave: false,
+			saveUninitialized: false
+		}));
+		this.app.use(passport.initialize());
+		this.app.use(passport.session());
+		this.app.use(flash());
+
+		/* Custom */
+		this.app.use("/*", template);
+
+		this.app.locals.Cart = {
+			number: 0,
+			total_unit: 0,
+			title: "cart",
+			items: new Map()
+		}
+	}
+
+	/**
+	 * @functional Routing
+	 * 
+	 * @brief Register route for app.
+	 */
+	registerRoute() {
+		this.app.use('/', require('../routes/home'));
+
+		/* Custom route */
+		const application = this;
+		fs.readdirSync(path.join(config.ROUTE_DIR)).forEach(function(file) {
+			const route = Utils.convertToPath(file);
+			const router = require(path.join(config.ROUTE_DIR, file));
+
+			application.app.use(route, router);
+		});
+	}
+
+	/**
+	 * @functional Error handler
+	 * 
+	 * @brief Handling for invalid route.
+	 **/
+	registerHandler() {
+		this.app.use(function(req, res, next) {
+			next(createError(404));
+		});
+
+		this.app.use(function(err, req, res, next) {
+			res.locals.message = err.message;
+			res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+			res.status(err.status || 500);
+			res.render('error', {layout: 'default'});
+		});
+	}
 }
 
-
-/**
- * Error handler
- * 
- * Handling for invalid route.
- **/
-function registerHandler(app) {
-	app.use(function(req, res, next) {
-		next(createError(404));
-	});
-
-	app.use(function(err, req, res, next) {
-		res.locals.message = err.message;
-		res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-		res.status(err.status || 500);
-		res.render('error');
-	});
-}
-
-
-module.exports = {
-	viewEngine,
-	registerMiddleware,
-	registerRoute,
-	registerHandler
-}
+module.exports = Bootstrap;

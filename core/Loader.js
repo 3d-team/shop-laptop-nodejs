@@ -5,9 +5,9 @@ const config = require('./../config/config');
 const Utils = require('./Utils');
 
 /**
- * @class Loader
+ * @class Loader.
  * @brief Loading another component by it's name (Controller, Model, ...).
- * @brief Apply Facade pattern
+ * @brief Apply Facade pattern.
  **/
 class Loader {
 
@@ -56,6 +56,16 @@ class Loader {
 	static core(library) {
 		const libraryName = Utils.capitalize(library);
 		return require(path.join(config.CORE_DIR, libraryName));
+	}
+
+	/**
+	 * @brief Loading service.
+	 * @param /services
+	 * @return Any service.
+	**/
+	static service(s) {
+		const serviceName = Utils.capitalize(s).concat("Service");
+		return require(path.join(config.SERVICE_DIR, serviceName));
 	}
 }
 

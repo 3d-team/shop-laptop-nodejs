@@ -5,7 +5,8 @@ const VerifyAdmin = (req, res, next) => {
 		return VerifyActivate(req, res, next);
 	}
 
-	return res.send("403 Not Forbidden - Yêu cầu quyền truy cập vào tài nguyên này.");
+	res.send("403 Not Forbidden - Yêu cầu quyền truy cập vào tài nguyên này.");
+	res.end();
 };
 
 module.exports = VerifyAdmin;
