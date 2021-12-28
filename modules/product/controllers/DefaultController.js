@@ -12,7 +12,7 @@ const app = require('../../../app');
 class DefaultController {
 
 	index(req, res) {
-		const productPerPage = 4;
+		const productPerPage = 6;
 		const page = +req.query.page || 1;
 		const category = req.query.category;
 		const price = req.query.price;
@@ -96,7 +96,7 @@ class DefaultController {
 	}
 
 	search(req, res){
-		const productPerPage = 4;
+		const productPerPage = 6;
 		const page = +req.query.page || 1;
 		const offset = (page - 1) * productPerPage;
 		const sortBy = req.query.sortBy;
