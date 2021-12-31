@@ -26,7 +26,7 @@ class Context {
 
     bind(name, definition, dependencies, options) {
         options = Object.assign({
-            singleton: true,
+            singleton: false,
             scoped: false,
         }, options);
 
@@ -151,7 +151,7 @@ class Context {
             container.bind(name, factory, dependencies, options);
         });
 
-        container.bind('express', () => express);
+        container.singleton('express', () => express);
 
         return container;
     }

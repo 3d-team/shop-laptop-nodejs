@@ -25,7 +25,7 @@ class MailService {
 	};
 
 	sendRecoveryEmail(email, newPassword) {
-		transport.sendMail({
+		this.transport.sendMail({
 			from: "3dteamkhtn@gmail.com",
 			to: email,
 			subject: "New password - 3D Shop Laptop",
@@ -36,4 +36,4 @@ class MailService {
 	};
 }
 
-module.exports = MailService;
+module.exports = new MailService();

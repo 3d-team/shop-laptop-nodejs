@@ -22,7 +22,7 @@ router.all('/admin/delete/:userId', VerifyAdmin,adminController.delete);
  **/
 router.all('/personal', Authenticate, defaultController.personal);
 router.all('/reset-password', Authenticate, defaultController.resetPassword);
-router.all('/recovery-password', Authenticate, defaultController.recoveryPassword);
+router.all('/recovery-password', defaultController.recoveryPassword);
 
 
 module.exports = router;

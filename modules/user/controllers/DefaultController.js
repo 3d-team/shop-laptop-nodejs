@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const config = require('./../../../config/config');
 const Loader = require("./../../../core/Loader");
 const Utils = Loader.core('Utils');
-const Mailer = Loader.core('Mailer');
 const UserModel = Loader.model('user');
 
 class DefaultController {
@@ -84,7 +83,8 @@ class DefaultController {
 				await UserModel.update(data, condition).then((result) => {
 					req.flash('message', "Cập nhật mật khẩu thành công. Mời kiểm tra email!");
 
-					Mailer.sendRecoveryEmail(req.body.email, newPassword);
+					const mailService = req.app.get('context').make('mailService');
+					mailService.sendRecoveryEmail(req.body.email, newPassword);
 				})
 			}
 		}

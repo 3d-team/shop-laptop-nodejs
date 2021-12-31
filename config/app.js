@@ -20,6 +20,10 @@ const providers = [
         factory: Loader.service('auth'),
         dependencies: ['mailService']
     },
+    {
+        name: 'orderRepository',
+        factory: Loader.repository('order')
+    }
 ];
 
 module.exports = providers;

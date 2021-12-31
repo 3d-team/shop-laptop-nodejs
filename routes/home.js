@@ -7,32 +7,43 @@ const adminController = Loader.controller('home', 'admin');
 
 const userDefaultController = Loader.controller('user', 'default');
 
-const Auth = require('./../core/Auth');
 const Authenticate = require('../middlewares/Authenticate');
 const RedirectIfAuthenticated = require('../middlewares/RedirectIfAuthenticated');
 const VerifyAdmin = require('../middlewares/VerifyAdmin');
-
 
 /**
  * Common route.
  * 
  **/
-router.get('/register', RedirectIfAuthenticated, userDefaultController.register);
-router.post('/register', Auth.authenticate('signup', {
-    successRedirect: '/login',
-    failureRedirect: '/register',
-    failureFlash : true 
-}));
 
+/* Register */
+router.get('/register', RedirectIfAuthenticated, userDefaultController.register);
+router.post('/register', function(req, res, next) {
+    const authService = req.app.get('context').make('authService');
+
+    authService.authenticate('signup', {
+        successRedirect: '/login',
+        failureRedirect: '/register',
+        failureFlash : true 
+    })(req, res, next);
+});
+
+/* Activate account */
 router.get('/confirm/:code', userDefaultController.confirm);
 
+/* Login */
 router.get('/login', RedirectIfAuthenticated, userDefaultController.login);
-router.post('/login', Auth.authenticate('signin', {
-    successRedirect: '/users/personal', 
-    failureRedirect: '/login', 
-    failureFlash: true 
-}));
+router.post('/login', function(req, res, next) {
+    const authService = req.app.get('context').make('authService');
 
+    authService.authenticate('signin', {
+        successRedirect: 'back',
+        failureRedirect: '/login', 
+        failureFlash: true 
+    })(req, res, next);
+});
+
+/* Logout */
 router.get('/logout', userDefaultController.logout);
 
 /**
