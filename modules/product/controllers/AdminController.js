@@ -8,8 +8,6 @@ const multer = require("multer");
 const fs = require('fs');
 const mkdirp = require("mkdirp");
 
-//set Storage Engine
-// require('../../../public/images/uploads')
 const storage = multer.diskStorage({
     destination: path.join(__dirname,'../../../public/images/uploads'),
     filename: function(req, file, cb){
@@ -19,7 +17,7 @@ const storage = multer.diskStorage({
 const uploadfunc = multer({
     storage: storage,
     limits: {
-        fileSize: 1000000 //give no. of bytes
+        fileSize: 1000000
     },
     // fileFilter: function(req, file, cb){
     //     checkFileType(file, cb);
@@ -36,7 +34,6 @@ class AdminController {
 		ProductModel.findAll(condition)
 			.then(function(products) {
 				res.render("list", {
-					title: "Product",
 					data: products
 				});	
 			})
@@ -70,44 +67,31 @@ class AdminController {
 	}
 
 	add(req, res) {
-		// if (req.method == "POST") {
-		// 	ProductModel.create(req.body).then(() => {});
-		// 	console.log(req.file);
-		// }
-
-		res.render("add", {
-			title: "Product",
-		});
+		res.render("add");
 	}
 	
 
 	upload(req, res){
-		console.log("-----------------------------------------------------");
-		// console.log(req);
+
 		uploadfunc(req, res, (err) =>{
-			if(err){
-				//Send error msg
-				console.log(err);
+			if (err) {
 				res.send(err);
-			}else{
-				
-				console.log('file uploaded succcessfully');
-				console.log(req);
-				ProductModel.create({
+			} else {
+				const data = {
 					name: req.body.name,
 					description: req.body.description,
 					content: req.body.content,
 					quantity: req.body.quantity,
 					price: req.body.price,
 					image: req.file.originalname,
-				}).then((ret) =>{
-					console.log(ret);
+				};
+
+				ProductModel.create(data).then((ret) => {
 					res.send('Successful');
 				}).catch((err)=>{
 					console.log(err);
-					res.send("ERRROR");
+					res.send("Error.");
 				})
-				// res.json({msg: 'success'});
 			}
 		});
 		
@@ -181,24 +165,17 @@ class AdminController {
 
 	listCategory(req, res) {
 
-		res.render("categoryList", {
-			title: "Product",
-			content: "Admin: index"
-		});
+		res.render("categoryList");
 	}
 
 	addCategory(req, res){
 
-		res.render("categoryAdd", {
-			title: "Product",
-		});
+		res.render("categoryAdd");
 	}
 
 	updateCategory(req, res){
 
-		res.render("categoryUpdate", {
-			title: "Product",
-		});
+		res.render("categoryUpdate");
 	}
 }
 

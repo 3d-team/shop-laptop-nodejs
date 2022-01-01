@@ -8,6 +8,7 @@ const RedirectIfAuthenticated = (req, res, next) => {
     }
     
     res.status(403).redirect('/users/personal');
+    res.end();
   }
 
   return next();

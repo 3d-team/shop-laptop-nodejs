@@ -47,19 +47,13 @@ class DefaultController {
 		return res.redirect('/login');
 	}
 
-	personal(req, res) {
-		const layout = 'admin';
-
-		const condition = {
-			where: {id: req.user.id}
-		};
-
-		UserModel.findOne(condition).then((user) => {
-			res.render('personal', {
-				layout: layout,
-				data: user
-			});
-		})
+	async personal(req, res) {
+		const user = await UserModel.findOne({where: {id: req.user.id}});
+		
+		res.render('personal', {
+			layout: 'admin',
+			data: user
+		});
 	}
 
 	async recoveryPassword(req, res) {

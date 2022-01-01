@@ -23,6 +23,14 @@ const providers = [
     {
         name: 'orderRepository',
         factory: Loader.repository('order')
+    },
+    {
+        name: 'productRepository',
+        factory: Loader.repository('product')
+    },
+    {
+        name: 'cartService',
+        factory: Loader.service('cart')
     }
 ];
 
