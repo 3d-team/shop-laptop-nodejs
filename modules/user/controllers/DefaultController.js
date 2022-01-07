@@ -1,9 +1,6 @@
 const bcrypt = require('bcrypt');
-
-const config = require('./../../../config/config');
 const Loader = require("./../../../core/Loader");
 const Utils = Loader.core('Utils');
-const Mailer = Loader.core('Mailer');
 const UserModel = Loader.model('user');
 
 class DefaultController {
@@ -26,13 +23,13 @@ class DefaultController {
 
 		const user = await UserModel.findOne(condition);
 		if (!user) {
-			return res.status(404).send({message: "Không tìm thấy tài khoản."});
+			return res.status(404).send("Không tìm thấy tài khoản.");
 		}
 
 		user.status = 1;
 		await user.save();
 
-		return res.status(200).send({message: "Kích hoạt thành công. Mời đăng nhập!"});
+		return res.status(200).send("Kích hoạt thành công. Mời đăng nhập!");
 	}
 
 	login(req, res){		
@@ -48,45 +45,19 @@ class DefaultController {
 		return res.redirect('/login');
 	}
 
-	personal(req, res) {
-		const layout = 'admin';
-
-		const condition = {
-			where: {id: req.user.id}
-		};
-
-		UserModel.findOne(condition).then((user) => {
-			res.render('personal', {
-				layout: layout,
-				data: user
-			});
-		})
+	async personal(req, res) {
+		const user = await UserModel.findOne({where: {id: req.user.id}});
+		
+		res.render('personal', {
+			layout: 'admin',
+			data: user
+		});
 	}
 
 	async recoveryPassword(req, res) {
 		if (req.method == "POST") {
-			const condition = {
-				where: {
-					status: 1,
-					email: req.body.email
-				}
-			};
-
-			const account = await UserModel.findOne(condition);
-			if (!account) {
-				req.flash('error', 'Email không tồn tại.');
-			} else {
-				const newPassword = Utils.generatePassword();
-				const data = {
-					password: bcrypt.hashSync(newPassword, 8)
-				}
-
-				await UserModel.update(data, condition).then((result) => {
-					req.flash('message', "Cập nhật mật khẩu thành công. Mời kiểm tra email!");
-
-					Mailer.sendRecoveryEmail(req.body.email, newPassword);
-				})
-			}
+			const userService = req.app.get('context').make('userService');
+			await userService.recoveryPassword(req);
 		}
 
 		res.render("recovery-password", {
@@ -98,36 +69,8 @@ class DefaultController {
 
 	async resetPassword(req, res) {
 		if (req.method == "POST") {
-
-			const condition = {
-				where: {
-					id: req.user.id,
-					status: 1
-				}
-			};
-
-			const account = await UserModel.findOne(condition);
-			const isPasswordValid = bcrypt.compareSync(req.body.oldPassword, account.password);
-            if (!isPasswordValid){
-                req.flash("error", "Sai mật khẩu.");
-            } else {
-            	const newPassword = req.body.newPassword;
-				const confirmPassword = req.body.confirmPassword;
-				if (newPassword != confirmPassword) {
-					req.flash("error", "Xác nhận mật khẩu không đúng.");
-				} else {
-					const data = {
-						password: bcrypt.hashSync(newPassword, 8)
-					};
-
-					await UserModel.update(data, condition).then((result) => {
-						req.logout();
-
-						req.flash("message", "Đổi mật khẩu thành công. Mời đăng nhập lại!");
-						return res.redirect("/login");
-					});
-				}
-            }
+			const userService = req.app.get('context').make('userService');
+			await userService.resetPassword(req, res);
 		}
 
 		res.render("reset-password", {

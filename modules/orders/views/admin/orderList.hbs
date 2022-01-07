@@ -21,7 +21,7 @@
                 <strong>Tổng giá trị tất cả đơn hàng</strong>
             </p>
             <div class="text-right">
-                <div class="stat">{{standardPrice SumUnit}} VND</div>
+                <div class="stat">{{SumUnit}} VND</div>
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
                         <th>Mã đơn</th>
                         <th>Người nhận</th>
                         <th>Số điện thoại</th>
-                        <th>Đơn giá (VND)</th>
+                        <th>Tổng giá trị (VND)</th>
                         <th>Địa chỉ nhận hàng</th>
                         <th>Trạng thái giao hàng</th>
                         <th>Trạng thái thanh toán</th>
@@ -68,7 +68,7 @@
                         <td>#{{this.code}}</td>
                         <td>{{this.fullname_receiver}}</td>
                         <td>{{this.phone_receiver}}</td>
-                        <td>{{standardPrice this.total_unit}}</td>
+                        <td>{{this.total_unit}}</td>
                         <td>{{this.delivery_address}}</td>
                         <td id="deliver-tag-{{this.code}}">{{this.delivery_status}}</td>
                         <td class="text-center">{{this.payment_status}}</td>
@@ -97,7 +97,7 @@
     <div class="cart-control">
         <div class="cart-button delete-button wrap-cart-button" id="close-cart-detail-btn">Đóng</div>
         {{!-- <div class="cart-button delete-button wrap-cart-button">Hủy đơn hàng</div> --}}        
-        <div class="cart-button wrap-cart-button">Đơn giá: 19.990.000 VND</div>
+        <div class="cart-button wrap-cart-button">Chi tiết đơn hàng</div>
         {{#if admin}}
             <select style="width: 200px; margin: 0px 10px 0px 0px;" id="deliver-status-option">
                 <option value="Đang chuẩn bị hàng!">Cập nhật trạng thái giao hàng</option>
@@ -114,17 +114,6 @@
     <div class="detail-cart-container">
         <cart-container class="row">
             Đang tải dữ liệu!
-            {{!-- <div class="cart-item large-12 columns" id="cart-item-id">
-                <div><img src="/images/asus-rog-zephyrus-g14.jpg" alt="Item 1"></div>            
-                <div class="cart-item-detail">
-                    <h4>MSI Modern 15dfasdfasdfdfasdfsadfsadfasdfsdfsadafs</h4>
-                    <h5 id="total-unit-item">19.990.000 VND</h5>
-                    <h6>Số lượng: 12</h6>
-                </div>
-                <div class="">
-                    {{!-- <input class="delete-button delete-cart-item-btn" type="button" value="Xóa"> --}}
-                </div>
-            </div> --}}
         </cart-container>
     </div>
 </div>

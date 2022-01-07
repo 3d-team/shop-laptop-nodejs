@@ -1,4 +1,3 @@
-
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
 const OrderModel = require('../models/OrderModel')
@@ -7,79 +6,50 @@ const sequelize = require("../../../config/database");
 const { QueryTypes, where } = require('sequelize');
 
 class AdminController {
-
-	list(req, res) {
-		const layout = 'admin';
+	
+	async list(req, res) {
+		const orderRepository = req.app.get('context').make('orderRepository');
+		const orders = await orderRepository.findAll();
+		const sumTotalUnit = await orderRepository.sumByTotalUnit();
 		
-		if(req.user === undefined){
-			console.log("You Need To Login!!");
-			return;
-		}
-		
-		OrderModel.findAll({
-			order: [['updated_at', 'DESC']]
-		}).then((result)=>{
-			// console.log(result);
-			OrderModel.sum('total_unit').then((sum)=>{
-				console.log(sum);
-				res.render('orderList', {
-					layout: layout,
-					data: result,
-					numberCart: result.length,
-					SumUnit: sum,
-					admin: true
-				});
-			})	
-			.catch((err)=>{
-				console.log(err);
-			})		
-		}).catch((err)=>{
-			console.log(err);
-		})
-	}
-
-	detailCart(req, res){
-		sequelize.query(`select name, order_items.quantity, price, products.image as image
-				from orders, order_items, products
-				where orders.code = ${req.body.product_id} and 
-			  	orders.code = order_items.order_id and
-			  	order_items.product_id = products.id`, { type: QueryTypes.SELECT }
-		).then((ret)=>{
-			console.log(ret);
-			res.json({msg: 'success', items: ret});
-		}).catch((err)=>{
-			console.log(err);
+		res.render('orderList', {
+			layout: 'admin',
+			data: orders,
+			numberCart: orders.length,
+			SumUnit: sumTotalUnit,
+			admin: true
 		});
 	}
 
-	updateCart(req, res){
-		OrderModel.update(
-			{delivery_status: req.body.delivery_status}, 
-			{
-				where: {
-					code: req.body.code
-				}
-			}
-		).then((result)=>{
-			console.log(result);
+	async detailCart(req, res) {
+		const orderRepository = req.app.get('context').make('orderRepository');
+		const order = await orderRepository.findByCode(req.body.product_id);
+		
+		res.json({msg: 'success', items: order});
+	}
+
+	async updateCart(req, res) {
+		const orderRepository = req.app.get('context').make('orderRepository');
+
+		const data = {delivery_status: req.body.delivery_status};
+		const isUpdated = await orderRepository.updateByCode(req.body.code, data);
+
+		if (isUpdated) {
 			res.json({msg: 'success'});
-		}).catch((err)=>{
-			console.log(err);
+		} else {
 			res.json({msg: 'err'});
-		})
+		}
 	}
 
 	saleStatistic(req, res){
-		const layout = 'admin';
 		res.render('saleStatistic', {
-			layout: layout
+			layout: 'admin'
 		});
 	}
 
 	topSale(req, res){
-		const layout = 'admin';
 		res.render('topSale', {
-			layout: layout
+			layout: 'admin'
 		});
 	}
 }

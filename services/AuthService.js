@@ -3,7 +3,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const Loader = require("./../core/Loader");
-const Mailer = require("./../core/Mailer");
 const Utils = require("./../core/Utils");
 const UserModel = Loader.model('user');
 

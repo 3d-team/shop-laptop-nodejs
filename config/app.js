@@ -20,6 +20,26 @@ const providers = [
         factory: Loader.service('auth'),
         dependencies: ['mailService']
     },
+    {
+        name: 'orderRepository',
+        factory: Loader.repository('order')
+    },
+    {
+        name: 'productRepository',
+        factory: Loader.repository('product')
+    },
+    {
+        name: 'cartService',
+        factory: Loader.service('cart')
+    },
+    {
+        name: 'productService',
+        factory: Loader.service('product')
+    },
+    {
+        name: 'userService',
+        factory: Loader.service('user')
+    }
 ];
 
 module.exports = providers;

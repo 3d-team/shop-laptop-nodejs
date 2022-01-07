@@ -1,0 +1,220 @@
+const fs = require('fs');
+const path = require('path');
+
+const config = require("./config/config");
+const Utils = require("./core/Utils");
+
+if (process.argv.length < 3) {
+	console.log("[!] Invalid argument.");
+} else {
+	const tokens = process.argv[2].split(":");
+
+	const action = tokens[0];
+	const obj = tokens[1];
+	const arg = process.argv[3];
+
+	doAction(action, obj, arg);
+}
+
+function doAction(action, object, arg) {
+	try {
+		switch(action) {
+			case "make":
+				makeObject(object, arg);
+				break;
+			case "clear":
+				clearObject(object, arg);
+				break;
+			default:
+				break;
+		}
+	} catch(err) {
+		console.log(err);
+	}
+}
+
+function makeObject(object, arg) {
+	const name = String(arg);
+
+	switch(object) {
+		case "module":
+			makeModule(name);
+			break;
+		case "middleware":
+			makeMiddleware(name);
+			break;
+		case "route":
+			makeRoute(name);
+			break;
+		case "service":
+			makeService(name);
+			break;
+		case "repository":
+			makeRepository(name);
+			break;
+		default:
+			break;
+	}
+}
+
+function makeModule(name) {
+	const folderPath = path.join(config.MODULE_DIR, name);
+
+	try {
+		if (!fs.existsSync(folderPath)) {
+			fs.mkdirSync(folderPath);
+
+			const controllers = path.join(folderPath, "controllers");
+			fs.mkdirSync(controllers);
+
+			const models = path.join(folderPath, "models");
+			fs.mkdirSync(models);
+			
+			const views = path.join(folderPath, "views");
+			fs.mkdirSync(views);
+
+			console.log("[*] Created.");
+		}
+	} catch (err) {
+		console.error(err)
+	}
+}
+
+function makeMiddleware(middleware) {
+	const folderPath = path.join(config.MIDDLEWARE_DIR, middleware.concat(".js"));
+	const content = "const Authorize = (req, res, next) => {\n\tnext();\n};\n\n\nmodule.exports = Authorize;";
+	try {
+		if (!fs.existsSync(folderPath)) {
+			fs.writeFileSync(folderPath, content);
+			console.log("[*] Created.");
+		}
+	} catch(err) {
+		console.log(err);
+	}
+}
+
+function makeRoute(route) {
+	const folderPath = path.join(config.ROUTE_DIR, route.concat(".js"));
+
+	const content = "const express = require('express');\nconst router = express.Router();\nmodule.exports = router;";
+	try {
+		if (!fs.existsSync(folderPath)) {
+			fs.writeFileSync(folderPath, content);
+			console.log("[*] Created.");
+		}
+	} catch(err) {
+		console.log(err);
+	}
+}
+
+function makeService(service) {
+	const folderPath = path.join(config.SERVICE_DIR, service.concat(".js"));
+
+	const content = "";
+	try {
+		if (!fs.existsSync(folderPath)) {
+			fs.writeFileSync(folderPath, content);
+			console.log("[*] Created.");
+		}
+	} catch(err) {
+		console.log(err);
+	}
+}
+
+function makeRepository(repository) {
+	const folderPath = path.join(config.REPOSITORY_DIR, repository.concat(".js"));
+
+	const content = "";
+	try {
+		if (!fs.existsSync(folderPath)) {
+			fs.writeFileSync(folderPath, content);
+			console.log("[*] Created.");
+		}
+	} catch(err) {
+		console.log(err);
+	}
+}
+
+function clearObject(object, arg) {
+	const name = String(arg);
+
+	switch(object) {
+		case "module":
+			clearModule(name);
+			break;
+		case "middleware":
+			clearMiddleware(name);
+			break;
+		case "route":
+			clearRoute(name);
+			break;
+		case "service":
+			clearService(name);
+			break;
+		case "repository":
+			clearRepository(name);
+			break;
+		default:
+			break;
+	}
+}
+
+function clearModule(name) {
+	const folderPath = path.join(config.MODULE_DIR, name);
+
+	fs.rm(folderPath, { recursive: true, force: true }, (err) => {
+	  	if (err) {
+			throw err;
+	  	}
+
+	  	console.log("[*] Deleted.");
+	});
+}
+
+function clearMiddleware(middleware) {
+	const folderPath = path.join(config.MIDDLEWARE_DIR, middleware.concat(".js"));
+
+	fs.rm(folderPath, { recursive: true, force: true }, (err) => {
+	  	if (err) {
+			throw err;
+	  	}
+
+	  	console.log("[*] Deleted.");
+	});
+}
+
+function clearRoute(route) {
+	const folderPath = path.join(config.ROUTE_DIR, route.concat(".js"));
+
+	fs.rm(folderPath, { recursive: true, force: true }, (err) => {
+	  	if (err) {
+			throw err;
+	  	}
+
+	  	console.log("[*] Deleted.");
+	});
+}
+
+function clearService(service) {
+	const folderPath = path.join(config.SERVICE_DIR, service.concat(".js"));
+
+	fs.rm(folderPath, { recursive: true, force: true }, (err) => {
+	  	if (err) {
+			throw err;
+	  	}
+
+	  	console.log("[*] Deleted.");
+	});
+}
+
+function clearRepository(name) {
+	const folderPath = path.join(config.REPOSITORY_DIR, name.concat(".js"));
+
+	fs.rm(folderPath, { recursive: true, force: true }, (err) => {
+	  	if (err) {
+			throw err;
+	  	}
+
+	  	console.log("[*] Deleted.");
+	});
+}

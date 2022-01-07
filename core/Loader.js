@@ -67,6 +67,11 @@ class Loader {
 		const serviceName = Utils.capitalize(s).concat("Service");
 		return require(path.join(config.SERVICE_DIR, serviceName));
 	}
+
+	static repository(r) {
+		const repositoryName = Utils.capitalize(r).concat("Repository");
+		return require(path.join(config.REPOSITORY_DIR, repositoryName));
+	}
 }
 
 module.exports = Loader;

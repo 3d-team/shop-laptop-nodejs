@@ -5,7 +5,8 @@ const Authenticate = (req, res, next) => {
     return VerifyActivate(req, res, next);
   }
 
-  return res.redirect('/login');
+  res.redirect('/login');
+  res.end();
 };
 
 module.exports = Authenticate;
