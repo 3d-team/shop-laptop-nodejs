@@ -6,20 +6,20 @@ const UserModel = Loader.model('user');
 
 class AdminController {
 
-	list(req, res){
+	async list(req, res){
 		const condition = {
 			order: [['id', 'DESC']]
 		};
 
-		UserModel.findAll(condition).then((accounts) => {
-			const data = accounts.map((account) => {
-				let item = account;
-				item.status = Boolean(account.status);
-				return item;
-			})
-			res.render("listUser", {
-				data: data
-			});
+		const accounts = await UserModel.findAll(condition);
+		const data = accounts.map((account) => {
+			let item = account;
+			item.status = Boolean(account.status);
+			return item;
+		})
+		
+		res.render("listUser", {
+			data: data
 		});
 	}
 
@@ -52,9 +52,6 @@ class AdminController {
 		};
 
 		if (req.method == "POST") {
-
-			console.log(req.body);
-
 			const data = {
 				username: req.body.username,
 				email: req.body.email,

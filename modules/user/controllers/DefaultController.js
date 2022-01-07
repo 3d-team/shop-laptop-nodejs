@@ -1,6 +1,4 @@
 const bcrypt = require('bcrypt');
-
-const config = require('./../../../config/config');
 const Loader = require("./../../../core/Loader");
 const Utils = Loader.core('Utils');
 const UserModel = Loader.model('user');
@@ -58,29 +56,8 @@ class DefaultController {
 
 	async recoveryPassword(req, res) {
 		if (req.method == "POST") {
-			const condition = {
-				where: {
-					status: 1,
-					email: req.body.email
-				}
-			};
-
-			const account = await UserModel.findOne(condition);
-			if (!account) {
-				req.flash('error', 'Email không tồn tại.');
-			} else {
-				const newPassword = Utils.generatePassword();
-				const data = {
-					password: bcrypt.hashSync(newPassword, 8)
-				}
-
-				await UserModel.update(data, condition).then((result) => {
-					req.flash('message', "Cập nhật mật khẩu thành công. Mời kiểm tra email!");
-
-					const mailService = req.app.get('context').make('mailService');
-					mailService.sendRecoveryEmail(req.body.email, newPassword);
-				})
-			}
+			const userService = req.app.get('context').make('userService');
+			await userService.recoveryPassword(req);
 		}
 
 		res.render("recovery-password", {
@@ -92,36 +69,8 @@ class DefaultController {
 
 	async resetPassword(req, res) {
 		if (req.method == "POST") {
-
-			const condition = {
-				where: {
-					id: req.user.id,
-					status: 1
-				}
-			};
-
-			const account = await UserModel.findOne(condition);
-			const isPasswordValid = bcrypt.compareSync(req.body.oldPassword, account.password);
-            if (!isPasswordValid){
-                req.flash("error", "Sai mật khẩu.");
-            } else {
-            	const newPassword = req.body.newPassword;
-				const confirmPassword = req.body.confirmPassword;
-				if (newPassword != confirmPassword) {
-					req.flash("error", "Xác nhận mật khẩu không đúng.");
-				} else {
-					const data = {
-						password: bcrypt.hashSync(newPassword, 8)
-					};
-
-					await UserModel.update(data, condition).then((result) => {
-						req.logout();
-
-						req.flash("message", "Đổi mật khẩu thành công. Mời đăng nhập lại!");
-						return res.redirect("/login");
-					});
-				}
-            }
+			const userService = req.app.get('context').make('userService');
+			await userService.resetPassword(req, res);
 		}
 
 		res.render("reset-password", {
