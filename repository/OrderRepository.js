@@ -70,14 +70,7 @@ class OrderRepository {
 	}
 
 	async updateByCode(code, data) {
-		const condition = {
-			where: {
-				code: code
-			}
-		};
-
-		const isUpdated = await OrderModel.update(data, condition);
-
+		const isUpdated = await OrderModel.update(data, {where: {code: code}});
 		return isUpdated;
 	}
 }

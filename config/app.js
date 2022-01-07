@@ -31,6 +31,10 @@ const providers = [
     {
         name: 'cartService',
         factory: Loader.service('cart')
+    },
+    {
+        name: 'productService',
+        factory: Loader.service('product')
     }
 ];
 

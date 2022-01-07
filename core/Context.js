@@ -49,7 +49,7 @@ class Context {
         this.$services.set(name, {
             definition,
             dependencies,
-            ...{singleton: true, scope: true},
+            ...{scope: true},
         });
     }
 

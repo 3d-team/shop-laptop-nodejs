@@ -78,8 +78,6 @@ class DefaultController {
 
 	async submit(req, res){
 		const cart = res.app.locals.Cart;
-
-		console.log(cart);
 		
 		if (cart.number <= 0) {
 			return res.json({msg:'empty'});

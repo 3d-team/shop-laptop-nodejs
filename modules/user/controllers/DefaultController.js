@@ -25,13 +25,13 @@ class DefaultController {
 
 		const user = await UserModel.findOne(condition);
 		if (!user) {
-			return res.status(404).send({message: "Không tìm thấy tài khoản."});
+			return res.status(404).send("Không tìm thấy tài khoản.");
 		}
 
 		user.status = 1;
 		await user.save();
 
-		return res.status(200).send({message: "Kích hoạt thành công. Mời đăng nhập!"});
+		return res.status(200).send("Kích hoạt thành công. Mời đăng nhập!");
 	}
 
 	login(req, res){		

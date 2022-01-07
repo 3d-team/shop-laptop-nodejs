@@ -6,8 +6,7 @@ const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
 const CommentModel = Loader.model('comment');
 
-var menu = require('../../common_model/MenuContent');
-const app = require('../../../app');
+const menu = require('../../common_model/MenuContent');
 
 class DefaultController {
 
@@ -137,7 +136,7 @@ class DefaultController {
 			content: content, 
 			product_id: productId
 		};
-		console.log(comment);
+		
 		CommentModel.create(comment)
 			.then((result) => {	 
 				res.status(200);

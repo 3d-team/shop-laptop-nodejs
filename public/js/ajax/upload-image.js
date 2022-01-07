@@ -15,6 +15,7 @@ $(document).ready(function(){
         //     }
         // })
         var data = new FormData($('#add-product-form')[0]);
+        console.log(data);
         $.ajax({
             url:'/products/upload',
             type: 'POST',

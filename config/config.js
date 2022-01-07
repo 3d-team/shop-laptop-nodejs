@@ -9,6 +9,7 @@ const PUBLIC_DIR = path.join(__dirname, "../public");
 const SERVICE_DIR = path.join(__dirname, "../services");
 const MIDDLEWARE_DIR = path.join(__dirname, "../middlewares");
 const REPOSITORY_DIR = path.join(__dirname, "../repository");
+const UPLOAD_DIR = path.join(__dirname, "../public/uploads");
 
 module.exports = {
 	APP_KEY: String(process.env.APP_KEY),
@@ -24,5 +25,6 @@ module.exports = {
 	PUBLIC_DIR,
 	SERVICE_DIR,
 	MIDDLEWARE_DIR,
-	REPOSITORY_DIR
+	REPOSITORY_DIR,
+	UPLOAD_DIR
 }
