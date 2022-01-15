@@ -10,6 +10,9 @@ class CartService {
 		const isOrdered = cart.items.has(productId);
 		if (isOrdered) {
 			item = cart.items.get(productId);
+			if(item.quantity >= item.remainQuantity){
+				return false;
+			}
 			item.quantity += 1;
 			item.unit += item.price;
 		} else {
@@ -18,6 +21,7 @@ class CartService {
 			item = {
 				product_id: product.id,
 				name: product.name,
+				remainQuantity: product.quantity,
 				quantity: 1,
 				price: product.price, 
 				unit: product.price,
@@ -25,20 +29,25 @@ class CartService {
 			};
 			cart.items.set(productId, item);
 		}
-
 		cart.number += 1;
 		cart.total_unit += item.price;
+		return true;
 	}
 
 	modifyCartItem(productID, unit, cart) {
 		const item = cart.items.get(productID);
+		
+		if(parseInt(unit) > item.remainQuantity){
+			return false;
+		}
+		
 
 		cart.number += (unit - item.quantity);
 		cart.total_unit += item.price * (unit - item.quantity);
 
-		item.unit += item.price * (unit- item.quantity);
+		item.unit += item.price * (unit - item.quantity);
 		item.quantity = parseInt(unit);
-
+		
 		return item;
 	}
 
@@ -65,6 +74,14 @@ class CartService {
 		const order = await orderRepository.createOrder(data);
 		
 		for (const value of cart.items.values()) {
+			await ProductModel.update(
+				{quantity: value.remainQuantity - value.quantity},
+				{
+					where:{
+						id: value.product_id
+					}
+				}
+			)
 			const orderDetail = {
 				order_id: order.code,
 				product_id: value.product_id,

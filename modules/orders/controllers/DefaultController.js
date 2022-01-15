@@ -23,12 +23,20 @@ class DefaultController {
 		const productId = req.body.product_id;
 
 		const cartService = req.app.get('context').make('cartService');
-		await cartService.addCartItem(productId, cart);
+		let isSuccess = await cartService.addCartItem(productId, cart);
 
-		return res.json({
-			msg:'success', 
-			cart_number: cart.number
-		});
+		if(isSuccess){
+			return res.json({
+				msg:'success', 
+				cart_number: cart.number
+			});
+		}
+		else{
+			return res.json({
+				msg:'out of stock', 
+				cart_number: cart.number
+			});
+		}
 	}
 
 	changeNumberItem(req, res){
@@ -47,7 +55,11 @@ class DefaultController {
 
 		const unit = req.body.number;
 		const cartItem = cartService.modifyCartItem(productID, unit, cart);
-		
+		if(cartItem == false){
+			return res.json({
+				msg:'out of stock',
+			});	
+		}
 		return res.json({
 			msg:'success', 
 		    cart_number: cart.number, 
