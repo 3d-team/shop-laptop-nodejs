@@ -1,204 +1,89 @@
-const path = require('path');
-const { Op } = require("sequelize");
-
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
 
-const multer = require("multer");
-const fs = require('fs');
-const mkdirp = require("mkdirp");
-
-//set Storage Engine
-// require('../../../public/images/uploads')
-const storage = multer.diskStorage({
-    destination: path.join(__dirname,'../../../public/images/uploads'),
-    filename: function(req, file, cb){
-        cb(null, file.originalname);
-    }
-})
-const uploadfunc = multer({
-    storage: storage,
-    limits: {
-        fileSize: 1000000 //give no. of bytes
-    },
-    // fileFilter: function(req, file, cb){
-    //     checkFileType(file, cb);
-    // }
-}).single('thumbnail');
-
 class AdminController {
 
-	index(req, res) {
-		const condition = {
-			order: [['id', 'DESC']]
-		};
-
-		ProductModel.findAll(condition)
-			.then(function(products) {
-				res.render("list", {
-					title: "Product",
-					data: products
-				});	
-			})
-			.catch(function(err) {
-				res.status(err.status || 500);
-				res.render('error');
-			});
+	async index(req, res) {
+		const productRepository = req.app.get('context').make('productRepository');
+		const products = await productRepository.findAll();
+		res.render("list", {
+			data: products
+		});
 	}
 
-	list(req, res) {
-		const productPerPage = 2;
-		const page = +req.params.page || 1;
-
-		const offset = (page - 1) * productPerPage;
-		const condition = {
-			order: [['id', 'DESC']],
-			offset: offset,
-			limit: productPerPage
-		};
-
-		ProductModel.findAll(condition)
-			.then((products) => {
-				res.render('list', {
-					data: products
-				});
-			})
-			.catch(function(err) {
-				res.status(err.status || 500);
-				res.render('error');
-			});
+	async list(req, res) {
+		const productService = req.app.get('context').make('productService');
+		const products = await productService.getPagedProducts(req);
+		res.render('list', {
+			data: products
+		});
 	}
 
 	add(req, res) {
-		// if (req.method == "POST") {
-		// 	ProductModel.create(req.body).then(() => {});
-		// 	console.log(req.file);
-		// }
-
-		res.render("add", {
-			title: "Product",
-		});
+		res.render("add");
 	}
 	
-
 	upload(req, res){
-		console.log("-----------------------------------------------------");
-		// console.log(req);
-		uploadfunc(req, res, (err) =>{
-			if(err){
-				//Send error msg
-				console.log(err);
-				res.send(err);
-			}else{
-				
-				console.log('file uploaded succcessfully');
-				console.log(req);
-				ProductModel.create({
-					name: req.body.name,
-					description: req.body.description,
-					content: req.body.content,
-					quantity: req.body.quantity,
-					price: req.body.price,
-					image: req.file.originalname,
-				}).then((ret) =>{
-					console.log(ret);
-					res.send('Successful');
-				}).catch((err)=>{
-					console.log(err);
-					res.send("ERRROR");
-				})
-				// res.json({msg: 'success'});
-			}
-		});
-		
+		const productService = req.app.get('context').make('productService');
+		const product = productService.uploadProduct(req);
+		if (!product) {
+			res.send("Error");
+		}
+
+		res.send("Successful");
 	}
 
-	update(req, res) {
+	async update(req, res) {
 		const condition = {
 			where: {id: parseInt(req.params.productId) }
 		};
 
 		if (req.method == "POST") {
 			ProductModel.update(req.body, condition).then(() => {
-				return res.redirect("/products/admin/list");
+				res.redirect("/products/admin/list");
 			});
 		}
 
-		ProductModel.findOne(condition)
-			.then((product) => {
-				return res.render("update", {
-					title: "Product",
-					data: product
-				});	
-			})
-			.catch(function(err) {
-				res.status(err.status || 500);
-				return res.render('error');
-			})
+		const product = await ProductModel.findOne(condition)
+		res.render("update", {
+			data: product
+		});	
 	}
 
-	delete(req, res) {
+	async delete(req, res) {
 		const condition = {
 			where: {id: parseInt(req.params.productId) }
 		};
 
-		ProductModel.destroy(condition)
-			.then(() => {
-				res.redirect("/products/admin/list");
-			})
-			.catch(function(err) {
-				res.status(err.status || 500);
-				res.render('error');
-			});
+		await ProductModel.destroy(condition);
+		res.redirect("/products/admin/list");
 	}
 
-	search(req, res) {
+	async search(req, res) {
 		const queryName = req.query.queryName;
-		const productPerPage = 2;
 		const page = +req.query.page || 1;
 
-		const offset = (page - 1) * productPerPage;
-		const condition = {
-			where: { name: {[Op.like]: "%" + queryName + "%"}},
-			offset: offset,
-			limit: productPerPage
-		};
+		const productService = req.app.get('context').make('productService');
+		const products = await productService.searchProduct(req, queryName, page);
 
-		ProductModel.findAll(condition)
-			.then((products) => {
-				res.render('search', {
-					title: "Product",
-					data: products,
-					queryName: queryName,
-					page: page
-				})
-			})
-			.catch(function(err) {
-				res.status(err.status || 500);
-				res.render('error');
-			});
+		res.render('search', {
+			title: "Product",
+			data: products,
+			queryName: queryName,
+			page: page
+		})
 	}
 
 	listCategory(req, res) {
-
-		res.render("categoryList", {
-			title: "Product",
-			content: "Admin: index"
-		});
+		res.render("categoryList");
 	}
 
 	addCategory(req, res){
-
-		res.render("categoryAdd", {
-			title: "Product",
-		});
+		res.render("categoryAdd");
 	}
 
 	updateCategory(req, res){
-
-		res.render("categoryUpdate", {
-			title: "Product",
-		});
+		res.render("categoryUpdate");
 	}
 }
 

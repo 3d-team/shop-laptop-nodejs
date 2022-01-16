@@ -19,13 +19,13 @@ class MailService {
 			html: `<h1>Email Confirmation</h1>
 				<h2>Hello ${name}</h2>
 				<p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-				<a href=http://localhost:8081/confirm/${confirmationCode}> Click here</a>
+				<a href=http://localhost:3000/confirm/${confirmationCode}> Click here</a>
 				</div>`,
 		}).catch(err => console.log(err));
 	};
 
 	sendRecoveryEmail(email, newPassword) {
-		transport.sendMail({
+		this.transport.sendMail({
 			from: "3dteamkhtn@gmail.com",
 			to: email,
 			subject: "New password - 3D Shop Laptop",
@@ -36,4 +36,4 @@ class MailService {
 	};
 }
 
-module.exports = MailService;
+module.exports = new MailService();

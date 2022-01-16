@@ -10,205 +10,141 @@ const { QueryTypes } = require('sequelize');
 class DefaultController {
 
 	index(req, res) {
-		var items = [];
-		for (const value of res.app.locals.Cart.items.values()) {
-			items.push(value);
-		}
-		res.render('orders', {
-			title: "Product",
-			content: "Default: index",
-			data: items,
-		});
+		const cart = res.app.locals.Cart.items;
+		const items = [...cart.values()];
+
+		res.render('orders', { data: items });
 	}
 
-	add(req, res){
-		// console.log(req.body.product_id);
-		res.app.locals.Cart.number += 1;
-		var productID = req.body.product_id
-		// console.log(productID);
-		if(res.app.locals.Cart.items.has(productID)){
-			var cartItem = res.app.locals.Cart.items.get(productID);
-			cartItem.unit += cartItem.price;
-			res.app.locals.Cart.total_unit += cartItem.price;
-			cartItem.quantity += 1;
-			// console.log(productID);
-		}
-		else{
-			ProductModel.findAll({
-				where: {
-					id: productID
-				}
-			}).then((products)=>{
-				var cartItem = {
-					product_id: products[0].dataValues.id,
-					name: products[0].dataValues.name,
-					quantity: 1,
-					price: products[0].dataValues.price, 
-					unit: products[0].dataValues.price,
-					image: products[0].dataValues.image
-				};
-				res.app.locals.Cart.items.set(productID, cartItem);
-				res.app.locals.Cart.total_unit += cartItem.price;
-				console.log("ADD ITEM TO CART SUCCESS\n");
-			})
-			.catch(function(err) {
-				res.status(err.status || 500);
-				res.render('error');
+	async add(req, res){
+		const cart = res.app.locals.Cart;
+		const productId = req.body.product_id;
+
+		const cartService = req.app.get('context').make('cartService');
+		let isSuccess = await cartService.addCartItem(productId, cart);
+
+		if(isSuccess){
+			return res.json({
+				msg:'success', 
+				cart_number: cart.number
 			});
 		}
-		// console.log(res.app.locals.Cart);
-		res.json({msg:'success', cart_number: res.app.locals.Cart.number});
+		else{
+			return res.json({
+				msg:'out of stock', 
+				cart_number: cart.number
+			});
+		}
 	}
 
 	changeNumberItem(req, res){
-		// console.log(req.body.product_id);
-		if(req.body.number <= 0){
-			res.json({msg:'negative-number'});
-			return;
+		
+		if (req.body.number <= 0) {
+			return res.json({ msg:' negative-number' });
 		}
-		var productID = req.body.product_id
-		console.log(productID);
-		if(res.app.locals.Cart.items.has(productID)){
-			var cartItem = res.app.locals.Cart.items.get(productID);
-			res.app.locals.Cart.number += req.body.number - cartItem.quantity;
-			cartItem.unit += cartItem.price*(req.body.number - cartItem.quantity);
-			res.app.locals.Cart.total_unit += cartItem.price*(req.body.number - cartItem.quantity);
-			cartItem.quantity = parseInt(req.body.number);
-			// console.log(productID);
-			res.json({msg:'success', 
-					  cart_number: res.app.locals.Cart.number, 
-					  total_unit: res.app.locals.Cart.total_unit,
-					  total_unit_item: cartItem.unit});
+
+		const cart = res.app.locals.Cart;
+		const productID = req.body.product_id;
+		if(!cart.items.has(productID)){
+			return res.json({ msg: 'not-found-product' });
+		}	
+
+		const cartService = req.app.get('context').make('cartService');
+
+		const unit = req.body.number;
+		const cartItem = cartService.modifyCartItem(productID, unit, cart);
+		if(cartItem == false){
+			return res.json({
+				msg:'out of stock',
+			});	
 		}
-		console.log(res.app.locals.Cart);		
-	}
-
-	remove(req, res){
-		var productID = req.body.product_id;
-		var items = res.app.locals.Cart.items;
-		if(items.has(productID)){
-			res.app.locals.Cart.total_unit -= items.get(productID).unit;
-			res.app.locals.Cart.number -= items.get(productID).quantity;
-			if(items.delete(productID)){
-				res.json({msg:'success', 
-						total_unit: res.app.locals.Cart.total_unit, 
-						cart_number: res.app.locals.Cart.number});
-			}
-			else{
-				res.json({msg:'fail'});
-			}
-		}		
-	}
-
-	async submit(req, res){
-		try{
-			if(res.app.locals.Cart.number <= 0){
-				res.json({msg:'empty'});
-				return;
-			}
-			if(req.user === undefined){
-				console.log(req.user);
-				res.json({msg:'not-login'});
-				return;
-			}
-			if(req.body.confirm_submit == 'YES'){
-				let newOrder = {
-					customer_id: req.user.id,
-					payment_status: 'Chưa thanh toán!',
-					delivery_status: 'Đang chuẩn bị hàng!',
-					delivery_address: req.body.address,
-					phone_receiver: req.body.phone_receiver,
-					fullname_receiver: req.body.fullname_receiver,
-					total_unit: res.app.locals.Cart.total_unit
-				}
-				// console.log(newOrder);
-				var orderResult = await OrderModel.create(newOrder);
-				// console.log("ORDER");
-				// console.log(orderResult.code);
-				for (const value of res.app.locals.Cart.items.values()) {
-					var cartItem = {
-						order_id: orderResult.code,
-						product_id: value.product_id,
-						quantity: value.quantity,
-						unit: value.unit
-					};
-					var orderItemResult = await OrderItemModel.create(cartItem);
-					// console.log("CART_ITEM");
-					// console.log(orderItemResult);
-					
-				}
-				res.app.locals.Cart.items.clear();
-				res.app.locals.Cart.number = 0;
-				res.app.locals.Cart.total_unit = 0;
-				res.json({msg:'success'});
-			}
-		}
-		catch(error){
-			console.log(error);
-		}
-	}
-
-	destroy(req, res){
-		if(req.body.confirm_destroy == 'YES'){
-			res.app.locals.Cart.items.clear();
-			res.app.locals.Cart.number = 0;
-			res.app.locals.Cart.total_unit = 0;
-			res.json({msg:'success'});
-		}
-	}
-
-	cart(req, res) {
-
-		res.render('orders', {
-			title: "Product",
-			content: "Default: index"
+		return res.json({
+			msg:'success', 
+		    cart_number: cart.number, 
+			total_unit: cart.total_unit,
+			total_unit_item: cartItem.unit
 		});
 	}
 
-	list(req, res) {
-		const layout = 'admin';
-		
-		if(req.user === undefined){
-			console.log("You Need To Login!!");
-			return;
+	remove(req, res){
+		const cart = res.app.locals.Cart;
+		const productID = req.body.product_id;
+
+		if (!cart.items.has(productID)) {
+			return res.json({msg:'fail'});
 		}
-		
-		OrderModel.findAll({
-			where: {
-				customer_id: req.user.id
-			},
-			order: [['updated_at', 'DESC']]
-		}).then((result)=>{
-			// console.log(result);
-			OrderModel.sum('total_unit', {where:{customer_id: req.user.id}}).then((sum)=>{
-				console.log(sum);
-				res.render('orderList', {
-					layout: layout,
-					data: result,
-					numberCart: result.length,
-					SumUnit: sum,
-					admin: false
-				});
-			})	
-			.catch((err)=>{
-				console.log(err);
-			})		
-		}).catch((err)=>{
-			console.log(err);
-		})		
+
+		const cartService = req.app.get('context').make('cartService');
+		if (!cartService.removeCartItem(productID, cart)) {
+			return res.json({msg:'fail'});	
+		}
+
+		return res.json({
+			msg:'success', 
+			total_unit: cart.total_unit, 
+			cart_number: cart.number
+		});	
 	}
 
-	detailCart(req, res){
-		sequelize.query(`select name, order_items.quantity, price, image
-				from orders, order_items, products
-				where orders.code = ${req.body.product_id} and 
-			  	orders.code = order_items.order_id and
-			  	order_items.product_id = products.id`, { type: QueryTypes.SELECT }
-		).then((ret)=>{
-			console.log(ret);
-			res.json({msg: 'success', items: ret});
-		}).catch((err)=>{
-			console.log(err);
+	async submit(req, res){
+		const cart = res.app.locals.Cart;
+		
+		if (cart.number <= 0) {
+			return res.json({ msg: 'empty' });
+		}
+
+		if (req.user == undefined) {
+			return res.json({ msg: 'not-login' });
+		}
+
+		if (req.body.confirm_submit != 'YES') {
+			return res.json({ msg: 'not-confirm' });
+		}
+
+		const cartService = req.app.get('context').make('cartService');
+		await cartService.submitCart(req, cart);
+		cartService.destroyCart(cart);
+
+		return res.json({ msg: 'success' });
+	}
+
+	destroy(req, res) {
+		
+		if (req.body.confirm_destroy != 'YES') {
+			return res.json({msg: 'not-confirm'});
+		}
+
+		const cartService = req.app.get('context').make('cartService');
+		cartService.destroyCart(res.app.locals.Cart);
+
+		return res.json({ msg: 'success' });
+	}
+
+	cart(req, res) {
+		res.render('orders');
+	}
+
+	async list(req, res) {
+		const orderRepository = req.app.get('context').make('orderRepository');
+		const orders = await orderRepository.findAllByUserId(req.user.id);
+		const sum = await orderRepository.sumTotalUnitbyUserId(req.user.id);
+
+		res.render('orderList', {
+			layout: 'admin',
+			data: orders,
+			numberCart: orders.length,
+			SumUnit: sum,
+			admin: false
+		});	
+	}
+
+	async detailCart(req, res){
+		const orderRepository = req.app.get('context').make('orderRepository');
+		const order = await orderRepository.findByCode(req.body.product_id);
+		
+		return res.json({
+			msg: 'success', 
+			items: order
 		});
 	}
 }

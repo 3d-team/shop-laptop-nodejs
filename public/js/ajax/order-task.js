@@ -13,10 +13,14 @@ $(document).ready(function(){
                     $("#total-unit-of-cart").text('Tổng tiền: ' +  response.total_unit +' VND');
                     $("#number-item-in-cart").text(response.cart_number);
                     $('#total-unit-item-'+productId).text(response.total_unit_item + '.VND');
-                    // console.log(val);
                 }
-                if(response.msg == 'negative-number'){ 
-                    alert("Số lượng sản phẩm không được nhỏ hơn 0!")
+
+                if (response.msg == 'negative-number'){ 
+                    alert("Số lượng sản phẩm không được nhỏ hơn 0!");
+                }
+
+                if(response.msg == 'out of stock'){
+                    alert('Vượt quá số lượng trong kho!');
                 }
                 
             },  
@@ -35,8 +39,11 @@ $(document).ready(function(){
             dataType:'json', 
             data:{'product_id': productId},
             success:function(response){  
-                if(response.msg=='success'){ 
+                if(response.msg == 'success'){ 
                     $("#number-item-in-cart").text(response.cart_number);
+                }
+                if(response.msg=='out of stock'){
+                    alert('Vượt quá số lượng trong kho!');
                 }
             },  
             error:function(response){                  
