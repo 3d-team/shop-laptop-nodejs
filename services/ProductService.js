@@ -1,6 +1,7 @@
 const multer = require("multer");
 const fs = require('fs');
 const mkdirp = require("mkdirp");
+const path = require('path');
 
 const { Op } = require("sequelize");
 
@@ -31,7 +32,7 @@ class ProductService {
 		const storage = multer.diskStorage({
 			destination: config.UPLOAD_DIR,
 			filename: function(req, file, cb){
-				cb(null, file.originalname);
+				cb(null, path.parse(file.originalname).name + Date.now() + path.parse(file.originalname).ext);
 			}
 		});
 
@@ -40,24 +41,29 @@ class ProductService {
 			limits: {
 				fileSize: 1000000
 			},
-		}).single('thumbnail');
+		}).fields([{name: 'image', maxCount: 1}, {name: 'thumbnails', maxCount: 4}]);
+		// single('thumbnail');
 
-		const data = {
-			name: request.body.name,
-			description: request.body.description,
-			content: request.body.content,
-			quantity: request.body.quantity,
-			price: request.body.price,
-			image: request.file.originalname,
-		};
 		const productRepository = request.app.get('context').make('productRepository');
-
 		uploadfunc(request, response, (err) =>{
 			if (err) {
-				return null;
+				response.send("Successfull");
 			} else {
-				const product = productRepository.createProduct(data);
-				return product;
+				console.log('file uploaded succcessfully');
+				console.log(request);
+				const data = {
+					name: request.body.name,
+					description: request.body.description,
+					content: request.body.content,
+					quantity: request.body.quantity,
+					price: request.body.price,
+					image: request.files.image[0].filename
+				};
+				console.log("FILENAME IMAGE:------");
+				console.log(request.files.image[0].filename);
+
+				const product = productRepository.createProduct(data, request.files.thumbnails);
+				response.send("Successfull");
 			}
 		});
 	}

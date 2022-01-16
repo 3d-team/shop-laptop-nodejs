@@ -23,14 +23,9 @@ class AdminController {
 		res.render("add");
 	}
 	
-	upload(req, res){
+	async upload(req, res){
 		const productService = req.app.get('context').make('productService');
-		const product = productService.uploadProduct(req);
-		if (!product) {
-			res.send("Error");
-		}
-
-		res.send("Successful");
+		const product = productService.uploadProduct(req, res);
 	}
 
 	async update(req, res) {

@@ -1,3 +1,4 @@
+const ProductThumnailModel = require("../modules/product/models/ProductThumbnailModel");
 const ProductModel = require("./../modules/product/models/ProductModel");
 
 class ProductRepository {
@@ -15,8 +16,16 @@ class ProductRepository {
 		return products;
 	}
 
-	async createProduct(data) {
+	async createProduct(data, thumbnails) {
 		const product = await ProductModel.create(data);
+
+		for (let i = 0; i < thumbnails.length; i++) {
+			let thumb = {
+				product_id: product.id,
+				filename: thumbnails[i].filename
+			}
+			await ProductThumnailModel.create(thumb);
+		}
 		return product;
 	}
 

@@ -29,7 +29,7 @@
 
 	<div class="large-8 columns">
 		<div class="form">
-			<form id="add-product-form" enctype="multipart/form-data" method="post">
+			<form id="add-product-form" enctype="multipart/form-data">
 			  	<div class="grid-container">
 					<div class="grid-x grid-padding-x">
 
@@ -77,10 +77,17 @@
 
 						<div class="medium-12 cell">
 							<label>
-								Ảnh
+								Ảnh mặc định
 							</label>
-							<label for="thumbnail" class="button">Chọn ảnh ...
-								<input type="file" id="thumbnail" class="show-for-sr" name="thumbnail">
+							<label for="image" class="button">Chọn ảnh ...
+								<input type="file" id="image" class="show-for-sr" name="image">
+							</label>
+
+							<label>
+								Ảnh mô tả chi tiết sản phẩm
+							</label>
+							<label for="thumbnails" class="button">Chọn ảnh ...
+								<input type="file" id="thumbnails" class="show-for-sr" name="thumbnails" multiple>
 							</label>
 							
 						</div>
