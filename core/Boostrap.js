@@ -13,6 +13,7 @@ const cors = require('cors');
 const config = require("../config/config");
 const Utils = require('./Utils');
 const template = require("./../middlewares/TemplateMiddleware");
+const Authorize = require('../middlewares/Authorize');
 
 /**
 | --------------------------------
@@ -103,7 +104,7 @@ class Bootstrap {
 		this.app.use(flash());
 
 		/* Custom */
-		this.app.use("/*", template);
+		this.app.use("/*", template, Authorize);
 
 		this.app.locals.Cart = {
 			number: 0,

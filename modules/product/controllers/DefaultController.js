@@ -153,7 +153,7 @@ class DefaultController {
 
 	getComment(req, res){
 		const productId = req.params.productId;
-		const commentPerPage = 5;
+		const commentPerPage = 3;
 		const page = req.query.page || 1;
 		const offset = (page - 1) * commentPerPage;
 
