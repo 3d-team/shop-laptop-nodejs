@@ -16,15 +16,11 @@
               <li>
                 <img src="/uploads/{{data.image}}" />
               </li>
+              {{#each thumbnails}}
               <li>
-                <img src="" />
+                <img src="/uploads/{{this.filename}}" />
               </li>
-              <li>
-                <img src="" />
-              </li>
-              <li>
-                <img src="" />
-              </li>
+              {{/each}}
               <!-- items mirrored twice, total of 12 -->
             </ul>
           </div>
@@ -33,15 +29,11 @@
               <li>
                 <img src="/uploads/{{data.image}}" />
               </li>
+              {{#each thumbnails}}
               <li>
-                <img src="" />
+                <img src="/uploads/{{this.filename}}" />
               </li>
-              <li>
-                <img src="" />
-              </li>
-              <li>
-                <img src="" />
-              </li>
+              {{/each}}
               <!-- items mirrored twice, total of 12 -->
             </ul>
           </div>
