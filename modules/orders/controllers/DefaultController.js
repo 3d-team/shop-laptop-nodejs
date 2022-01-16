@@ -13,9 +13,7 @@ class DefaultController {
 		const cart = res.app.locals.Cart.items;
 		const items = [...cart.values()];
 
-		res.render('orders', {
-			data: items,
-		});
+		res.render('orders', { data: items });
 	}
 
 	async add(req, res){
@@ -42,13 +40,13 @@ class DefaultController {
 	changeNumberItem(req, res){
 		
 		if (req.body.number <= 0) {
-			return res.json({msg:'negative-number'});
+			return res.json({ msg:' negative-number' });
 		}
 
 		const cart = res.app.locals.Cart;
 		const productID = req.body.product_id;
 		if(!cart.items.has(productID)){
-			return res.json({msg:'not-found-product'});
+			return res.json({ msg: 'not-found-product' });
 		}	
 
 		const cartService = req.app.get('context').make('cartService');
@@ -92,22 +90,22 @@ class DefaultController {
 		const cart = res.app.locals.Cart;
 		
 		if (cart.number <= 0) {
-			return res.json({msg:'empty'});
+			return res.json({ msg: 'empty' });
 		}
 
 		if (req.user == undefined) {
-			return res.json({msg:'not-login'});
+			return res.json({ msg: 'not-login' });
 		}
 
 		if (req.body.confirm_submit != 'YES') {
-			return res.json({msg:'not-confirm'});
+			return res.json({ msg: 'not-confirm' });
 		}
 
 		const cartService = req.app.get('context').make('cartService');
 		await cartService.submitCart(req, cart);
 		cartService.destroyCart(cart);
 
-		return res.json({msg:'success'});
+		return res.json({ msg: 'success' });
 	}
 
 	destroy(req, res) {
@@ -119,7 +117,7 @@ class DefaultController {
 		const cartService = req.app.get('context').make('cartService');
 		cartService.destroyCart(res.app.locals.Cart);
 
-		return res.json({msg:'success'});
+		return res.json({ msg: 'success' });
 	}
 
 	cart(req, res) {
