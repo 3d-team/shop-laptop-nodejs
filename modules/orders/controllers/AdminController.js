@@ -42,15 +42,11 @@ class AdminController {
 	}
 
 	saleStatistic(req, res){
-		res.render('saleStatistic', {
-			layout: 'admin'
-		});
+		res.render('saleStatistic', { layout: 'admin' });
 	}
 
 	topSale(req, res){
-		res.render('topSale', {
-			layout: 'admin'
-		});
+		res.render('topSale', { layout: 'admin' });
 	}
 }
 
