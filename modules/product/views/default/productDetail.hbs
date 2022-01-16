@@ -14,34 +14,26 @@
           <div id="slider" class="flexslider">
             <ul class="slides">
               <li>
-                <img src="/images/uploads/{{data.image}}" />
+                <img src="/uploads/{{data.image}}" />
               </li>
+              {{#each thumbnails}}
               <li>
-                <img src="" />
+                <img src="/uploads/{{this.filename}}" />
               </li>
-              <li>
-                <img src="" />
-              </li>
-              <li>
-                <img src="" />
-              </li>
+              {{/each}}
               <!-- items mirrored twice, total of 12 -->
             </ul>
           </div>
           <div id="carousel" class="flexslider">
             <ul class="slides">
               <li>
-                <img src="/images/uploads/{{data.image}}" />
+                <img src="/uploads/{{data.image}}" />
               </li>
+              {{#each thumbnails}}
               <li>
-                <img src="" />
+                <img src="/uploads/{{this.filename}}" />
               </li>
-              <li>
-                <img src="" />
-              </li>
-              <li>
-                <img src="" />
-              </li>
+              {{/each}}
               <!-- items mirrored twice, total of 12 -->
             </ul>
           </div>

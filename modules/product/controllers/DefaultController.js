@@ -5,8 +5,10 @@ const Op = Sequelize.Op;
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
 const CommentModel = Loader.model('comment');
+const ProductThumbnailModel = require("./../../product/models/ProductThumbnailModel");
 
 const menu = require('../../common_model/MenuContent');
+
 
 class DefaultController {
 
@@ -79,12 +81,19 @@ class DefaultController {
 						category: product.category
 					}})
 				.then((products) => {
-					res.render('productDetail', {
-						title: "Product",
-						data: product,
-						productRelated: products,
-						menuContent: menu.getContentProductMenuItem()
-					});
+					ProductThumbnailModel.findAll({
+						where: {
+							product_id: product.id
+						}
+					}).then((thumbnails)=>{
+						res.render('productDetail', {
+							title: "Product",
+							data: product,
+							productRelated: products,
+							thumbnails: thumbnails,
+							menuContent: menu.getContentProductMenuItem()
+						});
+					})					
 				})
 			})
 			.catch(function(err) {
