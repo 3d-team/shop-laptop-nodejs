@@ -48,11 +48,10 @@
 						<div class="medium-12 cell">
 							<label>Danh mục
 								<select>
-									<option value="{{data.category}}">{{data.category}}</option>
-									<option value="starbuck">B</option>
-									<option value="hotdog">C</option>
-									<option value="apollo">D</option>
-								</select>
+									{{#each categories}}
+										<option value="{{this.name}}">{{this.name}}</option>
+									{{/each}}
+								</select>								
 							</label>
 						</div>
 
