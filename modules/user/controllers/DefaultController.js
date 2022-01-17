@@ -48,7 +48,25 @@ class DefaultController {
 	}
 
 	async personal(req, res) {
-		const user = await UserModel.findOne({ where: { id: req.user.id } });
+
+		const condition = { where: { id: req.user.id } };
+
+		if (req.method == "POST") {
+			const data = {
+				username: req.body.username,
+				email: req.body.email,
+				address: req.body.address,
+				phone: req.body.phone,
+				admin: Boolean(req.body.admin),
+				avatar: req.body.avatar,
+				status: req.body.status == 'lock' ? 0 : 1,
+				sex: req.body.sex == 'female' ? 0 : 1
+			};
+
+			await UserModel.update(data, condition);
+		}
+
+		const user = await UserModel.findOne(condition);
 
 		res.render('personal', {
 			layout: 'admin',
