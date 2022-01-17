@@ -15,11 +15,11 @@ class ProductService {
 	}
 
 	async getPagedProducts(request) {
-		const productPerPage = 2;
+		const productPerPage = 5;
 		const page = +request.params.page || 1;
 		const offset = (page - 1) * productPerPage;
 		const condition = {
-			order: [['id', 'DESC']],
+			order: [['id', 'ASC']],
 			offset: offset,
 			limit: productPerPage
 		};

@@ -24,7 +24,7 @@
                 <strong>Số lượng danh mục</strong>
             </p>
             <div class="text-right">
-                <div class="stat">€250.00</div>
+                <div class="stat">5</div>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
                 <strong>Số lượng sản phẩm</strong>
             </p>
             <div class="text-right">
-                <div class="stat">7</div>
+                <div class="stat">{{products.length}}</div>
             </div>
         </div>
     </div>
@@ -74,7 +74,7 @@
                             <td>{{this.name}}</td>
                             <td>{{this.category}}</td>
                             <td>{{this.quantity}}</td>
-                            <td class="text-right">{{this.price}}VND</td>
+                            <td class="text-right">{{standardPrice this.price}}VND</td>
                             <!-- <td class="text-center">
                                             <label class="label success">
                                                 <i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Up&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>

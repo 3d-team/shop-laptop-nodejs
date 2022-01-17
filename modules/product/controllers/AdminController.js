@@ -15,8 +15,10 @@ class AdminController {
 	async list(req, res) {
 		const productService = req.app.get('context').make('productService');
 		const products = await productService.getPagedProducts(req);
+		const products2 = await productService.getAllProduct(req);
 		res.render('list', {
-			data: products
+			data: products,
+			products: products2
 		});
 	}
 
