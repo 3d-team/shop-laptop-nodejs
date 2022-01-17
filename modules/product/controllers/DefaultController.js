@@ -168,7 +168,8 @@ class DefaultController {
 		const condition = {
 			offset: offset,
 			limit: commentPerPage,
-			where: {product_id: productId}
+			where: {product_id: productId},
+			order: [['id', 'DESC']]
 		};
 
 		CommentModel.findAll(condition)
