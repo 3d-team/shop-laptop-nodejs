@@ -5,7 +5,7 @@ const UserModel = Loader.model('user');
 
 class DefaultController {
 
-	register(req, res){
+	register(req, res) {
 		res.render('register', {
 			layout: null,
 			message: req.flash('message'),
@@ -17,8 +17,10 @@ class DefaultController {
 		const confirmCode = String(req.params.code);
 
 		const condition = {
-			status: 0,
-			confirm_code: confirmCode
+			where: {
+				status: 0,
+				confirm_code: confirmCode
+			}
 		};
 
 		const user = await UserModel.findOne(condition);
@@ -32,7 +34,7 @@ class DefaultController {
 		return res.status(200).send("Kích hoạt thành công. Mời đăng nhập!");
 	}
 
-	login(req, res){		
+	login(req, res) {
 		res.render('login', {
 			layout: null,
 			message: req.flash('message'),
@@ -46,8 +48,8 @@ class DefaultController {
 	}
 
 	async personal(req, res) {
-		const user = await UserModel.findOne({where: {id: req.user.id}});
-		
+		const user = await UserModel.findOne({ where: { id: req.user.id } });
+
 		res.render('personal', {
 			layout: 'admin',
 			data: user

@@ -60,11 +60,8 @@ class AdminController {
 	}
 
 	async search(req, res) {
-		const queryName = req.query.queryName;
-		const page = +req.query.page || 1;
-
 		const productService = req.app.get('context').make('productService');
-		const products = await productService.searchProduct(req, queryName, page);
+		const products = await productService.searchProduct(req);
 
 		res.render('search', {
 			title: "Product",
