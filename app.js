@@ -35,7 +35,7 @@ const application = new Bootstrap(kernel);
 application.booting();
 
 
-/*
+/**
 |--------------------------------------------------------------------------
 | Start the application.
 |--------------------------------------------------------------------------
@@ -45,5 +45,5 @@ application.booting();
 | the client's browser allowing them to enjoy the creative
 | and wonderful application we have prepared for them.
 |
-*/
+**/
 module.exports = application.start();

@@ -128,7 +128,7 @@ class Bootstrap {
 		/* Custom route */
 		const application = this;
 		fs.readdirSync(path.join(config.ROUTE_DIR)).forEach(function(file) {
-			const route = Utils.convertToPath(file);
+			const route = Utils.convertFilenameToPath(file);
 			const router = require(path.join(config.ROUTE_DIR, file));
 
 			application.app.use(route, router);
