@@ -69,7 +69,10 @@ class ProductService {
 		});
 	}
 
-	async searchProduct(request, queryName, page, productPerPage = 2) {
+	async searchProduct(request) {
+		const queryName = request.query.queryName;
+		const page = +request.query.page || 1;
+		const productPerPage = 2
 		const offset = (page - 1) * productPerPage;
 		const condition = {
 			where: { name: {[Op.like]: "%" + queryName + "%"}},

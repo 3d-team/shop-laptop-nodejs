@@ -1,13 +1,23 @@
-const app = require('../../../app');
-var menu = require('../../common_model/MenuContent');
+const menu = require('../../common_model/MenuContent');
+const TagsModel = require("./../../common_model/TagsModel");
 
 class DefaultController {
 	
-	index(req, res) {
+	async index(req, res) {
+		const tags = await TagsModel.findAll();
+
+		const productRepository = req.app.get('context').make('productRepository');
 		
-		res.render('index', {
-			content: "Default: index",		
-			menuContent: menu.getContentHomeMenuItem()
+		let productPerTag = [];
+		for (const tag of tags) {
+			const products = await productRepository.findByTagId(tag.id);
+			productPerTag.push({tag: tag.name, products: products});
+		}
+		console.log(productPerTag);
+
+		res.render('index', {	
+			menuContent: menu.getContentHomeMenuItem(),
+			productPerTag: productPerTag
 		});
 	}
 

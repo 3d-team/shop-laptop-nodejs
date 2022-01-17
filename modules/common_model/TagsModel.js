@@ -2,8 +2,6 @@ const Sequelize = require('sequelize');
 const sequelize = require('./../../config/database');
 
 const Loader = require("./../../core/Loader");
-const ProductModel = Loader.model('product');
-const ProductTagModel = require('./../product/models/ProductTagModel');
 
 const TagsModel = sequelize.define('Tags', {
 	id: {
@@ -20,7 +18,5 @@ const TagsModel = sequelize.define('Tags', {
 	createdAt: 'created_at',
 	updatedAt: 'updated_at'
 });
-
-//TagsModel.belongsToMany(ProductModel,{ through: ProductTagModel});
 
 module.exports = TagsModel;
