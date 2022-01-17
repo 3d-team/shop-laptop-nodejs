@@ -20,7 +20,7 @@ router.all('/admin/delete/:userId', VerifyAdmin,adminController.delete);
 /**
  * User
  **/
-router.get('/personal', Authenticate, defaultController.personal);
+router.all('/personal', Authenticate, defaultController.personal);
 router.all('/reset-password', Authenticate, defaultController.resetPassword);
 router.all('/recovery-password', defaultController.recoveryPassword);
 
