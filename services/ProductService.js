@@ -1,11 +1,10 @@
 const multer = require("multer");
-const fs = require('fs');
-const mkdirp = require("mkdirp");
 const path = require('path');
 
 const { Op } = require("sequelize");
 
 const config = require("./../config/config");
+const TagsModel = require('./../modules/common_model/TagsModel');
 
 class ProductService {
 	async getAllProduct(request) {
@@ -31,7 +30,7 @@ class ProductService {
 	uploadProduct(request, response) {
 		const storage = multer.diskStorage({
 			destination: config.UPLOAD_DIR,
-			filename: function(req, file, cb){
+			filename: function (req, file, cb) {
 				cb(null, path.parse(file.originalname).name + Date.now() + path.parse(file.originalname).ext);
 			}
 		});
@@ -41,11 +40,11 @@ class ProductService {
 			limits: {
 				fileSize: 2097152
 			},
-		}).fields([{name: 'image', maxCount: 1}, {name: 'thumbnails', maxCount: 10}]);
+		}).fields([{ name: 'image', maxCount: 1 }, { name: 'thumbnails', maxCount: 10 }]);
 		// single('thumbnail');
 
 		const productRepository = request.app.get('context').make('productRepository');
-		uploadfunc(request, response, (err) =>{
+		uploadfunc(request, response, (err) => {
 			if (err) {
 				response.send("Successfull");
 			} else {
@@ -75,7 +74,7 @@ class ProductService {
 		const productPerPage = 2
 		const offset = (page - 1) * productPerPage;
 		const condition = {
-			where: { name: {[Op.like]: "%" + queryName + "%"}},
+			where: { name: { [Op.like]: "%" + queryName + "%" } },
 			offset: offset,
 			limit: productPerPage
 		};
@@ -83,6 +82,19 @@ class ProductService {
 		const productRepository = request.app.get('context').make('productRepository');
 		const products = await productRepository.findAll(condition);
 		return products;
+	}
+
+	async getProductsPerTag(request) {
+		const tags = await TagsModel.findAll();
+
+		const productRepository = request.app.get('context').make('productRepository');
+		let productPerTag = [];
+		for (const tag of tags) {
+			const products = await productRepository.findByTagId(tag.id);
+			productPerTag.push({ tag: tag.name, products: products });
+		}
+
+		return productPerTag;
 	}
 }
 

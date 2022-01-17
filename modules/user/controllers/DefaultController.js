@@ -57,7 +57,7 @@ class DefaultController {
 				email: req.body.email,
 				address: req.body.address,
 				phone: req.body.phone,
-				admin: Boolean(req.body.admin),
+				admin: Boolean(req.user.admin),
 				avatar: req.body.avatar,
 				status: req.body.status == 'lock' ? 0 : 1,
 				sex: req.body.sex == 'female' ? 0 : 1

@@ -14,6 +14,10 @@ SSR web app for manipulating the business of laptop shop
 * Project whose design is a refactored form of express-generator, and heavily influenced by Laravel, used some techniques like ...
 
 * HMVC: includes multiple modules of functionals, each of them consist of their Controler, Model, View.
+* Architecture N-Layer: decoupling business logic and database query into Services and Repository.
 * IoC Container: manage and resolve dependency of components in application.
 * Master template: main template like Admin, Default template has many partial views contribute to overall view.
 * MySQL ORM: Sequelize.
+* Memory Cache: node-cache.
+* AJAX.
+* Chart.

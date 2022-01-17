@@ -5,7 +5,7 @@ class Utils {
 		return text.charAt(0).toUpperCase() + lowerText.slice(1);
 	}
 
-	static convertToPath(file) {
+	static convertFilenameToPath(file) {
 		return ('/').concat(file.replace(/\.[^/.]+$/, ""));
 	}
 	

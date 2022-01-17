@@ -1,4 +1,5 @@
 const Loader = require("./../core/Loader");
+const NodeCache = require("node-cache");
 
 /**
 |--------------------------------------------------------------------------
@@ -11,6 +12,16 @@ const Loader = require("./../core/Loader");
 |
 **/
 const providers = [
+    {
+        name: 'cache',
+        factory: () => {
+            return new NodeCache({ stdTTL: 15 });
+        },
+        dependencies: [],
+        options: {
+            singleton: true
+        }
+    },
     {
         name: 'mailService',
         factory: Loader.service('mail')
