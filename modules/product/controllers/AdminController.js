@@ -1,3 +1,4 @@
+const ProductCategoryModel = require("../models/ProductCategoryModel");
 const Loader = require("./../../../core/Loader");
 const ProductModel = Loader.model('product');
 
@@ -20,7 +21,11 @@ class AdminController {
 	}
 
 	add(req, res) {
-		res.render("add");
+		ProductCategoryModel.findAll().then((categories) => {
+			res.render("add", {
+				data: categories
+			});
+		})
 	}
 	
 	async upload(req, res){
@@ -40,8 +45,10 @@ class AdminController {
 		}
 
 		const product = await ProductModel.findOne(condition)
+		const categories = await ProductCategoryModel.findAll();
 		res.render("update", {
-			data: product
+			data: product,
+			categories: categories
 		});	
 	}
 

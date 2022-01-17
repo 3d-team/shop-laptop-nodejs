@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $('#add-product-form').submit(function(){
         var data = new FormData($('#add-product-form')[0]);
+        data.append('category', $('#product_categories').val())
         console.log(data);
         $.ajax({
             url:'/products/upload',

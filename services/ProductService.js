@@ -39,9 +39,9 @@ class ProductService {
 		const uploadfunc = multer({
 			storage: storage,
 			limits: {
-				fileSize: 1000000
+				fileSize: 2097152
 			},
-		}).fields([{name: 'image', maxCount: 1}, {name: 'thumbnails', maxCount: 4}]);
+		}).fields([{name: 'image', maxCount: 1}, {name: 'thumbnails', maxCount: 10}]);
 		// single('thumbnail');
 
 		const productRepository = request.app.get('context').make('productRepository');
@@ -57,10 +57,11 @@ class ProductService {
 					content: request.body.content,
 					quantity: request.body.quantity,
 					price: request.body.price,
+					category: request.body.category,
 					image: request.files.image[0].filename
 				};
-				console.log("FILENAME IMAGE:------");
-				console.log(request.files.image[0].filename);
+				console.log("DATA:------");
+				console.log(data);
 
 				const product = productRepository.createProduct(data, request.files.thumbnails);
 				response.send("Successfull");
